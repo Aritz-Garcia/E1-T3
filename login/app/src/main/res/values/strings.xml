@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">login</string>
+    <string name="prompt_email">Helbide elektronikoa</string>
+    <string name="prompt_password">Pasahitza</string>
+    <string name="action_sign_in">Sesioa hasi</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">Ongietorri!</string>
+    <string name="invalid_username">Erabiltzailea ez da bidezkoa</string>
+    <string name="invalid_password">Pasahitza gutxienez 5 hizkiduna izan behar da.</string>
+    <string name="login_failed">"Sesioa ezin izan da hasi"</string>
+</resources>
