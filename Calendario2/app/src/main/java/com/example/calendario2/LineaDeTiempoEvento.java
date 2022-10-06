@@ -36,6 +36,7 @@ public class LineaDeTiempoEvento extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("TAG", document.getId() + " => " + document.getData());
                                 if (document.getId().equals(id)) {
                                     ekitaldia = document.toObject(Ekitaldia.class);
                                 }

@@ -15,7 +15,6 @@ public class ViewEventos extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_eventos);
-
         btnLineaTiempo = findViewById(R.id.btnLineaTimepo);
         btnLineaTiempo.setOnClickListener(this);
 
