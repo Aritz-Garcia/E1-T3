@@ -24,7 +24,6 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
-    private Button btnLineaTimpo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
