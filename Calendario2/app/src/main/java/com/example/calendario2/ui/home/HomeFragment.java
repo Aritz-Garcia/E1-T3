@@ -24,7 +24,6 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
-    private Button btnLineaTimpo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,12 +85,5 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    public void onClick(View view) {
-        if (view.getId() == btnLineaTimpo.getId()) {
-            Intent i = new Intent(getActivity(), LineaDeTiempoEvento.class);
-            startActivity(i);
-        }
     }
 }
