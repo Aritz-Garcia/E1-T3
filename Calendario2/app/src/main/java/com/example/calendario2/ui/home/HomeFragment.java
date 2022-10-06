@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.calendario2.FormularioEvento;
+import com.example.calendario2.LineaDeTiempoEvento;
+import com.example.calendario2.MainActivity;
 import com.example.calendario2.R;
 import com.example.calendario2.ViewEventos;
 import com.example.calendario2.databinding.FragmentHomeBinding;
@@ -89,10 +91,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         binding = null;
     }
 
-    @Override
     public void onClick(View view) {
         if (view.getId() == btnLineaTimpo.getId()) {
-            Intent i = new Intent(this, LineaDeTiempoEvento.class);
+            Intent i = new Intent(getActivity(), LineaDeTiempoEvento.class);
             startActivity(i);
         }
     }
