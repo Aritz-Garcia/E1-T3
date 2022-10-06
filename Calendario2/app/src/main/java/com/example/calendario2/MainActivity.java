@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void sumarEvento(View v) {
-        Intent i = new Intent(MainActivity.this, FormularioEvento.class);
+        Intent i = new Intent(MainActivity.this, LineaDeTiempoEvento.class);
         startActivity(i);
     }
 
