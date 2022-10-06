@@ -35,9 +35,6 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         calendarview = root.findViewById(R.id.calendario);
         calendarview.setOnDateChangeListener(this);
 
-        btnLineaTimpo = root.findViewById(R.id.sumarEventoBot);
-        btnLineaTimpo.setOnClickListener((View.OnClickListener) this);
-
         return root;
     }
 
