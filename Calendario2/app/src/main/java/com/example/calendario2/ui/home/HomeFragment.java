@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
+    private Button btnLineaTimpo;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,6 +32,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
         calendarview = root.findViewById(R.id.calendario);
         calendarview.setOnDateChangeListener(this);
+
+        btnLineaTimpo = root.findViewById(R.id.sumarEventoBot);
+        btnLineaTimpo.setOnClickListener((View.OnClickListener) this);
 
         return root;
     }
@@ -82,5 +87,13 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == btnLineaTimpo.getId()) {
+            Intent i = new Intent(this, LineaDeTiempoEvento.class);
+            startActivity(i);
+        }
     }
 }
