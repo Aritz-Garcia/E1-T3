@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -21,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+
     }
 
     @Override
@@ -51,10 +54,10 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public void sumarEvento(View v) {
-        Intent i = new Intent(MainActivity.this, LineaDeTiempoEvento.class);
+    /**public void sumarEvento(View v) {
+        Intent i = new Intent(MainActivity.this, FormularioEvento.class);
         startActivity(i);
-    }
+    }*/
 
     @Override
     public boolean onSupportNavigateUp() {

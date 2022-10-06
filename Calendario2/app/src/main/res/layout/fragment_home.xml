@@ -7,12 +7,23 @@
     tools:context=".ui.home.HomeFragment">
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="17dp"
         android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listaEventos"
+        android:layout_width="match_parent"
+        android:layout_height="271dp"
+        android:layout_marginTop="365dp"
+        android:layout_marginBottom="95dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +37,6 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="40dp"
         android:clickable="false"
-        android:onClick="@string/funcion_sumarEvento"
         android:text="@string/button_sumarEvento"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

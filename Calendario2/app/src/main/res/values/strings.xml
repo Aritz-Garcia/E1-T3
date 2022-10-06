@@ -13,4 +13,17 @@
 
     <string name="button_sumarEvento">Sumar Evento</string>
     <string name="funcion_sumarEvento">sumarEvento</string>
+    <string name="nombre_del_evento">Nombre del Evento</string>
+    <string name="dia_y_hora_de_inicio">Dia y hora de inicio:</string>
+    <string name="descripci_n">Descripción:</string>
+    <string name="dia_y_hora_de_fin">Dia y hora de fin:</string>
+    <string name="aforo">Aforo:</string>
+    <string name="presupuesto">Presupuesto:</string>
+    <string name="volver">Volver</string>
+    <string name="siguiente">Siguiente</string>
+    <string name="fecha_final">Fecha final</string>
+    <string name="fecha_inicio">Fecha inicio</string>
+    <string name="hora_inicio">Hora Inicio</string>
+    <string name="hora_fin">Hora Fin</string>
+    <string name="vacio"> </string>
 </resources>
