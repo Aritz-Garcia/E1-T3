@@ -13,14 +13,12 @@ import android.widget.CalendarView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.calendario2.FormularioEvento;
-import com.example.calendario2.LineaDeTiempoEvento;
-import com.example.calendario2.MainActivity;
+import com.example.calendario2.FormularioEventos;
 import com.example.calendario2.R;
 import com.example.calendario2.ViewEventos;
 import com.example.calendario2.databinding.FragmentHomeBinding;
 
-public class HomeFragment extends Fragment implements CalendarView.OnDateChangeListener{
+public class HomeFragment extends Fragment implements CalendarView.OnDateChangeListener {
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
@@ -55,7 +53,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
                             //agregar evento
-                            Intent intent = new Intent(getActivity(), FormularioEvento.class);
+                            Intent intent = new Intent(getActivity(), FormularioEventos.class);
                             Bundle bundle = new Bundle();
                             bundle.putInt("dia", dia);
                             bundle.putInt("mes", mes);
@@ -86,4 +84,5 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         super.onDestroyView();
         binding = null;
     }
+
 }

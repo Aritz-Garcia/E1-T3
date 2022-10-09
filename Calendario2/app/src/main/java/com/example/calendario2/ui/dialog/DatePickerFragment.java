@@ -16,7 +16,6 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment {
 
     private DatePickerDialog.OnDateSetListener listener;
-    private EditText editText;
 
     public static DatePickerFragment newInstance(DatePickerDialog.OnDateSetListener listener) {
         DatePickerFragment fragment = new DatePickerFragment();
@@ -40,6 +39,4 @@ public class DatePickerFragment extends DialogFragment {
         // Create a new instance of DatePickerDialog and return it
         return new DatePickerDialog(getActivity(), listener, anio, mes, dia);
     }
-
-
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Calendario2</string>
+    <string name="app_name">ON PLAN</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_user_name">User Name</string>
@@ -15,15 +15,20 @@
     <string name="funcion_sumarEvento">sumarEvento</string>
     <string name="nombre_del_evento">Nombre del Evento</string>
     <string name="dia_y_hora_de_inicio">Dia y hora de inicio:</string>
-    <string name="descripci_n">Descripción:</string>
+    <string name="descripcion">Descripción:</string>
     <string name="dia_y_hora_de_fin">Dia y hora de fin:</string>
     <string name="aforo">Aforo:</string>
     <string name="presupuesto">Presupuesto:</string>
-    <string name="volver">Volver</string>
-    <string name="siguiente">Siguiente</string>
+    <string name="btnVolverAgenda">Volver</string>
+    <string name="btnSiguiente">Siguiente</string>
     <string name="fecha_final">Fecha final</string>
     <string name="fecha_inicio">Fecha inicio</string>
     <string name="hora_inicio">Hora Inicio</string>
     <string name="hora_fin">Hora Fin</string>
     <string name="vacio"> </string>
+    <string name="etAforo">Aforo</string>
+    <string name="etDescripcion">Descripción</string>
+    <string name="etPresupuesto">Presupuesto</string>
+    <string name="button">Button</string>
+    <string name="volver_atras">Volver Atras</string>
 </resources>
