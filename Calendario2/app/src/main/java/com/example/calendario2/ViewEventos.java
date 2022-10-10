@@ -21,7 +21,7 @@ public class ViewEventos extends AppCompatActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
         if (view.getId() == btnLineaTiempo.getId()) {
-            Intent i = new Intent(this, LineaDeTiempoEvento.class);
+            Intent i = new Intent(this, EkitaldiActivity.class);
             startActivity(i);
         }
     }
