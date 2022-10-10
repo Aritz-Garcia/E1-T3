@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/googleButton"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/EmailTextua"
+        android:layout_width="349dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="319dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="369dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:selectAllOnFocus="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/DNITextua"
+        android:layout_width="168dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="244dp"
+        android:layout_marginEnd="214dp"
+        android:layout_marginBottom="446dp"
+        android:ems="10"
+        android:hint="@string/DNI"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/izenaTextua"
+        android:layout_width="168dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="213dp"
+        android:layout_marginBottom="517dp"
+        android:ems="10"
+        android:hint="@string/Izena"
+        android:inputType="textPersonName"
+        android:scrollbarDefaultDelayBeforeFade="400"
+        android:scrollbarThumbHorizontal="@color/teal_200"
+        android:selectAllOnFocus="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/AbizenaTextua"
+        android:layout_width="164dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="215dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="517dp"
+        android:ems="10"
+        android:hint="@string/Abizena"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/Pasahitza1Textua"
+        android:layout_width="171dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="391dp"
+        android:layout_marginEnd="209dp"
+        android:layout_marginBottom="292dp"
+        android:ems="10"
+        android:hint="@string/Pasahitza"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/Pasahitza2Textua"
+        android:layout_width="171dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="215dp"
+        android:layout_marginTop="391dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="292dp"
+        android:ems="10"
+        android:hint="@string/Pasahitza"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <RadioGroup
+        android:id="@+id/group"
+        android:layout_width="186dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginBottom="602dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck">
+
+        <RadioButton
+            android:id="@+id/RBEmpresa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="radiobuttonkonporbatu"
+            android:text="Empresa"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <RadioButton
+            android:id="@+id/RBPersona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="radiobuttonkonporbatu"
+            android:text="Persona"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/TelefonoTextua"
+        android:layout_width="161dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="215dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="446dp"
+        android:ems="10"
+        android:hint="@string/Telefonoa"
+        android:inputType="phone"
+        android:selectAllOnFocus="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/GoikoPartea"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="674dp"
+        android:animationCache="false"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/TituluaTextua"
+        android:layout_width="96dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="262dp"
+        android:layout_marginBottom="685dp"
+        android:text="Registro"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/AtzeraBotoia"
+        android:layout_width="44dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="358dp"
+        android:layout_marginBottom="682dp"
+        android:rotationY="-180"
+        app:icon="@android:drawable/ic_menu_send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/EzeztatuBotoia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginEnd="272dp"
+        android:layout_marginBottom="163dp"
+        android:text="Ezeztatu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/GordeBotoia"
+        android:layout_width="113dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="267dp"
+        android:layout_marginTop="520dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="163dp"
+        android:text="Gorde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/radioerror"
+        android:layout_width="162dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="215dp"
+        android:layout_marginTop="93dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="614dp"
+        android:text="Bat aukeratu behar da "
+        android:textColor="#FF0505"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/googlebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="232dp"
+        android:layout_marginBottom="17dp"
+        android:text="Google"
+        app:layout_constraintBottom_toTopOf="@+id/EzeztatuBotoia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Pasahitza1Textua" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

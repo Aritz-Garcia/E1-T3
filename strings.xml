@@ -1,0 +1,10 @@
+<resources>
+    <string name="Izena">Izena</string>
+    <string name="Abizena">Abizena</string>
+    <string name="Telefonoa">Telefonoa</string>
+    <string name="Email">Email</string>
+    <string name="Pasahitza">Pasahitza</string>
+    <string name="DNI">DNI/NIF</string>
+    <string name="default_web_client_id" />
+
+</resources>
