@@ -33,6 +33,10 @@
     <string name="volver_atras">Volver Atras</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
+    <!-- Visual -->
+    <string name="visual">Visual</string>
+    <string name="modo_oscuro">Modo oscuro</string>
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>
