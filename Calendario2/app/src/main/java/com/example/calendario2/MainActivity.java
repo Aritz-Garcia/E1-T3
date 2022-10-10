@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, FormularioEventosSalas.class);
+            Intent i = new Intent(this, SettingsActivity.class);
             startActivity(i);
             return true;
         }
