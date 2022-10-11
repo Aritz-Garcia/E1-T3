@@ -1,0 +1,56 @@
+<resources>
+    <string name="app_name">ON PLAN</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_user_name">User Name</string>
+    <string name="nav_user_email">prueba@prueba.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_agenda">Agenda</string>
+    <string name="menu_salas">Salas</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="button_sumarEvento">Sumar Evento</string>
+    <string name="funcion_sumarEvento">sumarEvento</string>
+    <string name="nombre_del_evento">Nombre del Evento</string>
+    <string name="dia_y_hora_de_inicio">Dia y hora de inicio:</string>
+    <string name="descripcion">Descripción:</string>
+    <string name="dia_y_hora_de_fin">Dia y hora de fin:</string>
+    <string name="aforo">Aforo:</string>
+    <string name="presupuesto">Presupuesto:</string>
+    <string name="btnVolverAgenda">Volver</string>
+    <string name="btnSiguiente">Siguiente</string>
+    <string name="fecha_final">Fecha final</string>
+    <string name="fecha_inicio">Fecha inicio</string>
+    <string name="hora_inicio">Hora Inicio</string>
+    <string name="hora_fin">Hora Fin</string>
+    <string name="vacio"> </string>
+    <string name="etAforo">Aforo</string>
+    <string name="etDescripcion">Descripción</string>
+    <string name="etPresupuesto">Presupuesto</string>
+    <string name="button">Button</string>
+    <string name="volver_atras">Volver Atras</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Visual -->
+    <string name="visual">Visual</string>
+    <string name="modo_oscuro">Modo oscuro</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="crear_evento">Crear Evento</string>
+    <string name="large_text">MuchoTEsto</string>
+</resources>
