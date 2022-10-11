@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.shared.EkitaldiMota;
+import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -64,27 +65,27 @@ public class EkitaldiActivity extends AppCompatActivity {
     }
 
     private void putEvent() {
-        CollectionReference ekitaldiak = db.collection("ekitaldiak");
+        CollectionReference ekitaldiak = db.collection(Values.EKITALDIAK);
 
-        Map<String, Object> ekitraldiTest = new HashMap<>();
-        ekitraldiTest.put("izena", "TEST APP PUT IZENA");
-        ekitraldiTest.put("deskribapena", "TEST APP PUT DESKRIBAPENA");
-        ekitraldiTest.put("hasierakoDataOrdua", Timestamp.now());
-        ekitraldiTest.put("bukaerakoDataOrdua", Timestamp.now());
-        ekitraldiTest.put("gela", "TEST APP PUT GELA");
-        ekitraldiTest.put("aurrekontua", 10.0);
-        ekitraldiTest.put("ekitaldiMota", EkitaldiMota.BESTE_MOTA);
-        ekitraldiTest.put("erabiltzailea", "TEST APP PUT ERABILTZAILEA");
+        Map<String, Object> ekitaldiTest = new HashMap<>();
+        ekitaldiTest.put(Values.EKITALDIAK_IZENA, "TEST APP PUT IZENA");
+        ekitaldiTest.put(Values.EKITALDIAK_DESKRIBAPENA, "APP PUT DESKRIBAPENA");
+        ekitaldiTest.put(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, Timestamp.now());
+        ekitaldiTest.put(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, Timestamp.now());
+        ekitaldiTest.put(Values.EKITALDIAK_GELA, "TEST APP PUT GELA");
+        ekitaldiTest.put(Values.EKITALDIAK_AURREKONTUA, 10.0);
+        ekitaldiTest.put(Values.EKITALDIAK_EKITALDI_MOTA, EkitaldiMota.BESTE_MOTA);
+        ekitaldiTest.put(Values.EKITALDIAK_ERABILTZAILEA, "TEST APP PUT ERABILTZAILEA");
         List<String> gertaerak = Arrays.asList("TEST APP PUT GERTAERA 1", "TEST APP PUT GERTAERA 2");
-        ekitraldiTest.put("gerataerak", gertaerak);
-        ekitaldiak.document().set(ekitraldiTest);
+        ekitaldiTest.put(Values.EKITALDIAK_GERTAERAK, gertaerak);
+        ekitaldiak.document().set(ekitaldiTest);
         //TODO add event modification and deletion etc
     }
 
     // This method gets the event from the database given an id
 
     public void getEvent(String id) {
-        db.collection("ekitaldiak")
+        db.collection(Values.EKITALDIAK)
                 .document(id)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -92,28 +93,7 @@ public class EkitaldiActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
-                            Map<String, Object> ekitaldiaRead = document.getData();
-                            String izena = ekitaldiaRead.get("izena").toString();
-                            String deskribapena = ekitaldiaRead.get("deskribapena").toString();
-                            Timestamp hasierakoDataOrdua = (Timestamp) ekitaldiaRead.get("hasierakoDataOrdua");
-                            Timestamp bukaerakoDataOrdua = (Timestamp) ekitaldiaRead.get("bukaerakoDataOrdua");
-                            String gela = ekitaldiaRead.get("gela").toString();
-                            double aurrekontua = (double) ekitaldiaRead.get("aurrekontua");
-                            EkitaldiMota ekitaldiMota = EkitaldiMota.valueOf(ekitaldiaRead.get("ekitaldiMota").toString());
-                            String usuario = ekitaldiaRead.get("erabiltzailea").toString();
-                            List<String> gerataerak = (List<String>) ekitaldiaRead.get("gerataerak");
-
-                            ekitaldia = new Ekitaldia(
-                                    document.getId(),
-                                    izena,
-                                    deskribapena,
-                                    hasierakoDataOrdua,
-                                    bukaerakoDataOrdua,
-                                    gela,
-                                    aurrekontua,
-                                    ekitaldiMota,
-                                    usuario,
-                                    gerataerak);
+                            ekitaldia = new Ekitaldia(document);
                         } else {
                         }
                     }
