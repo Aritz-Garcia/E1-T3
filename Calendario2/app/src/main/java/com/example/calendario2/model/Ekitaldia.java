@@ -1,33 +1,38 @@
 package com.example.calendario2.model;
 
 import com.example.calendario2.shared.EkitaldiMota;
+import com.google.firebase.Timestamp;
 import com.google.type.DateTime;
+
+import java.util.List;
 
 public class Ekitaldia {
 
     private String id;
     private String izena;
     private String deskribapena;
-    private DateTime hasierakoDataOrdua;
-    private DateTime bukaerakoDataOrdua;
-    private String sala;
+    private Timestamp hasierakoDataOrdua;
+    private Timestamp bukaerakoDataOrdua;
+    private String gela;
     private double aurrekontua;
     private EkitaldiMota ekitaldiMota;
     private String usuario;
-    private String[] sucesos;
+    private List<String> gerataerak;
 
     // Constructor
-    public Ekitaldia(String id, String izena, String deskribapena, DateTime hasierakoDataOrdua, DateTime bukaerakoDataOrdua, String sala, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, String[] sucesos) {
+    public Ekitaldia() {}
+
+    public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<String> gertaerak) {
         this.id = id;
         this.izena = izena;
         this.deskribapena = deskribapena;
         this.hasierakoDataOrdua = hasierakoDataOrdua;
         this.bukaerakoDataOrdua = bukaerakoDataOrdua;
-        this.sala = sala;
+        this.gela = gela;
         this.aurrekontua = aurrekontua;
         this.ekitaldiMota = ekitaldiMota;
         this.usuario = usuario;
-        this.sucesos = sucesos;
+        this.gerataerak = gertaerak;
     }
 
     // Getters and setters
@@ -43,13 +48,16 @@ public class Ekitaldia {
                 ", deskribapena='" + deskribapena + '\'' +
                 ", hasierakoDataOrdua=" + hasierakoDataOrdua +
                 ", bukaerakoDataOrdua=" + bukaerakoDataOrdua +
-                ", sala='" + sala + '\'' +
+                ", gela='" + gela + '\'' +
                 ", aurrekontua=" + aurrekontua +
                 ", ekitaldiMota=" + ekitaldiMota +
                 ", usuario='" + usuario + '\'' +
-                ", sucesos=" + sucesos +
+                ", sucesos=" + gerataerak +
                 '}';
     }
 
 
+    public CharSequence getIzena() {
+        return izena;
+    }
 }
