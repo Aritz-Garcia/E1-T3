@@ -24,8 +24,6 @@ public class SalasFragment extends Fragment {
         binding = FragmentSalasBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        salasViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
