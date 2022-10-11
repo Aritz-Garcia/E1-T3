@@ -3,6 +3,7 @@ package com.example.calendario2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,7 +30,8 @@ public class FormularioEventosSalas extends AppCompatActivity implements View.On
             this.finish();
         } else if (view.getId() == btnSiguienteSalas.getId()) {
             //Seleccion tipo de evento
-            this.finish();
+            Intent i = new Intent(this, FormularioTipoDeEvento.class);
+            startActivity(i);
         }
 
     }
