@@ -180,57 +180,6 @@
         tools:ignore="MissingConstraints,TouchTargetSizeCheck"
         android:importantForAutofill="no" />
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/GoikoPartea"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="674dp"
-        android:animationCache="false"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
-
-    <TextView
-        android:id="@+id/TituluaTextua"
-        android:layout_width="96dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="53dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="262dp"
-        android:layout_marginBottom="685dp"
-        android:text="Registro"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/AtzeraBotoia"
-        android:layout_width="44dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginEnd="358dp"
-        android:layout_marginBottom="682dp"
-        android:rotationY="-180"
-        app:icon="@android:drawable/ic_menu_send"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-
     <Button
         android:id="@+id/EzeztatuBotoia"
         android:layout_width="wrap_content"

@@ -28,12 +28,14 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
     private GoogleSignInClient mGoogleSingInClient;
     private FirebaseAuth mAuth;
+
+    public String izena2,abizena2,dni2,telefonoa2,emaila2,pasahitza12;
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -160,12 +164,21 @@ public class MainActivity extends AppCompatActivity {
 
     //datuak hartu egiten ditugu activity_mainetik geroago konprobatzeko bere egitura
     public void datuakhartu(){
-        izena = (TextView) findViewById(R.id.izenaTextua);
+        izena = (EditText) findViewById(R.id.izenaTextua);
         dni = (TextView) findViewById(R.id.DNITextua);
         telefonoa = (TextView)  findViewById(R.id.TelefonoTextua);
         emaila = (TextView) findViewById(R.id.EmailTextua);
         pasahitza1 = (TextView) findViewById(R.id.Pasahitza1Textua);
         pasahitza2 = (TextView) findViewById(R.id.Pasahitza2Textua);
+    }
+
+    public void stringlortu(){
+        izena2 = izena.toString();
+        abizena2 = abizena.toString();
+        dni2 = dni.toString();
+        telefonoa2 = telefonoa.toString();
+        emaila2 = emaila.toString();
+        pasahitza12 = pasahitza1.toString();
     }
 
     public boolean konprobatuErabiltzailea( ){
@@ -189,29 +202,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void datuakbidali(){
-        HashMap<String, String> usuario = new HashMap();
-        usuario.put("nombre",izena.toString());
+        stringlortu();
+        CollectionReference usuarios = db.collection("usuarios");
+        Map<String, Object> usuario = new HashMap();
+        usuario.put("nombre",izena2);
         if (aukeratuta.isChecked()) {
-            usuario.put("apellido", abizena.toString());
+            usuario.put("apellido", abizena2);
         }
-        usuario.put("telefono",telefonoa.toString());
-        usuario.put("correo",emaila.toString());
-        usuario.put("dni_nif",dni.toString());
+        usuario.put("telefono",telefonoa2);
+        usuario.put("correo",emaila2);
+        usuario.put("dni_nif",dni2);
 
-        db.collection("usuarios")
-                .add(usuario)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+
+        usuarios.document().set(usuario);
     }
 
         /*btn.setOnClickListener(new View.onClickListener(){
