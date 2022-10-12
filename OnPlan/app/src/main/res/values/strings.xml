@@ -53,4 +53,9 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="crear_evento">Crear Evento</string>
     <string name="large_text">MuchoTEsto</string>
+    <string name="pasahitza">Pasahitza</string>
+    <string name="helbide_elektronikoa">Helbide elektronikoa</string>
+    <string name="google">Google</string>
+    <string name="sartu">Sartu</string>
+    <string name="erregistratu">Erregistratu</string>
 </resources>
