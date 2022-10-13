@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +47,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+
         btnGoogle = findViewById(R.id.btnGoogle);
         btnErregistratu = findViewById(R.id.btnErregistratu);
         btnSartu = findViewById(R.id.btnLogin);
@@ -75,7 +80,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             this.finish();
         } else if (view.getId() == btnSartu.getId()) {
             //validation
-            this.finish();
+            sesioaHasi();
         }
     }
 
@@ -154,6 +159,50 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(i);
         }
         super.onStart();
+    }
+
+    private void sesioaHasi() {
+        if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {
+            mAuth.signInWithEmailAndPassword(etEmail.getText().toString(), etPassword.getText().toString()).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signInWithCredential:success");
+                    Intent i = new Intent(Login.this, MainActivity.class);
+                    /**Bundle bundle = new Bundle();
+                    bundle.putString("email", etEmail.getText().toString());
+                    i.putExtra("email", etEmail.getText().toString());*/
+                    startActivity(i);
+                    Login.this.finish();
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("La cuenta no existe")
+                            .setTitle("Error")
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    etEmail.setText("");
+                                    etPassword.setText("");
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
+            });
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("El apartado de email o password esta vacio")
+                    .setTitle("Error")
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            etEmail.setText("");
+                            etPassword.setText("");
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
 }

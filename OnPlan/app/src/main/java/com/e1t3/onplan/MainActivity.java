@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,13 +15,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.bumptech.glide.Glide;
 import com.e1t3.onplan.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private TextView tvNombreUsuario, tvEmailUsuario;
+    private FirebaseAuth mAuth;
+    private ImageView imagenUser;
 
 
     @Override
@@ -42,6 +51,20 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        tvEmailUsuario = findViewById(R.id.tvEmailUsuario);
+        tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
+        imagenUser = findViewById(R.id.imageUser);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //set datos:
+        tvNombreUsuario.setText(currentUser.getDisplayName());
+        tvEmailUsuario.setText(currentUser.getEmail());
+        //cargar imágen con glide:
+        Glide.with(this).load(currentUser.getPhotoUrl()).into(imagenUser);
+
+        Toast.makeText(this, ""+currentUser.getPhotoUrl(), Toast.LENGTH_LONG).show();
 
 
     }
