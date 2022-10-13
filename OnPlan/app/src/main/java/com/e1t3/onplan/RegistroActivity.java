@@ -62,8 +62,8 @@ public class RegistroActivity extends AppCompatActivity {
         aukeratuta2= (RadioButton) findViewById(R.id.RBEmpresa);
         radioerror = (TextView) findViewById(R.id.radioerror);
 
-        Button button = (Button) findViewById(R.id.GordeBotoia);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button gorde = (Button) findViewById(R.id.GordeBotoia);
+        gorde.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
                 if(aukeratuta.isChecked() ||  aukeratuta2.isChecked()) {
@@ -87,6 +87,14 @@ public class RegistroActivity extends AppCompatActivity {
                 }else{
                     radioerror.setVisibility(View.VISIBLE);
                     }
+            }
+        });
+        Button ezeztatu = (Button) findViewById(R.id.GordeBotoia);
+        ezeztatu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+                Intent intent = new Intent (RegistroActivity.this,Login.class);
+                startActivityForResult(intent, 0);
             }
         });
         /*Object signInRequest = BeginSignInRequest.builder()
@@ -219,21 +227,32 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     public void datuakbidali(){
-        CollectionReference erbiltzaileak = db.collection(Values.ERABILTZAILEAK);
-        Map<String, Object> erbiltzailea = new HashMap();
-        erbiltzailea.put("nombre",izena.getText().toString());
-        if (aukeratuta.isChecked()) {
-            erbiltzailea.put("apellido", abizena.getText().toString());
-            erbiltzailea.put("empresa_da",false);
-        }else{
-            erbiltzailea.put("empresa_da",true);
-        }
-        erbiltzailea.put("telefono",telefonoa.getText().toString());
-        erbiltzailea.put("correo",emaila.getText().toString());
-        erbiltzailea.put("dni_nif",dni.getText().toString());
+            mAuth.createUserWithEmailAndPassword(emaila.getText().toString(), pasahitza1.getText().toString()).addOnCompleteListener(this, task -> {
+                if (task.isSuccessful()) {
+                    CollectionReference erbiltzaileak = db.collection(Values.ERABILTZAILEAK);
+                    Map<String, Object> erbiltzailea = new HashMap();
+                    erbiltzailea.put("nombre",izena.getText().toString());
+                    if (aukeratuta.isChecked()) {
+                        erbiltzailea.put("apellido", abizena.getText().toString());
+                        erbiltzailea.put("empresa_da",false);
+                    }else{
+                        erbiltzailea.put("empresa_da",true);
+                    }
+                    erbiltzailea.put("telefono",telefonoa.getText().toString());
+                    erbiltzailea.put("correo",emaila.getText().toString());
+                    erbiltzailea.put("dni_nif",dni.getText().toString());
+
+                    erbiltzaileak.document().set(erbiltzailea);
+                    Log.d(TAG, "signInWithCredential:success");
+                    Intent i = new Intent(RegistroActivity.this, MainActivity.class);
+                    startActivity(i);
+                    RegistroActivity.this.finish();
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                }
+            });
 
 
-        erbiltzaileak.document().set(erbiltzailea);
     }
 
 
