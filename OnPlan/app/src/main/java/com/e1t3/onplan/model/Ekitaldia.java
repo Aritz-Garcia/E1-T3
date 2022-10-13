@@ -38,16 +38,16 @@ public class Ekitaldia {
     }
 
     public Ekitaldia(DocumentSnapshot document) {
-        this.id = document.getId();
-        this.izena = document.getString(Values.EKITALDIAK_IZENA);
-        this.deskribapena = document.getString(Values.EKITALDIAK_DESKRIBAPENA);
+        this.id                 = document.getId();
+        this.izena              = document.getString(Values.EKITALDIAK_IZENA);
+        this.deskribapena       = document.getString(Values.EKITALDIAK_DESKRIBAPENA);
         this.hasierakoDataOrdua = document.getTimestamp(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA);
         this.bukaerakoDataOrdua = document.getTimestamp(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA);
-        this.gela = document.getString(Values.EKITALDIAK_GELA);
-        this.aurrekontua = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
-        this.ekitaldiMota = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
-        this.usuario = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-        this.gerataerak = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+        this.gela               = document.getString(Values.EKITALDIAK_GELA);
+        this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
+        this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
+        this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
+        this.gerataerak         = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
     }
 
     // Getters and setters
@@ -69,10 +69,5 @@ public class Ekitaldia {
                 ", usuario='" + usuario + '\'' +
                 ", sucesos=" + gerataerak +
                 '}';
-    }
-
-
-    public CharSequence getIzena() {
-        return izena;
     }
 }
