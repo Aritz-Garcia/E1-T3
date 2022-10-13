@@ -58,4 +58,5 @@
     <string name="google">Google</string>
     <string name="sartu">Sartu</string>
     <string name="erregistratu">Erregistratu</string>
+    <string name="btnCerrarSesion">Cerrar Sesion</string>
 </resources>

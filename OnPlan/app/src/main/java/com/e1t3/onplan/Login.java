@@ -167,9 +167,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 if (task.isSuccessful()) {
                     Log.d(TAG, "signInWithCredential:success");
                     Intent i = new Intent(Login.this, MainActivity.class);
-                    /**Bundle bundle = new Bundle();
-                    bundle.putString("email", etEmail.getText().toString());
-                    i.putExtra("email", etEmail.getText().toString());*/
                     startActivity(i);
                     Login.this.finish();
                 } else {

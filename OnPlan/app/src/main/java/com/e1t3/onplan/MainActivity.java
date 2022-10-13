@@ -1,12 +1,14 @@
 package com.e1t3.onplan;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -20,14 +22,15 @@ import com.e1t3.onplan.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private TextView tvNombreUsuario, tvEmailUsuario;
-    private FirebaseAuth mAuth;
     private ImageView imagenUser;
+    private Button btnCerrarSesion;
 
 
     @Override
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        View headerView = navigationView.getHeaderView(0);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -51,20 +55,26 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        tvEmailUsuario = findViewById(R.id.tvEmailUsuario);
-        tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
-        imagenUser = findViewById(R.id.imageUser);
+        tvEmailUsuario = headerView.findViewById(R.id.tvEmailUsuario);
+        tvNombreUsuario = headerView.findViewById(R.id.tvNombreUsuario);
+        imagenUser = headerView.findViewById(R.id.imageUser);
+        btnCerrarSesion = headerView.findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion.setOnClickListener(this);
 
 
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        //set datos:
-        tvNombreUsuario.setText(currentUser.getDisplayName());
-        tvEmailUsuario.setText(currentUser.getEmail());
-        //cargar imágen con glide:
-        Glide.with(this).load(currentUser.getPhotoUrl()).into(imagenUser);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+        String email = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
+        boolean emailVerified = user.isEmailVerified();
+        tvNombreUsuario.setText(name);
+        tvEmailUsuario.setText(email);
+        Picasso.get()
+                .load(photoUrl)
+                .into(imagenUser);
 
-        Toast.makeText(this, ""+currentUser.getPhotoUrl(), Toast.LENGTH_LONG).show();
+
+        //Toast.makeText(this, ""+currentUser.getPhotoUrl(), Toast.LENGTH_LONG).show();
 
 
     }
@@ -91,5 +101,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == btnCerrarSesion.getId()) {
+            FirebaseAuth.getInstance().signOut();
+            Intent i = new Intent(this, Login.class);
+            startActivity(i);
+        }
     }
 }
