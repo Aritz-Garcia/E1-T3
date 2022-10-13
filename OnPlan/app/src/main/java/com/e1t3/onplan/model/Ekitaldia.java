@@ -1,5 +1,6 @@
 package com.e1t3.onplan.model;
 
+import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
@@ -19,23 +20,7 @@ public class Ekitaldia {
     private double aurrekontua;
     private EkitaldiMota ekitaldiMota;
     private String usuario;
-    private List<String> gerataerak;
-
-    // Constructor
-    public Ekitaldia() {}
-
-    public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<String> gertaerak) {
-        this.id = id;
-        this.izena = izena;
-        this.deskribapena = deskribapena;
-        this.hasierakoDataOrdua = hasierakoDataOrdua;
-        this.bukaerakoDataOrdua = bukaerakoDataOrdua;
-        this.gela = gela;
-        this.aurrekontua = aurrekontua;
-        this.ekitaldiMota = ekitaldiMota;
-        this.usuario = usuario;
-        this.gerataerak = gertaerak;
-    }
+    private List<Gertaera> gerataerak;
 
     public Ekitaldia(DocumentSnapshot document) {
         this.id                 = document.getId();
@@ -47,7 +32,7 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-        this.gerataerak         = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+        this.gerataerak         = DAOGertaerak.getInstance().getGertaerak((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
     }
 
     // Getters and setters

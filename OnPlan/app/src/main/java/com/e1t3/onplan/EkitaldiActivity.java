@@ -82,22 +82,4 @@ public class EkitaldiActivity extends AppCompatActivity {
         //TODO add event modification and deletion etc
     }
 
-    // This method gets the event from the database given an id
-
-    public void getEvent(String id) {
-        db.collection(Values.EKITALDIAK)
-                .document(id)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            ekitaldia = new Ekitaldia(document);
-                        } else {
-                        }
-                    }
-                });
-    }
-
 }
