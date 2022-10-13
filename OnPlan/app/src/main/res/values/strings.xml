@@ -53,4 +53,13 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="crear_evento">Crear Evento</string>
     <string name="large_text">MuchoTEsto</string>
+
+
+    <!--String de registro -->
+    <string name="Izena">Izena</string>
+    <string name="Abizena">Abizena</string>
+    <string name="Telefonoa">Telefonoa</string>
+    <string name="Email">Email</string>
+    <string name="Pasahitza">Pasahitza</string>
+    <string name="DNI">DNI/NIF</string>s
 </resources>
