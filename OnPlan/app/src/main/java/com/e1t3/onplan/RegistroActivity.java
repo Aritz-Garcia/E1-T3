@@ -93,8 +93,8 @@ public class RegistroActivity extends AppCompatActivity {
         ezeztatu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
-                Intent intent = new Intent (RegistroActivity.this,Login.class);
-                startActivityForResult(intent, 0);
+                /*Intent intent = new Intent (RegistroActivity.this,Login.class);
+                startActivityForResult(intent, 0);*/
             }
         });
         /*Object signInRequest = BeginSignInRequest.builder()

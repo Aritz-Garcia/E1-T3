@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="419dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="46dp"
+        android:background="#0099a0"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar3"
+        android:layout_width="419dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="18dp"
+        android:background="#0099a0"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/imageView17"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword"
+        tools:layout_editor_absoluteX="-4dp" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="419dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="18dp"
+        android:background="#0099a0"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView17"
+        tools:layout_editor_absoluteX="-3dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="121dp"
+        android:layout_height="25dp"
+        android:text="Datos de Usuraio"
+        android:textColor="#FAFAFA"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="53dp" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="100dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="26dp"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="114dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginEnd="114dp"
+        android:backgroundTint="#126578"
+        android:text="Elegir "
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView17"
+        app:strokeColor="#D8D8D8"
+        tools:layout_editor_absoluteY="437dp" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Borrar Usuario"
+        android:textColor="#FAF7F7"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="560dp" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="121dp"
+        android:layout_height="25dp"
+        android:text="Avatar"
+        android:textColor="#FAFAFA"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="352dp" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="109dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="243dp"
+        android:backgroundTint="#126578"
+        android:text="Eliminar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName7"
+        android:layout_width="315dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="6dp"
+        android:editable="false"
+        android:ems="10"
+        android:hint="@string/Izena"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="315dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="39dp"
+        android:ems="10"
+        android:hint="@string/Pasahitza"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="315dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="39dp"
+        android:ems="10"
+        android:hint="@string/Telefonoa"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+
+    <EditText
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="315dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="57dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="39dp"
+        android:ems="10"
+        android:hint="@string/Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName8" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName8"
+        android:layout_width="315dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="13dp"
+        android:ems="10"
+        android:hint="@string/Abizena"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
