@@ -21,7 +21,7 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if (view.getId() == btnLineaTiempo.getId()) {
-            Intent i = new Intent(this, com.e1t3.onplan.EkitaldiActivity.class);
+            Intent i = new Intent(this, EkitaldiActivity.class);
             startActivity(i);
         }
     }
