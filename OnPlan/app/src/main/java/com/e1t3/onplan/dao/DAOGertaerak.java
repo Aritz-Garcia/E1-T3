@@ -13,6 +13,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DAOGertaerak {
     private static DAOGertaerak instance = null;
@@ -26,7 +27,7 @@ public class DAOGertaerak {
         return instance;
     }
 
-    public List<Gertaera> getGertaerak(List<String> ids) {
+    public List<Gertaera> lortuGertaerakIdz(List<String> ids) {
         List<Gertaera> gertaerak= new ArrayList<>();
 
         db.collection(Values.GERTAERAK)
@@ -45,6 +46,32 @@ public class DAOGertaerak {
                     }
                 });
         return gertaerak;
+    }
+
+    public boolean gehituEdoEguneratuGertaerak(List<Gertaera> gertaerak) {
+        for (Gertaera gertaera : gertaerak) {
+            Map<String, Object> ekitaldiDoc = gertaera.getDocument();
+            db.collection(Values.GERTAERAK)
+                    .document(gertaera.getId())
+                    .set(ekitaldiDoc);
+        }
+        return true;
+    }
+
+    public boolean ezabatuGertaeraIdz(String id) {
+        db.collection(Values.GERTAERAK)
+                .document(id)
+                .delete();
+        return true;
+    }
+
+    public boolean gertaerakIdzEzabatu(List<String> ids) {
+        for (String id : ids) {
+            db.collection(Values.GERTAERAK)
+                    .document(id)
+                    .delete();
+        }
+        return true;
     }
 
 }

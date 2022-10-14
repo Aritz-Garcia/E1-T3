@@ -39,4 +39,5 @@ public class Values {
     public static final String GERTAERAK_ORDUA = "ordua";
 
 
+    public static final String ERABILTZAILEAK_ADMIN = "admin";
 }
