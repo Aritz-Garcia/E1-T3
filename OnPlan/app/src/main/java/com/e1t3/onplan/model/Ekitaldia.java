@@ -1,5 +1,10 @@
 package com.e1t3.onplan.model;
 
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
@@ -69,5 +74,34 @@ public class Ekitaldia {
                 Values.EKITALDIAK_ERABILTZAILEA, usuario,
                 Values.EKITALDIAK_GERTAERAK, gerataerak
         );
+    }
+
+    public void setUpGertaerak(LinearLayout linearLayout) {
+        for (Gertaera gertaera : this.gerataerak) {
+            LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
+            TextView gertaeraOrdua = new TextView(linearLayout.getContext());
+            LinearLayout checkLayout = new LinearLayout(linearLayout.getContext());
+            CheckBox gertaeraEginda = new CheckBox(linearLayout.getContext());
+            LinearLayout textLayout = new LinearLayout(linearLayout.getContext());
+            TextView gertaeraIzena = new TextView(linearLayout.getContext());
+            TextView gertaeraDeskribapena = new TextView(linearLayout.getContext());
+
+            linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayoutGertaera.addView(gertaeraOrdua);
+            checkLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayoutGertaera.addView(checkLayout);
+            checkLayout.addView(gertaeraEginda);
+            textLayout.setOrientation(LinearLayout.VERTICAL);
+            linearLayoutGertaera.addView(textLayout);
+            textLayout.addView(gertaeraIzena);
+            textLayout.addView(gertaeraDeskribapena);
+
+            gertaeraOrdua.setText(gertaera.getOrdua());
+            gertaeraEginda.setChecked(gertaera.eginDa());
+            gertaeraIzena.setText(gertaera.getIzena());
+            gertaeraDeskribapena.setText(gertaera.getDeskribapena());
+
+            linearLayout.addView(linearLayoutGertaera);
+        }
     }
 }

@@ -37,8 +37,6 @@ public class EkitaldiActivity extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle("Ekitaldia");
         getSupportActionBar().setSubtitle("sairam");
-
-        this.daoEkitaldiak.lortuEkitaldiaIdz("1Dm6GUbJi5y6KEy6leyl");
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,12 +48,8 @@ public class EkitaldiActivity extends AppCompatActivity {
     }
 
     private void setUp(){
-        LinearLayout gertaeraLinear = new LinearLayout(this);
-            TextView ordua = new TextView(this);
-            LinearLayout botoiaLinear = new LinearLayout(this);
-                Button checker = new Button(this);
-            TextView izena = new TextView(this);
-            TextView deskribapena = new TextView(this);
+        this.ekitaldia = this.daoEkitaldiak.lortuEkitaldiaIdz("1Dm6GUbJi5y6KEy6leyl");
+        this.ekitaldia.setUpGertaerak(this.linearLayout);
     }
 
 }

@@ -36,8 +36,10 @@ public class Values {
     //GERTAERAK
     public static final String GERTAERAK_IZENA = "izena";
     public static final String GERTAERAK_DESKRIBAPENA = "deskribapena";
+    public static final String GERTAERAK_EGIN_DA = "egin_da";
     public static final String GERTAERAK_ORDUA = "ordua";
 
 
     public static final String ERABILTZAILEAK_ADMIN = "admin";
+
 }
