@@ -3,32 +3,23 @@ package com.e1t3.onplan.dao;
 import androidx.annotation.NonNull;
 
 import com.e1t3.onplan.model.Erabiltzailea;
-import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DAOErabiltzaileak {
-    private static DAOErabiltzaileak instance = null;
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DAOErabiltzaileak() {
-    }
-    public static DAOErabiltzaileak getInstance() {
-        if (instance == null) {
-            instance = new DAOErabiltzaileak();
-        }
-        return instance;
+
+    private static FirebaseFirestore db;
+
+    public DAOErabiltzaileak() {
+        db = FirebaseFirestore.getInstance();
     }
 
     public List<Erabiltzailea> lortuErabiltzaileak() {
@@ -70,10 +61,10 @@ public class DAOErabiltzaileak {
     }
 
     public boolean gehituEdoEguneratuErabiltzailea(Erabiltzailea erabiltzailea) {
-        Map<String, Object> ekitaldiDoc = erabiltzailea.getDocument();
+        Map<String, Object> erabiltzaileDoc = erabiltzailea.getDocument();
         db.collection(Values.ERABILTZAILEAK)
                 .document(erabiltzailea.getId())
-                .set(ekitaldiDoc);
+                .set(erabiltzaileDoc);
         return true;
     }
 

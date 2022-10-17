@@ -7,6 +7,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.List;
+import java.util.Map;
 
 public class Ekitaldia {
 
@@ -31,7 +32,8 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-        this.gerataerak         = DAOGertaerak.getInstance().lortuGertaerakIdz((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
+        DAOGertaerak daoGertaerak = new DAOGertaerak();
+        this.gerataerak         = daoGertaerak.lortuGertaerakIdz((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
     }
 
     // Getters and setters
@@ -53,5 +55,19 @@ public class Ekitaldia {
                 ", usuario='" + usuario + '\'' +
                 ", sucesos=" + gerataerak +
                 '}';
+    }
+
+    public Map<String, Object> getDocument() {
+        return Map.of(
+                Values.EKITALDIAK_IZENA, izena,
+                Values.EKITALDIAK_DESKRIBAPENA, deskribapena,
+                Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, hasierakoDataOrdua,
+                Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, bukaerakoDataOrdua,
+                Values.EKITALDIAK_GELA, gela,
+                Values.EKITALDIAK_AURREKONTUA, aurrekontua,
+                Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota.toString(),
+                Values.EKITALDIAK_ERABILTZAILEA, usuario,
+                Values.EKITALDIAK_GERTAERAK, gerataerak
+        );
     }
 }
