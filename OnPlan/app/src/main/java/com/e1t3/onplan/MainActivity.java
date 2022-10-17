@@ -17,11 +17,16 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.databinding.ActivityMainBinding;
+import com.e1t3.onplan.model.Erabiltzailea;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.protobuf.DescriptorProtos;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvNombreUsuario, tvEmailUsuario;
     private ImageView imagenUser;
     private Button btnCerrarSesion;
+    private DAOErabiltzaileak daoErabiltzaileak;
 
 
     @Override
@@ -40,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
+
+        List<Erabiltzailea> listE = daoErabiltzaileak.lortuErabiltzaileak();
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -64,7 +72,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String name = user.getDisplayName();
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
-        if (name == "") {
+        if (name == null || name.equals("")) {
+            for(Erabiltzailea e : listE) {
+                if (e.getEmail() == email) {
+                    if (e.getEnpresaDa()) {
+                        name = e.getIzena();
+                        tvNombreUsuario.setText(name);
+                    } else {
+                        name = e.getIzena() + " " + e.getAbizena();
+                        tvNombreUsuario.setText(name);
+                    }
+                }
+            }
 
         } else {
             tvNombreUsuario.setText(name);

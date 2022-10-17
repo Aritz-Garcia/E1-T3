@@ -26,11 +26,15 @@ public class Erabiltzailea {
         this.enpresaDa      = document.getBoolean(Values.ERABILTZAILEAK_ENPRESA_DA);
         this.admin          = document.getBoolean(Values.ERABILTZAILEAK_ADMIN);
     }
-    //getters and setters
 
+    //getters and setters
     public String getId() {
         return id;
     }
+    public boolean getEnpresaDa() { return enpresaDa; }
+    public String getIzena() { return izena; }
+    public String getAbizena() { return abizena; }
+    public String getEmail() { return email; }
 
     public Map<String, Object> getDocument() {
         return Map.of(
