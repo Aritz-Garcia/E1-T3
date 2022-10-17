@@ -67,5 +67,6 @@
     <string name="Telefonoa">Telefonoa</string>
     <string name="Email">Email</string>
     <string name="Pasahitza">Pasahitza</string>
-    <string name="DNI">DNI/NIF</string>s
+    <string name="DNI">DNI/NIF</string>
+    <string name="btnEditarUsuario">Editar Usuario</string>s
 </resources>

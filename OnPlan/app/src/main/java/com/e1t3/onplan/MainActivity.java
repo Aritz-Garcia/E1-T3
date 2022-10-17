@@ -65,8 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
         if (name == "") {
-            String[] nombreUsuario = email.split("@");
-            tvNombreUsuario.setText(nombreUsuario[0]);
+
         } else {
             tvNombreUsuario.setText(name);
         }

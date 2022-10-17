@@ -1,12 +1,9 @@
 package com.e1t3.onplan;
 
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,20 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.e1t3.onplan.shared.Values;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -58,11 +47,13 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        aukeratuta = (RadioButton) findViewById(R.id.RBPersona);
-        aukeratuta2= (RadioButton) findViewById(R.id.RBEmpresa);
-        radioerror = (TextView) findViewById(R.id.radioerror);
+        mAuth = FirebaseAuth.getInstance();
 
-        Button gorde = (Button) findViewById(R.id.GordeBotoia);
+        aukeratuta = findViewById(R.id.RBPersona);
+        aukeratuta2= findViewById(R.id.RBEmpresa);
+        radioerror = findViewById(R.id.radioerror);
+
+        Button gorde = findViewById(R.id.GordeBotoia);
         gorde.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
@@ -71,7 +62,7 @@ public class RegistroActivity extends AppCompatActivity {
                     datuakhartu();
                     egokia[0] = stringIrakurri(izena.getText().toString(), findViewById(R.id.izenaTextua));
                     if (aukeratuta.isChecked()) {
-                        abizena = (TextView) findViewById(R.id.AbizenaTextua);
+                        abizena =  findViewById(R.id.AbizenaTextua);
                         egokia[1] = stringIrakurri(abizena.getText().toString(), findViewById(R.id.AbizenaTextua));
                     } else {
                         egokia[1] = true;
@@ -89,9 +80,10 @@ public class RegistroActivity extends AppCompatActivity {
                     }
             }
         });
-        Button ezeztatu = (Button) findViewById(R.id.GordeBotoia);
+        Button ezeztatu = findViewById(R.id.EzeztatuBotoia);
         ezeztatu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                finish();
                 // Do something in response to button click
                 /*Intent intent = new Intent (RegistroActivity.this,Login.class);
                 startActivityForResult(intent, 0);*/
@@ -196,12 +188,12 @@ public class RegistroActivity extends AppCompatActivity {
 
     //datuak hartu egiten ditugu activity_mainetik geroago konprobatzeko bere egitura
     public void datuakhartu(){
-        izena = (EditText) findViewById(R.id.izenaTextua);
-        dni = (TextView) findViewById(R.id.DNITextua);
-        telefonoa = (TextView)  findViewById(R.id.TelefonoTextua);
-        emaila = (TextView) findViewById(R.id.EmailTextua);
-        pasahitza1 = (TextView) findViewById(R.id.Pasahitza1Textua);
-        pasahitza2 = (TextView) findViewById(R.id.Pasahitza2Textua);
+        izena = findViewById(R.id.izenaTextua);
+        dni = findViewById(R.id.DNITextua);
+        telefonoa = findViewById(R.id.TelefonoTextua);
+        emaila = findViewById(R.id.EmailTextua);
+        pasahitza1 = findViewById(R.id.Pasahitza1Textua);
+        pasahitza2 = findViewById(R.id.Pasahitza2Textua);
     }
 
 

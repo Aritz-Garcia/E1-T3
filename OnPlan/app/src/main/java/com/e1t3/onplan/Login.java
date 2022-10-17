@@ -74,7 +74,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             signIn();
         } else if (view.getId() == btnErregistratu.getId()) {
             //ventana erregistratu
-            this.finish();
+            erregistratu();
         } else if (view.getId() == btnSartu.getId()) {
             //validation
             sesioaHasi();
@@ -197,5 +197,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             AlertDialog dialog = builder.create();
             dialog.show();
         }
+    }
+
+    public void erregistratu() {
+        Intent i = new Intent(this, RegistroActivity.class);
+        startActivity(i);
     }
 }
