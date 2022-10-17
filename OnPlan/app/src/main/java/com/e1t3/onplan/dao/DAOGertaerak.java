@@ -19,7 +19,9 @@ public class DAOGertaerak {
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public DAOGertaerak() { }
+    public DAOGertaerak() {
+        db = FirebaseFirestore.getInstance();
+    }
 
     public List<Gertaera> lortuGertaerakIdz(List<String> ids) {
         List<Gertaera> gertaerak= new ArrayList<>();
