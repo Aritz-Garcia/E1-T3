@@ -30,8 +30,6 @@ import java.util.Map;
 public class RegistroActivity extends AppCompatActivity {
 
     private static final String TAG = "GoogleSignIn";
-    private static final int RC_SIGN_IN = 1;
-    private GoogleSignInClient mGoogleSingInClient;
     private FirebaseAuth mAuth;
 
 
@@ -84,98 +82,9 @@ public class RegistroActivity extends AppCompatActivity {
         ezeztatu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
-                // Do something in response to button click
-                /*Intent intent = new Intent (RegistroActivity.this,Login.class);
-                startActivityForResult(intent, 0);*/
             }
         });
-        /*Object signInRequest = BeginSignInRequest.builder()
-                .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
-                        .setSupported(true)
-                        // Your server's client ID, not your Android client ID.
-                        .setServerClientId(getString(R.string.default_web_client_id))
-                        // Only show accounts previously used to sign in.
-                        .setFilterByAuthorizedAccounts(true)
-                        .build())
-                .build();
-
-
-
-        //Configuar Google Sing In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail().build();
-
-        //Crear un GoogleSingInClient con las opciones especificadas por gso.
-         mGoogleSingInClient = GoogleSignIn.getClient(this, gso);
-
-        Button btnSignIn = findViewById(R.id.btnSignIn);
-        btnSignIn.setOnClickListener(view -> signIn());
-
-         mAuth = FirebaseAuth.getInstance();
-         */
     }
-
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-
-        if(requestCode == RC_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            if(task.isSuccessful()){
-                try{
-                    GoogleSignInAccount account= task.getResult(ApiException.class);
-                    Log.d(TAG, "firebaseAuthWithGoogle"+account.getId());
-                    firebaseAuthWithGoogle(account.getIdToken());
-                }catch(ApiException e){
-                    Log.w(TAG, "Google sign in faied",e);
-                }
-            }else{
-                Log.d(TAG,"Error, login no exitos:" +task.getException().toString());
-                Toast.makeText(this,"Ocurrio un error,"+task.getException().toString(),Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(String idToken){
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
-                        Log.d(TAG,"signInWithCredential:success");
-                    }else{
-                        Log.w(TAG,"signInWithCredential:failure", task.getException());
-                    }
-                });
-    }
-
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSingInClient.getSignInIntent();
-        signInLauncher.launch(signInIntent);
-        //startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent i = result.getData();
-
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(i);
-                    try {
-                        // Google Sign In was successful, authenticate with Firebase
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
-                        firebaseAuthWithGoogle(account.getIdToken());
-                    } catch (ApiException e) {
-                        // Google Sign In fallido, actualizar GUI
-                        Toast.makeText(getApplicationContext(), "Sign in fallido", Toast.LENGTH_LONG).show();
-                        Log.w(TAG, "Google sign in failed", e);
-                    }
-                }
-            }
-    );*/
 
     //Aukeratzen badu Pertsona radiobutton Abizena jartzeko laukia agertuko da
     public void radiobuttonkonporbatu(View v){
