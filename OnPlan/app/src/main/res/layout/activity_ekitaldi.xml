@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
     tools:context=".EkitaldiActivity">
@@ -28,17 +28,10 @@
             app:toolbarId="@+id/toolbar">
 
             <TextView
-                android:id = "@+id/text"
-                android:textSize = "30sp"
-                android:layout_width = "match_parent"
-                android:layout_height = "match_parent" />
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/text"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.OnPlan.PopupOverlay" />
+                android:layout_height="match_parent"
+                android:textSize="30sp" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -59,64 +52,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:overScrollMode="never"
-            android:paddingLeft="10sp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tipo de evento"
-                android:textColor="@color/black" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gela 200"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/editTextDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:text="13/10/2022"
-                    android:textColor="@color/black" />
-
-                <EditText
-                    android:id="@+id/editTextDate2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="date"
-                    android:text="13/10/2022"
-                    android:textColor="@color/black" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ekitaldiaren deskribapena: JAJA JAAJ ja ja j ajj aj aj Aj fja fojfojojewf aoef oeaoj aejo oAE" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent pharetra eget elit eu interdum. Quisque lacinia mattis ex at mollis. Suspendisse gravida, ipsum et accumsan ullamcorper, est lectus iaculis odio, at iaculis neque mi sit amet arcu. Suspendisse dapibus ut elit id facilisis. Praesent a dolor convallis, convallis libero vitae, euismod lacus. Suspendisse eros libero, sollicitudin non sagittis quis, hendrerit vel sem. In pretium risus aliquam urna molestie, et posuere mi aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eleifend quam id sodales tristique. Morbi feugiat orci tellus, sed scelerisque mauris tincidunt vel. Fusce maximus urna vel metus ullamcorper semper. Suspendisse ac dictum dolor.  Aliquam mattis egestas ligula, a interdum ligula suscipit placerat. Duis vehicula ante ut leo vehicula, vulputate tristique lectus suscipit. Morbi lectus justo, venenatis eu quam eu, placerat interdum quam. Proin hendrerit at justo ut mollis. Suspendisse vel luctus ex. Nam at lacinia tellus, sed bibendum eros. Donec sit amet neque justo. Quisque libero lorem, gravida sit amet sem vitae, tincidunt pharetra ipsum. Integer vel eros non ex elementum eleifend et ac elit. Vestibulum eu ipsum ut felis pretium rutrum sed sit amet erat. Integer dignissim magna nec feugiat rhoncus. Praesent placerat rutrum sem, id fringilla justo ultrices ac. Nulla non urna quis mauris faucibus posuere non vel tortor.  Maecenas lacinia, ligula et dapibus consectetur, enim sapien aliquam nisi, sit amet faucibus tortor turpis eget sem. Fusce id erat in nisl venenatis imperdiet. Nulla vitae urna sed nunc malesuada maximus. Duis semper viverra vestibulum. Phasellus consequat erat sed felis sagittis varius. Praesent dictum libero ligula, ut auctor justo suscipit quis. Pellentesque iaculis nibh nunc, sed congue magna mattis non.  In tempus porta nisi, id pellentesque dui fringilla id. Phasellus sit amet arcu vel eros dignissim imperdiet sed quis nulla. Mauris sagittis metus in gravida mattis. In hendrerit, velit eu sodales consectetur, est justo ornare ligula, in posuere massa sem vitae ex. Pellentesque lacinia porta consectetur. Nullam nec purus cursus, lobortis arcu a, vehicula quam. Integer quam mi, fermentum id aliquam ultrices, posuere vitae quam. Sed ultrices erat id massa bibendum dapibus. Sed tristique varius commodo. Quisque nec turpis egestas, consequat augue elementum, finibus dolor. Sed dolor massa, ornare a ipsum nec, aliquet pretium nibh. Suspendisse quis ex vel lectus pretium consectetur. Aliquam interdum nisl sed tincidunt ultricies. Duis quis nisl accumsan, semper sem et, cursus quam. Nam ultricies lectus eget iaculis blandit.  Sed convallis metus vitae magna sodales rhoncus et ac purus. Suspendisse finibus, ex sed iaculis blandit, erat mauris euismod magna, nec mollis purus quam ac ex. Nullam gravida malesuada dolor sit amet posuere. Maecenas ut leo nec enim elementum blandit ut vel mauris. In sagittis tortor nec justo eleifend, eget luctus dui congue. Proin quis nunc eget neque ornare mattis. Praesent eu ipsum est. Mauris ultricies, lacus sit amet sagittis congue, ipsum ipsum vehicula magna, et ultrices libero ipsum vel diam. Vivamus vestibulum ligula ut lacus mattis congue. Curabitur egestas, tortor eu ullamcorper euismod, augue tellus posuere turpis, eu scelerisque nibh risus quis augue." />
+            <include layout="@layout/gertaera_layout" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

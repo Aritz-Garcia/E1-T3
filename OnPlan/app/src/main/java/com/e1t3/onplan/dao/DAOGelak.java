@@ -15,15 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAOGelak {
-    private static DAOGelak instance = null;
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private static FirebaseFirestore db;
+
     private DAOGelak() {
-    }
-    public static DAOGelak getInstance() {
-        if (instance == null) {
-            instance = new DAOGelak();
-        }
-        return instance;
+        db = FirebaseFirestore.getInstance();
     }
 
     public List<Gela> lortuGelak() {

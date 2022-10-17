@@ -13,17 +13,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class DAOEkitaldiak {
-    private static DAOEkitaldiak instance = null;
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DAOEkitaldiak() {
-    }
-    public static DAOEkitaldiak getInstance() {
-        if (instance == null) {
-            instance = new DAOEkitaldiak();
-        }
-        return instance;
+
+    private static FirebaseFirestore db;
+
+    public DAOEkitaldiak() {
+        db = FirebaseFirestore.getInstance();
     }
 
     public Ekitaldia lortuEkitaldiaIdz(String id){
@@ -64,9 +61,10 @@ public class DAOEkitaldiak {
     }
 
     public boolean gehituEdoEguneratuEkitaldia(Ekitaldia ekitaldia){
+        Map<String, Object> ekitaldiDoc = ekitaldia.getDocument();
         db.collection(Values.EKITALDIAK)
                 .document(ekitaldia.getId())
-                .set(ekitaldia);
+                .set(ekitaldiDoc);
         return true;
     }
 
