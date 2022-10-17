@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        List<Erabiltzailea> listE = daoErabiltzaileak.lortuErabiltzaileak();
-
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         View headerView = navigationView.getHeaderView(0);
@@ -73,17 +71,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
         if (name == null || name.equals("")) {
-            for(Erabiltzailea e : listE) {
-                if (e.getEmail() == email) {
-                    if (e.getEnpresaDa()) {
-                        name = e.getIzena();
-                        tvNombreUsuario.setText(name);
-                    } else {
-                        name = e.getIzena() + " " + e.getAbizena();
-                        tvNombreUsuario.setText(name);
-                    }
-                }
-            }
+//            for(Erabiltzailea e : listE) {
+//                if (e.getEmail() == email) {
+//                    if (e.getEnpresaDa()) {
+//                        name = e.getIzena();
+//                        tvNombreUsuario.setText(name);
+//                    } else {
+//                        name = e.getIzena() + " " + e.getAbizena();
+//                        tvNombreUsuario.setText(name);
+//                    }
+//                }
+//            }
 
         } else {
             tvNombreUsuario.setText(name);
