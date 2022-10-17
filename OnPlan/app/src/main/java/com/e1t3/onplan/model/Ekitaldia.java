@@ -7,7 +7,6 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.List;
-import java.util.Map;
 
 public class Ekitaldia {
 
@@ -32,7 +31,7 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-        this.gerataerak         = DAOGertaerak.getInstance().getGertaerak((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
+        this.gerataerak         = DAOGertaerak.getInstance().lortuGertaerakIdz((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
     }
 
     // Getters and setters

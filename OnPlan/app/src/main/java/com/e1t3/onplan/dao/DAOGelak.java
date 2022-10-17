@@ -26,7 +26,7 @@ public class DAOGelak {
         return instance;
     }
 
-    public List<Gela> getAllGelak() {
+    public List<Gela> lortuGelak() {
         List<Gela> gelak= new ArrayList<>();
         db.collection(Values.GELAK)
                 .get()

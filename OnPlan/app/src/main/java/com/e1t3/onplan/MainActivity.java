@@ -1,9 +1,14 @@
 package com.e1t3.onplan;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -14,11 +19,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.e1t3.onplan.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private TextView tvNombreUsuario, tvEmailUsuario;
+    private ImageView imagenUser;
+    private Button btnCerrarSesion;
 
 
     @Override
@@ -32,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
+        View headerView = navigationView.getHeaderView(0);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
@@ -42,8 +54,29 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        tvEmailUsuario = headerView.findViewById(R.id.tvUserEmail);
+        tvNombreUsuario = headerView.findViewById(R.id.tvUserName);
+        imagenUser = headerView.findViewById(R.id.ivUserImage);
+        btnCerrarSesion = headerView.findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion.setOnClickListener(this);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+        String email = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
+        if (name == "") {
+            String[] nombreUsuario = email.split("@");
+            tvNombreUsuario.setText(nombreUsuario[0]);
+        } else {
+            tvNombreUsuario.setText(name);
+        }
 
+        tvEmailUsuario.setText(email);
+        if (photoUrl != null) {
+            Picasso.get()
+                    .load(photoUrl)
+                    .into(imagenUser);
+        }
     }
 
     @Override
@@ -68,5 +101,18 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == btnCerrarSesion.getId()) {
+            signOut();
+            Intent i = new Intent(this, Login.class);
+            startActivity(i);
+        }
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
     }
 }
