@@ -16,15 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 public class DAOGertaerak {
-    private static DAOGertaerak instance = null;
-    public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DAOGertaerak() {
-    }
-    public static DAOGertaerak getInstance() {
-        if (instance == null) {
-            instance = new DAOGertaerak();
-        }
-        return instance;
+
+    private static FirebaseFirestore db;
+
+    public DAOGertaerak() {
+        db = FirebaseFirestore.getInstance();
     }
 
     public List<Gertaera> lortuGertaerakIdz(List<String> ids) {

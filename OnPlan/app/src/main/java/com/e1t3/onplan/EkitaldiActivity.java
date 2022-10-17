@@ -2,37 +2,31 @@ package com.e1t3.onplan;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
 import com.e1t3.onplan.model.Ekitaldia;
-import com.e1t3.onplan.shared.EkitaldiMota;
-import com.e1t3.onplan.shared.Values;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class EkitaldiActivity extends AppCompatActivity {
 
+    //Layout Android elementuak
     private ActivityEkitaldiBinding binding;
+    private LinearLayout linearLayout = new LinearLayout(this);
+
+    // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Ekitaldia ekitaldia;
-    private TextView textView;
+    private DAOEkitaldiak daoEkitaldiak;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +34,11 @@ public class EkitaldiActivity extends AppCompatActivity {
 
         binding = ActivityEkitaldiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        Toolbar toolbar = binding.toolbar;
-//        setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
         toolBarLayout.setTitle("Ekitaldia");
-        textView = findViewById(R.id.text);
         getSupportActionBar().setSubtitle("sairam");
-        textView.setText(" subtittle is sairam");
 
+        this.daoEkitaldiak.lortuEkitaldiaIdz("1Dm6GUbJi5y6KEy6leyl");
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,27 +49,13 @@ public class EkitaldiActivity extends AppCompatActivity {
         });
     }
 
-    //visualize the event in layout
-    private void setUp() {
-
-    }
-
-    private void putEvent() {
-        CollectionReference ekitaldiak = db.collection(Values.EKITALDIAK);
-
-        Map<String, Object> ekitaldiTest = new HashMap<>();
-        ekitaldiTest.put(Values.EKITALDIAK_IZENA, "TEST APP PUT IZENA");
-        ekitaldiTest.put(Values.EKITALDIAK_DESKRIBAPENA, "APP PUT DESKRIBAPENA");
-        ekitaldiTest.put(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, Timestamp.now());
-        ekitaldiTest.put(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, Timestamp.now());
-        ekitaldiTest.put(Values.EKITALDIAK_GELA, "TEST APP PUT GELA");
-        ekitaldiTest.put(Values.EKITALDIAK_AURREKONTUA, 10.0);
-        ekitaldiTest.put(Values.EKITALDIAK_EKITALDI_MOTA, EkitaldiMota.BESTE_MOTA);
-        ekitaldiTest.put(Values.EKITALDIAK_ERABILTZAILEA, "TEST APP PUT ERABILTZAILEA");
-        List<String> gertaerak = Arrays.asList("TEST APP PUT GERTAERA 1", "TEST APP PUT GERTAERA 2");
-        ekitaldiTest.put(Values.EKITALDIAK_GERTAERAK, gertaerak);
-        ekitaldiak.document().set(ekitaldiTest);
-        //TODO add event modification and deletion etc
+    private void setUp(){
+        LinearLayout gertaeraLinear = new LinearLayout(this);
+            TextView ordua = new TextView(this);
+            LinearLayout botoiaLinear = new LinearLayout(this);
+                Button checker = new Button(this);
+            TextView izena = new TextView(this);
+            TextView deskribapena = new TextView(this);
     }
 
 }
