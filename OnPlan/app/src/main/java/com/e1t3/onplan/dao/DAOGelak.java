@@ -16,11 +16,9 @@ import java.util.List;
 
 public class DAOGelak {
 
-    private static FirebaseFirestore db;
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private DAOGelak() {
-        db = FirebaseFirestore.getInstance();
-    }
+    private DAOGelak() { }
 
     public List<Gela> lortuGelak() {
         List<Gela> gelak= new ArrayList<>();

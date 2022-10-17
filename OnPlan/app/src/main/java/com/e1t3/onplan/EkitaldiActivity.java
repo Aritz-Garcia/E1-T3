@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.Navigation;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
@@ -21,12 +22,12 @@ public class EkitaldiActivity extends AppCompatActivity {
 
     //Layout Android elementuak
     private ActivityEkitaldiBinding binding;
-    private LinearLayout linearLayout = new LinearLayout(this);
+    private LinearLayout linearLayout;
 
     // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Ekitaldia ekitaldia;
-    private DAOEkitaldiak daoEkitaldiak;
+    private DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,10 @@ public class EkitaldiActivity extends AppCompatActivity {
         toolBarLayout.setTitle("Ekitaldia");
         getSupportActionBar().setSubtitle("sairam");
         FloatingActionButton fab = binding.fab;
+        linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
+
+        setUp();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

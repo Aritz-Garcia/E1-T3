@@ -17,11 +17,9 @@ import java.util.Map;
 
 public class DAOEkitaldiak {
 
-    private static FirebaseFirestore db;
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public DAOEkitaldiak() {
-        db = FirebaseFirestore.getInstance();
-    }
+    public DAOEkitaldiak() { }
 
     public Ekitaldia lortuEkitaldiaIdz(String id){
         final Ekitaldia[] ekitaldia = new Ekitaldia[1]; // array bat erabili behar da, bestela ezin da balioa aldatu

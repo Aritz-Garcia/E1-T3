@@ -16,11 +16,9 @@ import java.util.Map;
 
 public class DAOErabiltzaileak {
 
-    private static FirebaseFirestore db;
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public DAOErabiltzaileak() {
-        db = FirebaseFirestore.getInstance();
-    }
+    public DAOErabiltzaileak() { }
 
     public List<Erabiltzailea> lortuErabiltzaileak() {
         List<Erabiltzailea> erabiltzaileak= new ArrayList<>();
