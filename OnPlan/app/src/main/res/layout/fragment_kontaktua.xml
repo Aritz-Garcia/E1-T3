@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.kontaktua.KontaktuaFragment">
+
+    <LinearLayout
+        android:id="@+id/llKontaktua"
+        android:layout_width="404dp"
+        android:layout_height="724dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/llDeskribapena"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDeskribapena"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Arazoren bat agertu zaizu gure zerbitzua erabiltzen zinela? Ez gorde zuretzat, pazarazazu hurrengoetatik nahigo duzun komunikabidetik!" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKontaktuaMargin1"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llTelefonoa"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llTelefonoaText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTelefonoaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Telefonoa: "
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTelefonoaValue"
+                android:layout_width="335dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvTelefonoaValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="+34 785 254 584" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKontaktuaMargin2"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llHelbideElektronikoa"
+            android:layout_width="match_parent"
+            android:layout_height="81dp">
+
+            <LinearLayout
+                android:id="@+id/llHelbideElektronikoaText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvHelbideElektronikoaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Helbide Elektronikoa: "
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llHelbideElektronikoaValue"
+                android:layout_width="266dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvHelbideElektronikoaValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="administracion_onplan@onplan.com" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKontaktuaMargin3"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKokapena"
+            android:layout_width="match_parent"
+            android:layout_height="78dp">
+
+            <LinearLayout
+                android:id="@+id/llKokapenaText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvKokapenaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Non gaude gu: "
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llKokapenaValue"
+                android:layout_width="310dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvKokapenaValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Done Petri Plaza, 5, 48014 Bilbo, Bizkaia" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKontaktuaMargin4"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llKontaktuaMaps"
+            android:layout_width="match_parent"
+            android:layout_height="312dp"
+            android:orientation="vertical">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mvKontaktua"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
