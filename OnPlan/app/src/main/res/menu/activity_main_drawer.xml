@@ -18,7 +18,7 @@
             android:title="@string/menu_slideshow" />
         <item
             android:id="@+id/nav_kontaktua"
-            android:icon="@android:drawable/stat_sys_phone_call"
-            android:title="Kontaktua" />
+            android:icon="@drawable/ic_nav_kontaktua"
+            android:title="@string/nav_kontaktua" />
     </group>
 </menu>

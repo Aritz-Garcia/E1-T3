@@ -3,24 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/layout/activity_login.xml" value="0.15433946130825138" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/layout/activity_registro.xml" value="0.3009833262077811" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/layout/activity_view_eventos.xml" value="0.15433946130825138" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/layout/nav_header_main.xml" value="0.33" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/menu/activity_main_drawer.xml" value="0.67" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/menu/main.xml" value="0.12954253954681488" />
+        <entry key="..\:/E1-T3/OnPlan/app/src/main/res/menu/menu_ekitaldi.xml" value="0.12954253954681488" />
         <entry key="..\:/Users/in2dm3/AndroidStudioProjects/OnPlan/app/src/main/res/drawable/side_nav_bar.xml" value="0.196" />
         <entry key="..\:/Users/in2dm3/AndroidStudioProjects/OnPlan/app/src/main/res/layout/activity_ekitaldi.xml" value="0.24166666666666667" />
         <entry key="..\:/Users/in2dm3/AndroidStudioProjects/OnPlan/app/src/main/res/layout/content_scrolling.xml" value="0.24166666666666667" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/activity_ekitaldi.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/activity_formulario_evento.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/activity_login.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/activity_main.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/activity_view_eventos.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/app_bar_main.xml" value="0.2552083333333333" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/content_linea_de_tiempo_evento.xml" value="0.2552083333333333" />
         <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/content_scrolling.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_ekitaldi.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_erabiltzaile_aldaketak.xml" value="0.5" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_formulario_evento.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_formulario_tipo_de_evento.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_main.xml" value="0.5" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_registro.xml" value="0.33" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/activity_view_eventos.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/app_bar_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/fragment_salas.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/fragment_slideshow.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/in2dm3/StudioProjects/E1-T1/OnPlan/app/src/main/res/layout/nav_header_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/in2dm3/Desktop/Oier/E1-T3/OnPlan/app/src/main/res/layout/gertaera_layout.xml" value="0.2552083333333333" />
       </map>
     </option>
   </component>
