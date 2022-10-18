@@ -33,7 +33,7 @@
             android:id="@+id/llKontaktuaMargin1"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:id="@+id/llTelefonoa"
@@ -73,7 +73,7 @@
             android:id="@+id/llKontaktuaMargin2"
             android:layout_width="match_parent"
             android:layout_height="28dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:id="@+id/llHelbideElektronikoa"
@@ -112,7 +112,7 @@
             android:id="@+id/llKontaktuaMargin3"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:id="@+id/llKokapena"
@@ -151,9 +151,7 @@
             android:id="@+id/llKontaktuaMargin4"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-            android:orientation="vertical">
-
-        </LinearLayout>
+            android:orientation="vertical"/>
 
         <LinearLayout
             android:id="@+id/llKontaktuaMaps"
