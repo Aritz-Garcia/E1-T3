@@ -37,7 +37,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     //Variable para gestionar FirebaseAuth
     private FirebaseAuth mAuth;
     //Agregar cliente de inicio de sesión de Google
-    private GoogleSignInClient mGoogleSignInClient;
+    //private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +47,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
 
-        btnGoogle = findViewById(R.id.btnGoogle);
+        //btnGoogle = findViewById(R.id.btnGoogle);
         btnErregistratu = findViewById(R.id.btnErregistratu);
         btnSartu = findViewById(R.id.btnLogin);
 
-        btnGoogle.setOnClickListener(this);
+        //btnGoogle.setOnClickListener(this);
         btnErregistratu.setOnClickListener(this);
         btnSartu.setOnClickListener(this);
 
-        // Configurar Google Sign In
+        /**
+         * // Configurar Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         // Crear un GoogleSignInClient con las opciones especificadas por gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);*/
 
         // Inicializar Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -70,9 +71,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == btnGoogle.getId()) {
+        /**if (view.getId() == btnGoogle.getId()) {
             signIn();
-        } else if (view.getId() == btnErregistratu.getId()) {
+        } else*/
+            if (view.getId() == btnErregistratu.getId()) {
             //ventana erregistratu
             erregistratu();
         } else if (view.getId() == btnSartu.getId()) {
@@ -81,7 +83,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void signIn() {
+    /**private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         signInLauncher.launch(signInIntent);
         //startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -156,7 +158,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(i);
         }
         super.onStart();
-    }
+    }*/
 
     private void sesioaHasi() {
         if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {
