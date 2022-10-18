@@ -46,10 +46,11 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     private static String APP_DIRECTORY = "MyPictureApp/";
     private static String MEDIA_DIRECTORY = APP_DIRECTORY + "PictureApp";
 
-
     private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
+    private final DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
+    private final MainActivity emailErabiltzialea = new MainActivity();
 
     private ImageView mSetImage;
     private Button mOptionButton;
@@ -57,17 +58,34 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
     private String mPath;
 
+    private String erabiltzaile;
+    public TextView izena,abizena,dni,emaila,pasahitza1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
 
+        List<Erabiltzailea>erabiltzailea = daoErabiltzaileak.lortuErabiltzaileak();
+        erabiltzaile = emailErabiltzialea.email();
 
+        for(int i=0;i<erabiltzailea.size();i++){
+            if(erabiltzaile.equals(erabiltzailea.get(i).getEmail())){
+                izena.setText(erabiltzailea.get(i).getIzena());
+                if(erabiltzailea.get(i).getAbizena().equals(null)){
 
+                }else{
+                    abizena.setText(erabiltzailea.get(i).getAbizena());
+                }
+                dni.setText(erabiltzailea.get(i).getNanIfz());
+                emaila.setText(erabiltzailea.get(i).getEmail());
 
+            }
+        }
 
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
+
 
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +94,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
             }
         });
 
+    }
+    private void datuak(){
+        izena = findViewById(R.id.textIzena);
+        abizena = findViewById(R.id.textAbizena);
+        dni = findViewById(R.id.textdni);
+        emaila = findViewById(R.id.textEmaila);
+        pasahitza1 = findViewById(R.id.textPasahitza);
     }
 
     private boolean mayRequestStoragePermission() {

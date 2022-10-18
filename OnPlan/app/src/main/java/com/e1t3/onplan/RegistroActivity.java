@@ -99,39 +99,6 @@ public class RegistroActivity extends AppCompatActivity {
         pasahitza2 = findViewById(R.id.Pasahitza2Textua);
     }
 
-
-    public boolean konprobatuErabiltzailea(){
-        boolean egokia = true;
-        List<Erabiltzailea> erabiltzailea = daoErabiltzaileak.lortuErabiltzaileak();
-        for(int i=0; i<erabiltzailea.size();i++){
-            if(erabiltzailea.get(i).getEmail().equals(emaila.getText().toString())){
-                egokia = false;
-            }
-        }
-        return egokia;
-
-
-        /*
-        final boolean[] egokia = {true};
-        db.collection(Values.ERABILTZAILEAK)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (document.getString(Values.ERABILTZAILEAK_EMAIL).equals(emaila.getText().toString())){
-                                    egokia[0] = false;
-                                }
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-        return egokia[0];*/
-    }
-
     public void datuakbidali(){
             mAuth.createUserWithEmailAndPassword(emaila.getText().toString(), pasahitza1.getText().toString()).addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
@@ -154,6 +121,7 @@ public class RegistroActivity extends AppCompatActivity {
                     startActivity(i);
                     RegistroActivity.this.finish();
                 } else {
+                    emaila.setError("Ezin da errepikatu emaila");
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
                 }
             });
@@ -196,7 +164,7 @@ public class RegistroActivity extends AppCompatActivity {
             if( textua.length()==0 )  {
                 text.setError("Beharrezko kanpua");
                 return false;
-            }else if((!textua.matches("[0-9]{7,8}[A-Z a-z]"))){
+            }else if((!textua.matches("^(\\d{8})([A-Z])$"))){
                 text.setError("00000000A formatua");
                 return false;
             }else{
@@ -212,9 +180,6 @@ public class RegistroActivity extends AppCompatActivity {
             }else if((!textua.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))){
                 text.setError("aaaaa@aaaa.aaa formatua");
                 return false;
-            }else if(!konprobatuErabiltzailea()){
-                text.setError("Ezin da errepikatu emaila");
-                    return false;
             }else{
                 return true;
             }
