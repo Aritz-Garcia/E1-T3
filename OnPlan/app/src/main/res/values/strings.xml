@@ -10,6 +10,7 @@
     <string name="menu_agenda">Agenda</string>
     <string name="menu_salas">Salas</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_kontaktua">Kontaktua</string>
 
     <string name="button_sumarEvento">Sumar Evento</string>
     <string name="funcion_sumarEvento">sumarEvento</string>
@@ -72,6 +73,5 @@
     <string name="DNI">DNI/NIF</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="nav_kontaktua">Kontaktua</string>
 
 </resources>
