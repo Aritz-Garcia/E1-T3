@@ -74,7 +74,7 @@ public class RegistroActivity extends AppCompatActivity {
                     egokia[5] = pasahitzaIrakurri(pasahitza1.getText().toString(), findViewById(R.id.Pasahitza1Textua));
                     egokia[6] = pasahitzaKonfirmatu(pasahitza1.getText().toString(), pasahitza2.getText().toString(), findViewById(R.id.Pasahitza2Textua));
                     if (egokia[0] && egokia[1] && egokia[2] && egokia[3] && egokia[4] && egokia[5]) {
-                       datuakbidali();
+                        datuakbidali();
                     }
                 }else{
                     radioerror.setVisibility(View.VISIBLE);
@@ -233,6 +233,9 @@ public class RegistroActivity extends AppCompatActivity {
     public boolean pasahitzaIrakurri(String cadena, EditText text){
         if(cadena.length()==0){
             text.setError("Beharrezko kanpua");
+            return false;
+        }else if(cadena.length()<6) {
+            text.setError("Gutxienez 6 karaktere");
             return false;
         }else {
             return true;
