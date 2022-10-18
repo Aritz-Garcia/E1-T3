@@ -8,9 +8,11 @@
 
     <LinearLayout
         android:id="@+id/llKontaktua"
-        android:layout_width="404dp"
-        android:layout_height="724dp"
+        android:layout_width="400dp"
+        android:layout_height="700dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -55,7 +57,7 @@
 
             <LinearLayout
                 android:id="@+id/llTelefonoaValue"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -94,7 +96,7 @@
 
             <LinearLayout
                 android:id="@+id/llHelbideElektronikoaValue"
-                android:layout_width="266dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -133,7 +135,7 @@
 
             <LinearLayout
                 android:id="@+id/llKokapenaValue"
-                android:layout_width="310dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 

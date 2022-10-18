@@ -21,7 +21,7 @@ public class KontaktuaFragment extends Fragment {
         binding = FragmentKontaktuaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        ivKontaktua
+        //ivKontaktua
 
         return root;
     }
