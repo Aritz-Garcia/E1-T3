@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/llKontaktua"
-        android:layout_width="400dp"
+        android:layout_width="350dp"
         android:layout_height="700dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"

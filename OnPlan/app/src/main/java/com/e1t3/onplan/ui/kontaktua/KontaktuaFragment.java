@@ -14,14 +14,10 @@ public class KontaktuaFragment extends Fragment {
 
     private FragmentKontaktuaBinding binding;
 
-    private ImageView ivKontaktua;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentKontaktuaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
-        //ivKontaktua
 
         return root;
     }
