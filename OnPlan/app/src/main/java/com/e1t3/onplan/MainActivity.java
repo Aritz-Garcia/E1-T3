@@ -34,8 +34,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ActivityMainBinding binding;
     private TextView tvNombreUsuario, tvEmailUsuario;
     private ImageView imagenUser;
-    private Button btnCerrarSesion;
+    private Button btnCerrarSesion,btnEditarUsuario;
     private DAOErabiltzaileak daoErabiltzaileak;
+    private String emaila;
 
 
     @Override
@@ -65,10 +66,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imagenUser = headerView.findViewById(R.id.ivUserImage);
         btnCerrarSesion = headerView.findViewById(R.id.btnCerrarSesion);
         btnCerrarSesion.setOnClickListener(this);
+        btnEditarUsuario = headerView.findViewById(R.id.btnEditarUsuario);
+        btnEditarUsuario.setOnClickListener(this);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String name = user.getDisplayName();
         String email = user.getEmail();
+        emaila = email;
         Uri photoUrl = user.getPhotoUrl();
         if (name == null || name.equals("")) {
 //            for(Erabiltzailea e : listE) {
@@ -125,10 +129,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             signOut();
             Intent i = new Intent(this, Login.class);
             startActivity(i);
+        } else if (view.getId() == btnEditarUsuario.getId()) {
+            Intent i = new Intent(this, ErabiltzaileAlodaketak.class);
+            startActivity(i);
         }
     }
 
     private void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    public String email(){
+        return emaila;
     }
 }

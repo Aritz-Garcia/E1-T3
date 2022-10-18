@@ -1,9 +1,6 @@
 package com.e1t3.onplan;
 
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,26 +9,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
-
+import com.e1t3.onplan.dao.DAOErabiltzaileak;
+import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
     private static final String TAG = "GoogleSignIn";
     private FirebaseAuth mAuth;
-
+    private final DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
 
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
@@ -71,7 +65,7 @@ public class RegistroActivity extends AppCompatActivity {
                     egokia[5] = pasahitzaIrakurri(pasahitza1.getText().toString(), findViewById(R.id.Pasahitza1Textua));
                     egokia[6] = pasahitzaKonfirmatu(pasahitza1.getText().toString(), pasahitza2.getText().toString(), findViewById(R.id.Pasahitza2Textua));
                     if (egokia[0] && egokia[1] && egokia[2] && egokia[3] && egokia[4] && egokia[5]) {
-                       datuakbidali();
+                        datuakbidali();
                     }
                 }else{
                     radioerror.setVisibility(View.VISIBLE);
@@ -107,8 +101,19 @@ public class RegistroActivity extends AppCompatActivity {
 
 
     public boolean konprobatuErabiltzailea(){
+        boolean egokia = true;
+        List<Erabiltzailea> erabiltzailea = daoErabiltzaileak.lortuErabiltzaileak();
+        for(int i=0; i<erabiltzailea.size();i++){
+            if(erabiltzailea.get(i).getEmail().equals(emaila.getText().toString())){
+                egokia = false;
+            }
+        }
+        return egokia;
+
+
+        /*
         final boolean[] egokia = {true};
-        db.collection("usuarios")
+        db.collection(Values.ERABILTZAILEAK)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -124,7 +129,7 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                     }
                 });
-        return egokia[0];
+        return egokia[0];*/
     }
 
     public void datuakbidali(){
@@ -142,7 +147,7 @@ public class RegistroActivity extends AppCompatActivity {
                     erbiltzailea.put("telefono",telefonoa.getText().toString());
                     erbiltzailea.put("correo",emaila.getText().toString());
                     erbiltzailea.put("dni_nif",dni.getText().toString());
-
+                    erbiltzailea.put("admin",false);
                     erbiltzaileak.document().set(erbiltzailea);
                     Log.d(TAG, "signInWithCredential:success");
                     Intent i = new Intent(RegistroActivity.this, MainActivity.class);
@@ -219,6 +224,9 @@ public class RegistroActivity extends AppCompatActivity {
     public boolean pasahitzaIrakurri(String cadena, EditText text){
         if(cadena.length()==0){
             text.setError("Beharrezko kanpua");
+            return false;
+        }else if(cadena.length()<6) {
+            text.setError("Gutxienez 6 karaktere");
             return false;
         }else {
             return true;

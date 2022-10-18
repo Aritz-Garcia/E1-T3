@@ -147,7 +147,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
-    }
+    }*/
 
     @Override
     protected void onStart() {
@@ -158,7 +158,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(i);
         }
         super.onStart();
-    }*/
+    }
 
     private void sesioaHasi() {
         if (!etEmail.getText().toString().equals("") && !etPassword.getText().toString().equals("")) {

@@ -67,7 +67,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
 
         mSetImage = (ImageView) findViewById(R.id.limagen);
-        mOptionButton = (Button) findViewById(R.id.bgorde);
+        mOptionButton = (Button) findViewById(R.id.belegir);
 
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
