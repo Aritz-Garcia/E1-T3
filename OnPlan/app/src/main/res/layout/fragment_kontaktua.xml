@@ -159,11 +159,11 @@
             android:layout_height="312dp"
             android:orientation="vertical">
 
-            <com.google.android.gms.maps.MapView
-                android:id="@+id/mvKontaktua"
+            <ImageView
+                android:id="@+id/ivKontaktua"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:src="@tools:sample/avatars" />
         </LinearLayout>
     </LinearLayout>
 
