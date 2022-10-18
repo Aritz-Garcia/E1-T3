@@ -1,6 +1,8 @@
 package com.e1t3.onplan.model;
 
-import android.widget.Button;
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -41,6 +43,19 @@ public class Ekitaldia {
         this.gerataerak         = daoGertaerak.lortuGertaerakIdz((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
     }
 
+    public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
+        this.id = id;
+        this.izena = izena;
+        this.deskribapena = deskribapena;
+        this.hasierakoDataOrdua = hasierakoDataOrdua;
+        this.bukaerakoDataOrdua = bukaerakoDataOrdua;
+        this.gela = gela;
+        this.aurrekontua = aurrekontua;
+        this.ekitaldiMota = ekitaldiMota;
+        this.usuario = usuario;
+        this.gerataerak = gerataerak;
+    }
+
     // Getters and setters
     public String getId() {
         return id;
@@ -79,14 +94,29 @@ public class Ekitaldia {
     public void setUpGertaerak(LinearLayout linearLayout) {
         for (Gertaera gertaera : this.gerataerak) {
             LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
-            TextView gertaeraOrdua = new TextView(linearLayout.getContext());
-            LinearLayout checkLayout = new LinearLayout(linearLayout.getContext());
-            CheckBox gertaeraEginda = new CheckBox(linearLayout.getContext());
-            LinearLayout textLayout = new LinearLayout(linearLayout.getContext());
-            TextView gertaeraIzena = new TextView(linearLayout.getContext());
-            TextView gertaeraDeskribapena = new TextView(linearLayout.getContext());
-
             linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayoutGertaera.setGravity(Gravity.CENTER_VERTICAL);
+            linearLayoutGertaera.setPadding(16, 16, 16, 16);
+
+            TextView gertaeraOrdua = new TextView(linearLayout.getContext());
+            gertaeraOrdua.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+            gertaeraOrdua.setTextColor(Color.parseColor("#004f53"));
+
+            LinearLayout checkLayout = new LinearLayout(linearLayout.getContext());
+
+            CheckBox gertaeraEginda = new CheckBox(linearLayout.getContext());
+
+            LinearLayout textLayout = new LinearLayout(linearLayout.getContext());
+
+            TextView gertaeraIzena = new TextView(linearLayout.getContext());
+            gertaeraIzena.setTextSize(1,20);
+            gertaeraIzena.setTextColor(Color.parseColor("#001e20"));
+
+            TextView gertaeraDeskribapena = new TextView(linearLayout.getContext());
+            gertaeraDeskribapena.setTextColor(Color.parseColor("#004f53"));
+
+
+
             linearLayoutGertaera.addView(gertaeraOrdua);
             checkLayout.setOrientation(LinearLayout.VERTICAL);
             linearLayoutGertaera.addView(checkLayout);

@@ -16,11 +16,20 @@ public class Gertaera {
     private boolean eginDa;
     private Timestamp ordua;
 
+    //constructor
+    public Gertaera(String id, String izena, String deskribapena, boolean eginDa, Timestamp ordua) {
+        this.id = id;
+        this.izena = izena;
+        this.deskribapena = deskribapena;
+        this.eginDa = eginDa;
+        this.ordua = ordua;
+    }
+
     public Gertaera(DocumentSnapshot document) {
         this.id             = document.getId();
         this.izena          = document.getString(Values.GERTAERAK_IZENA);
         this.deskribapena   = document.getString(Values.GERTAERAK_DESKRIBAPENA);
-        this.eginDa         = document.getBoolean(Values.GERTAERAK_EGIN_DA);
+        this.eginDa         = Boolean.TRUE.equals(document.getBoolean(Values.GERTAERAK_EGIN_DA));
         this.ordua          = document.getTimestamp(Values.GERTAERAK_ORDUA);
     }
 
