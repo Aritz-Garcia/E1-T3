@@ -164,8 +164,8 @@
             <ImageView
                 android:id="@+id/ivKontaktua"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@tools:sample/avatars" />
+                android:layout_height="wrap_content"
+                tools:src="@drawable/google_maps_kontaktua" />
         </LinearLayout>
     </LinearLayout>
 
