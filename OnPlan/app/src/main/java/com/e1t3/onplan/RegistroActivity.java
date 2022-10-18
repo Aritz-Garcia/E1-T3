@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.e1t3.onplan.dao.DAOErabiltzaileak;
+import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,13 +27,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
     private static final String TAG = "GoogleSignIn";
     private FirebaseAuth mAuth;
-
+    private final DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
 
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
@@ -107,8 +110,19 @@ public class RegistroActivity extends AppCompatActivity {
 
 
     public boolean konprobatuErabiltzailea(){
+        boolean egokia = true;
+        List<Erabiltzailea> erabiltzailea = daoErabiltzaileak.lortuErabiltzaileak();
+        for(int i=0; i<erabiltzailea.size();i++){
+            if(erabiltzailea.get(i).getEmail().equals(emaila.getText().toString())){
+                egokia = false;
+            }
+        }
+        return egokia;
+
+
+        /*
         final boolean[] egokia = {true};
-        db.collection("usuarios")
+        db.collection(Values.ERABILTZAILEAK)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -124,7 +138,7 @@ public class RegistroActivity extends AppCompatActivity {
                         }
                     }
                 });
-        return egokia[0];
+        return egokia[0];*/
     }
 
     public void datuakbidali(){
@@ -142,7 +156,7 @@ public class RegistroActivity extends AppCompatActivity {
                     erbiltzailea.put("telefono",telefonoa.getText().toString());
                     erbiltzailea.put("correo",emaila.getText().toString());
                     erbiltzailea.put("dni_nif",dni.getText().toString());
-
+                    erbiltzailea.put("admin",false);
                     erbiltzaileak.document().set(erbiltzailea);
                     Log.d(TAG, "signInWithCredential:success");
                     Intent i = new Intent(RegistroActivity.this, MainActivity.class);
