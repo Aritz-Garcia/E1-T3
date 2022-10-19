@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toTopOf="@+id/limagen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPasahitza" />
+        app:layout_constraintTop_toBottomOf="@+id/textTelefonoa" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar4"
@@ -142,14 +142,14 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
     <EditText
-        android:id="@+id/textPasahitza"
+        android:id="@+id/textTelefonoa"
         android:layout_width="315dp"
         android:layout_height="48dp"
         android:layout_marginStart="57dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="39dp"
         android:ems="10"
-        android:hint="@string/Pasahitza"
+        android:hint="@string/Telefonoa"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -208,7 +208,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textPasahitza"
+        app:layout_constraintTop_toBottomOf="@+id/textTelefonoa"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
