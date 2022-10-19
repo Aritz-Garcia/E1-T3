@@ -64,7 +64,7 @@ public class RegistroActivity extends AppCompatActivity {
                     egokia[4] = emailkonprobatu(emaila.getText().toString(), findViewById(R.id.EmailTextua));
                     egokia[5] = pasahitzaIrakurri(pasahitza1.getText().toString(), findViewById(R.id.Pasahitza1Textua));
                     egokia[6] = pasahitzaKonfirmatu(pasahitza1.getText().toString(), pasahitza2.getText().toString(), findViewById(R.id.Pasahitza2Textua));
-                    if (egokia[0] && egokia[1] && egokia[2] && egokia[3] && egokia[4] && egokia[5]) {
+                    if (egokia[0] && egokia[1] && egokia[2] && egokia[3] && egokia[4] && egokia[5] && egokia[6]) {
                         datuakbidali();
                     }
                 }else{
