@@ -1,7 +1,14 @@
 package com.e1t3.onplan.dao;
 
+import static android.content.ContentValues.TAG;
+
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
+import com.e1t3.onplan.R;
 import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,23 +46,31 @@ public class DAOErabiltzaileak {
         return erabiltzaileak;
     }
 
-    public Erabiltzailea lortuErabiltzaileaId(String id) {
-        final Erabiltzailea[] erabiltzailea = {null};
+    public void lortuErabiltzaileaIzena(String email, View headerView) {
         db.collection(Values.ERABILTZAILEAK)
-                .whereEqualTo("id", id)
+                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                erabiltzailea[0] = new Erabiltzailea(document);
+                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
+                                TextView tvNombreUsuario = headerView.findViewById(R.id.tvUserName);
+                                String nombre;
+                                if (erabiltzailea.getEnpresaDa()) {
+                                    nombre = erabiltzailea.getIzena();
+                                } else {
+                                    nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
+                                }
+                                tvNombreUsuario.setText(nombre);
                             }
+
                         } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
                     }
                 });
-        return erabiltzailea[0];
     }
 
     public boolean gehituEdoEguneratuErabiltzailea(Erabiltzailea erabiltzailea) {
@@ -72,5 +87,27 @@ public class DAOErabiltzaileak {
                 .delete();
         return true;
     }
+
+    /**public String lortuIzena(String email) {
+        db.collection(Values.ERABILTZAILEAK)
+                .whereEqualTo(Values.ERABILTZAILEAK_ENPRESA_DA, true)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (document.getString(Values.ERABILTZAILEAK_EMAIL).equals(email)) {
+                                    Log.d(TAG, document.getId() + " => " + document.getString(Values.ERABILTZAILEAK_IZENA));
+                                }
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+    }*/
 
 }
