@@ -46,32 +46,7 @@ public class DAOErabiltzaileak {
         return erabiltzaileak;
     }
 
-    public void lortuErabiltzaileaIzena(String email, View headerView) {
-        db.collection(Values.ERABILTZAILEAK)
-                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
-                                TextView tvNombreUsuario = headerView.findViewById(R.id.tvUserName);
-                                String nombre;
-                                if (erabiltzailea.getEnpresaDa()) {
-                                    nombre = erabiltzailea.getIzena();
-                                } else {
-                                    nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
-                                }
-                                tvNombreUsuario.setText(nombre);
-                            }
 
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                    }
-                });
-    }
 
     public boolean gehituEdoEguneratuErabiltzailea(Erabiltzailea erabiltzailea) {
         Map<String, Object> erabiltzaileDoc = erabiltzailea.getDocument();

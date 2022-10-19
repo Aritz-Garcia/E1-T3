@@ -2,7 +2,9 @@ package com.e1t3.onplan;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
@@ -10,7 +12,11 @@ import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.EkitaldiMota;
+import com.e1t3.onplan.shared.Values;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
@@ -23,8 +29,9 @@ public class EkitaldiActivity extends AppCompatActivity {
 
     // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Ekitaldia ekitaldia;
     private DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
+
+    private Ekitaldia ekitaldia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,11 +170,11 @@ public class EkitaldiActivity extends AppCompatActivity {
 
         binding = ActivityEkitaldiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().setSubtitle("sairam");
+        getSupportActionBar().setSubtitle("oier1310@gmail.com");
 //        FloatingActionButton fab = binding.fab;
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
 
-        setUp();
+        setUp("1Dm6GUbJi5y6KEy6leyl");
 
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -178,8 +185,24 @@ public class EkitaldiActivity extends AppCompatActivity {
 //        });
     }
 
-    private void setUp(){
-        this.ekitaldia.setUpGertaerak(this.linearLayout);
+    private void setUp(String id){
+        db.collection(Values.EKITALDIAK)
+                .document(id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            Ekitaldia ekitaldia = new Ekitaldia(document);
+
+                            TextView data = binding.getRoot().findViewById(R.id.ekitaldiData);
+                            data.setText(ekitaldia.getDataOrdua().toString());
+
+                            ekitaldia.setUpGertaerak(linearLayout);
+                        } else { }
+                    }
+                });
     }
 
 }

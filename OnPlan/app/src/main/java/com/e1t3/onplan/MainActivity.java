@@ -1,8 +1,11 @@
 package com.e1t3.onplan;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -20,9 +24,15 @@ import androidx.navigation.ui.NavigationUI;
 import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.databinding.ActivityMainBinding;
 import com.e1t3.onplan.model.Erabiltzailea;
+import com.e1t3.onplan.shared.Values;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.DescriptorProtos;
 import com.squareup.picasso.Picasso;
 
@@ -30,12 +40,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private TextView tvNombreUsuario, tvEmailUsuario;
     private ImageView imagenUser;
     private Button btnCerrarSesion,btnEditarUsuario;
-    private DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
 
 
     @Override
@@ -71,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
-        daoErabiltzaileak.lortuErabiltzaileaIzena(email, headerView);
+        this.setup(email);
 //        if (name == null || name.equals("")) {
 //            for(Erabiltzailea e : listE) {
 //                if (e.getEmail() == email) {
@@ -135,5 +145,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void signOut() {
         FirebaseAuth.getInstance().signOut();
+    }
+
+    private void setup(String email, View headerView) {
+        db.collection(Values.ERABILTZAILEAK)
+                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
+                                TextView tvNombreUsuario = headerView.findViewById(R.id.tvUserName);
+                                String nombre;
+                                if (erabiltzailea.getEnpresaDa()) {
+                                    nombre = erabiltzailea.getIzena();
+                                } else {
+                                    nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
+                                }
+                                tvNombreUsuario.setText(nombre);
+                            }
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }

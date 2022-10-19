@@ -40,7 +40,8 @@ public class Ekitaldia {
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
         DAOGertaerak daoGertaerak = new DAOGertaerak();
-        this.gerataerak         = daoGertaerak.lortuGertaerakIdz((List<String>) document.get(Values.EKITALDIAK_GERTAERAK));
+        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+        this.gerataerak         = daoGertaerak.lortuGertaerakIdz(ids);
     }
 
     public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
@@ -61,20 +62,8 @@ public class Ekitaldia {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Ekitaldia{" +
-                "id='" + id + '\'' +
-                ", izena='" + izena + '\'' +
-                ", deskribapena='" + deskribapena + '\'' +
-                ", hasierakoDataOrdua=" + hasierakoDataOrdua +
-                ", bukaerakoDataOrdua=" + bukaerakoDataOrdua +
-                ", gela='" + gela + '\'' +
-                ", aurrekontua=" + aurrekontua +
-                ", ekitaldiMota=" + ekitaldiMota +
-                ", usuario='" + usuario + '\'' +
-                ", sucesos=" + gerataerak +
-                '}';
+    public String getDataOrdua() {
+        return hasierakoDataOrdua.toDate().toString() + " - " + bukaerakoDataOrdua.toDate().toString();
     }
 
     public Map<String, Object> getDocument() {
