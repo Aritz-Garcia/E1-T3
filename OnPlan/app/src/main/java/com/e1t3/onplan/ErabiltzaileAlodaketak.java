@@ -14,24 +14,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.firebase.database.DatabaseReference;
+
+import com.e1t3.onplan.shared.Values;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
     private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
 
     private ImageView mSetImage;
-    private Button mOptionButton;
+    private Button mOptionButton,mgorde;
     private String mPath;
-    public TextView izena,abizena,dni,emaila,pasahitza1;
+    public TextView izena,abizena,dni,emaila,telefonoa;
+
+    private Uri path;
+    private StorageReference storage;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +53,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         datuak();
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
-
+        storage = FirebaseStorage.getInstance().getReference();
 
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,15 +62,39 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
             }
         });
 
+
+        mgorde = (Button) findViewById(R.id.bgorde);
+        mgorde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dr.update(Values.ERABILTZAILEAK_EMAIL,emaila,Values.ERABILTZAILEAK_IZENA,izena,Values.ERABILTZAILEAK_NAN_IFZ,dni,Values.ERABILTZAILEAK_TELEFONOA,telefonoa)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("pan", "DocumentSnapshot successfully updated!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("pan", "Error updating document", e);
+                            }
+                        });
+            }
+        });
+
     }
 
+    private void cargarimagen(Uri path){
+        StorageReference fotoRef = storage.child("FotosUsuario")
+    }
 
     private void datuak(){
         izena = findViewById(R.id.textIzena);
         abizena = findViewById(R.id.textAbizena);
         dni = findViewById(R.id.textdni);
         emaila = findViewById(R.id.textEmaila);
-        pasahitza1 = findViewById(R.id.textPasahitza);
+        telefonoa= findViewById(R.id.textTelefonoa);
     }
 
     private void showOptions() {
@@ -115,7 +152,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                     mSetImage.setImageBitmap(bitmap);
                     break;
                 case SELECT_PICTURE:
-                    Uri path = data.getData();
+                    path = data.getData();
                     mSetImage.setImageURI(path);
                     break;
 
