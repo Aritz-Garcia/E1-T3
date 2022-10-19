@@ -104,17 +104,17 @@ public class RegistroActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     CollectionReference erbiltzaileak = db.collection(Values.ERABILTZAILEAK);
                     Map<String, Object> erbiltzailea = new HashMap();
-                    erbiltzailea.put("nombre",izena.getText().toString());
+                    erbiltzailea.put(Values.ERABILTZAILEAK_IZENA,izena.getText().toString());
                     if (aukeratuta.isChecked()) {
-                        erbiltzailea.put("apellido", abizena.getText().toString());
-                        erbiltzailea.put("empresa_da",false);
+                        erbiltzailea.put(Values.ERABILTZAILEAK_ABIZENA, abizena.getText().toString());
+                        erbiltzailea.put(Values.ERABILTZAILEAK_ENPRESA_DA,false);
                     }else{
-                        erbiltzailea.put("empresa_da",true);
+                        erbiltzailea.put(Values.ERABILTZAILEAK_ENPRESA_DA,true);
                     }
-                    erbiltzailea.put("telefono",telefonoa.getText().toString());
-                    erbiltzailea.put("correo",emaila.getText().toString());
-                    erbiltzailea.put("dni_nif",dni.getText().toString());
-                    erbiltzailea.put("admin",false);
+                    erbiltzailea.put(Values.ERABILTZAILEAK_TELEFONOA,telefonoa.getText().toString());
+                    erbiltzailea.put(Values.ERABILTZAILEAK_EMAIL,emaila.getText().toString());
+                    erbiltzailea.put(Values.ERABILTZAILEAK_NAN_IFZ,dni.getText().toString());
+                    erbiltzailea.put(Values.ERABILTZAILEAK_ADMIN,false);
                     erbiltzaileak.document().set(erbiltzailea);
                     Log.d(TAG, "signInWithCredential:success");
                     Intent i = new Intent(RegistroActivity.this, MainActivity.class);

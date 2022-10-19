@@ -29,9 +29,15 @@ import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
+import com.e1t3.onplan.shared.Values;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import static android.Manifest.permission.CAMERA;
@@ -43,19 +49,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
-    private static String APP_DIRECTORY = "MyPictureApp/";
-    private static String MEDIA_DIRECTORY = APP_DIRECTORY + "PictureApp";
 
     private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
     private final int SELECT_PICTURE = 300;
-    private final DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
-    private final MainActivity emailErabiltzialea = new MainActivity();
 
     private ImageView mSetImage;
     private Button mOptionButton;
     private RelativeLayout mRlView;
-
+    private DatabaseReference mRootReference;
     private String mPath;
 
     private String erabiltzaile;
@@ -66,22 +68,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
 
-        List<Erabiltzailea>erabiltzailea = daoErabiltzaileak.lortuErabiltzaileak();
-        erabiltzaile = emailErabiltzialea.email();
 
-        for(int i=0;i<erabiltzailea.size();i++){
-            if(erabiltzaile.equals(erabiltzailea.get(i).getEmail())){
-                izena.setText(erabiltzailea.get(i).getIzena());
-                if(erabiltzailea.get(i).getAbizena().equals(null)){
-
-                }else{
-                    abizena.setText(erabiltzailea.get(i).getAbizena());
-                }
-                dni.setText(erabiltzailea.get(i).getNanIfz());
-                emaila.setText(erabiltzailea.get(i).getEmail());
-
-            }
-        }
+        mRootReference = FirebaseDatabase.getInstance().getReference();
+        datuak();
+        solicitarDatosFirebase();
 
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
@@ -95,6 +85,49 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
     }
+
+    private void solicitarDatosFirebase() {
+        mRootReference.child(Values.ERABILTZAILEAK).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(final DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    mRootReference.child(Values.ERABILTZAILEAK).child(snapshot.getKey()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                           Erabiltzailea erabiltzailea = snapshot.getValue(Erabiltzailea.class);
+                            String email = erabiltzailea.getEmail();
+                            if(erabiltzaile.equals(email)){
+                                emaila.setText(email);
+                            }
+                            Log.e("NombreUsuario:",""+email);
+                            Log.e("Datos:",""+snapshot.getValue());
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+
+
     private void datuak(){
         izena = findViewById(R.id.textIzena);
         abizena = findViewById(R.id.textAbizena);
@@ -103,41 +136,14 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         pasahitza1 = findViewById(R.id.textPasahitza);
     }
 
-    private boolean mayRequestStoragePermission() {
-
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            return true;
-
-        if((checkSelfPermission(WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) &&
-                (checkSelfPermission(CAMERA) == PackageManager.PERMISSION_GRANTED))
-            return true;
-
-        if((shouldShowRequestPermissionRationale(WRITE_EXTERNAL_STORAGE)) || (shouldShowRequestPermissionRationale(CAMERA))){
-            Snackbar.make(mRlView, "Los permisos son necesarios para poder usar la aplicación",
-                    Snackbar.LENGTH_INDEFINITE).setAction(android.R.string.ok, new View.OnClickListener() {
-                @TargetApi(Build.VERSION_CODES.M)
-                @Override
-                public void onClick(View v) {
-                    requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
-                }
-            });
-        }else{
-            requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE, CAMERA}, MY_PERMISSIONS);
-        }
-
-        return false;
-    }
-
     private void showOptions() {
-        final CharSequence[] option = {"Tomar foto", "Elegir de galeria", "Cancelar"};
+        final CharSequence[] option = { "Elegir de galeria", "Cancelar"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(ErabiltzaileAlodaketak.this);
         builder.setTitle("Eleige una opción");
         builder.setItems(option, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(option[which] == "Tomar foto"){
-                    openCamera();
-                }else if(option[which] == "Elegir de galeria"){
+                if(option[which] == "Elegir de galeria"){
                     Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     intent.setType("image/*");
                     startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
@@ -148,28 +154,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
         builder.show();
-    }
-
-    private void openCamera() {
-        File file = new File(Environment.getExternalStorageDirectory(), MEDIA_DIRECTORY);
-        boolean isDirectoryCreated = file.exists();
-
-        if(!isDirectoryCreated)
-            isDirectoryCreated = file.mkdirs();
-
-        if(isDirectoryCreated){
-            Long timestamp = System.currentTimeMillis() / 1000;
-            String imageName = timestamp.toString() + ".jpg";
-
-            mPath = Environment.getExternalStorageDirectory() + File.separator + MEDIA_DIRECTORY
-                    + File.separator + imageName;
-
-            File newFile = new File(mPath);
-
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(newFile));
-            startActivityForResult(intent, PHOTO_CODE);
-        }
     }
 
     @Override
