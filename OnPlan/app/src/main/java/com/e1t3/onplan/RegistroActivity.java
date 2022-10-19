@@ -164,32 +164,33 @@ public class RegistroActivity extends AppCompatActivity {
             if( textua.length()==0 )  {
                 text.setError("Beharrezko kanpua");
                 return false;
-            }else if(!nif(textua)){
-                text.setError("formato mal");
+            }else if(!nif(textua, text)){
                 return false;
             }else{
                 return true;
             }
     }
 
-    public boolean nif(String textua) {
+    public boolean nif(String textua, EditText text) {
         int numero;
         String numero1;
         String letr;
         String letra;
 
-        if(textua.matches("(\\d{8})([A-Z]$)")){
+        if(textua.matches("[0-9]{8}[A-Z]")){
             numero1 = textua.substring(0,textua.length()-1);
-            letr = textua.substring(textua.length()-1,1);
+            letr = textua.substring(textua.length()-1,textua.length());
             numero = Integer.parseInt(numero1) % 23;
             letra= "TRWAGMYFPDXBNJZSQVHLCKET";
             letra=letra.substring(numero,numero+1);
-            if (letra!=letr.toUpperCase()) {
+            if (!letra.equals(letr.toUpperCase())) {
+                text.setError("Letra ez da egokia");
                 return false;
             }else{
                 return true;
             }
         }else{
+            text.setError("Formatua ez da egokia ZZZZZZZZL");
            return false;
         }
     }

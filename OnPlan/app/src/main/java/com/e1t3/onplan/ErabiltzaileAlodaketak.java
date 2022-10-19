@@ -86,7 +86,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     }
 
     private void cargarimagen(Uri path){
-        StorageReference fotoRef = storage.child("FotosUsuario")
+        //StorageReference fotoRef = storage.child("FotosUsuario");
     }
 
     private void datuak(){

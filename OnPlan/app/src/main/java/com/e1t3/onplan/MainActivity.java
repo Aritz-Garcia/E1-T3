@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
-        this.setup(email);
+        this.setup(email, headerView);
 //        if (name == null || name.equals("")) {
 //            for(Erabiltzailea e : listE) {
 //                if (e.getEmail() == email) {
