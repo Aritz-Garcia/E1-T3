@@ -1,6 +1,8 @@
 package com.e1t3.onplan;
 
 
+import static android.content.ContentValues.TAG;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +15,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,12 +23,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -36,6 +46,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     private final int SELECT_PICTURE = 300;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
+
 
     private ImageView mSetImage;
     private Button mOptionButton,mgorde;
@@ -50,7 +61,12 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
+
         datuak();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
         storage = FirebaseStorage.getInstance().getReference();
@@ -63,25 +79,44 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
 
+
+
         mgorde = (Button) findViewById(R.id.bgorde);
         mgorde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dr.update(Values.ERABILTZAILEAK_EMAIL,emaila,Values.ERABILTZAILEAK_IZENA,izena,Values.ERABILTZAILEAK_NAN_IFZ,dni,Values.ERABILTZAILEAK_TELEFONOA,telefonoa)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("pan", "DocumentSnapshot successfully updated!");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("pan", "Error updating document", e);
-                            }
-                        });
+
             }
+
         });
+
+        db.collection(Values.ERABILTZAILEAK)
+                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
+                                String nombre;
+                                if (erabiltzailea.getEnpresaDa()) {
+                                    nombre = erabiltzailea.getIzena();
+                                } else {
+                                    nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
+                                }
+                                izena.setText(nombre);
+                                emaila.setText(erabiltzailea.getEmail());
+                                dni.setText(erabiltzailea.getNanIfz());
+                                abizena.setText(erabiltzailea.getTelefonoa());
+
+                            }
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
 
@@ -90,11 +125,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     }
 
     private void datuak(){
-        izena = findViewById(R.id.textIzena);
-        abizena = findViewById(R.id.textAbizena);
-        dni = findViewById(R.id.textdni);
-        emaila = findViewById(R.id.textEmaila);
-        telefonoa= findViewById(R.id.textTelefonoa);
+        izena =(TextView)  findViewById(R.id.textIzena);
+        abizena = (EditText)  findViewById(R.id.textAbizena);
+        dni = (EditText)  findViewById(R.id.textdni);
+        emaila =(EditText)   findViewById(R.id.textEmaila);
     }
 
     private void showOptions() {

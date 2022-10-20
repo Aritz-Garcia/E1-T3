@@ -35,7 +35,8 @@ public class Erabiltzailea {
     public String getIzena() { return izena; }
     public String getAbizena() { return abizena; }
     public String getEmail() { return email; }
-    public String getNanIfz() { return email; }
+    public String getNanIfz() { return nanIfz; }
+    public String getTelefonoa() { return telefonoa; }
 
     public Map<String, Object> getDocument() {
         return Map.of(
