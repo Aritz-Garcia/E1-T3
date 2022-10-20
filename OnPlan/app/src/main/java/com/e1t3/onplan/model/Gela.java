@@ -1,5 +1,10 @@
 package com.e1t3.onplan.model;
 
+import android.graphics.Typeface;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -24,7 +29,7 @@ public class Gela {
     public String getGehigarriak() { return gehigarriak; }
 
     public String toString() {
-        return izena + " | " + edukiera + " | " + prezioa + " | " + gehigarriak;
+        return "<b>Izena:</b> " + izena + "<br/><b>Edukiera:</b> " + edukiera + "<br/><b>Prezioa:</b> " + prezioa + "<br/><b>Gehigarriak:</b> " + gehigarriak;
     }
 
 }

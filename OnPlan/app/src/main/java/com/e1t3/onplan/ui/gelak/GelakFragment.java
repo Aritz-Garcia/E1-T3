@@ -4,10 +4,14 @@ import static android.content.ContentValues.TAG;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -26,11 +30,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GelakFragment extends Fragment {
 
     private FragmentSalasBinding binding;
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ListView lvGelak;
+    private List<Spanned> llista = new ArrayList<>();
+    private ArrayAdapter<Spanned> arrayAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +51,7 @@ public class GelakFragment extends Fragment {
 
         lvGelak = root.findViewById(R.id.lvGelak);
 
-        listaGelak(lvGelak);
+        listaGelak();
 
         return root;
     }
@@ -53,7 +62,7 @@ public class GelakFragment extends Fragment {
         binding = null;
     }
 
-    private void listaGelak(ListView rvGelakList) {
+    private void listaGelak() {
         db.collection(Values.GELAK)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -62,7 +71,9 @@ public class GelakFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Gela gela =  new Gela(document);
-                                lvGelak.setTooltipText(lvGelak.getTooltipText() + "\n" + gela.toString());
+                                llista.add(Html.fromHtml(gela.toString()));
+                                arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, llista);
+                                lvGelak.setAdapter(arrayAdapter);
                                 Log.d(TAG, "Dena ondo: ", task.getException());
                             }
                         } else {

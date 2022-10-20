@@ -82,23 +82,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String email = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
         this.setup(email, headerView);
-//        if (name == null || name.equals("")) {
-//            for(Erabiltzailea e : listE) {
-//                if (e.getEmail() == email) {
-//                    if (e.getEnpresaDa()) {
-//                        name = e.getIzena();
-//                        tvNombreUsuario.setText(name);
-//                    } else {
-//                        name = e.getIzena() + " " + e.getAbizena();
-//                        tvNombreUsuario.setText(name);
-//                    }
-//                }
-//            }
-
-//        } else {
-//            tvNombreUsuario.setText(name);
-//        }
-
         tvEmailUsuario.setText(email);
         if (photoUrl != null) {
             Picasso.get()
