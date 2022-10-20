@@ -31,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -83,10 +82,16 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         mgorde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean egokia[] = new boolean[2];
+
+                boolean egokia[] = new boolean[3];
                 egokia[0] = stringIrakurri(izena.getText().toString(),findViewById(R.id.textIzena));
-                egokia[1] = zenbakiaIrakurri(telefonoa.getText().toString(),findViewById(R.id.textAbizena));
-                if (egokia[0] && egokia[1]) {
+                egokia[1] = zenbakiaIrakurri(abizena.getText().toString(),findViewById(R.id.textTelefonoa));
+                if(abizena.getText().toString().equals(null)){
+                   
+                }else{
+                    egokia[2] = stringIrakurri(abizena.getText().toString(),findViewById(R.id.textIzena));
+                }
+                if (egokia[0] && egokia[1]&& egokia[2]) {
                     datuakaldatu();
                 }
             }
@@ -98,6 +103,39 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     }
 
     private void datuakaldatu(){
+        db.collection(Values.ERABILTZAILEAK)
+                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
+
+                                DocumentReference actualizar = db.collection(Values.ERABILTZAILEAK).document(erabiltzailea.getId());
+                                actualizar.update(Values.ERABILTZAILEAK_IZENA,izena.getText().toString())
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.w(TAG, "Error updating document", e);
+                                            }
+                                        });
+
+
+                            }
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
     private void cargarimagen(Uri path){
@@ -105,10 +143,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     }
 
     private void datuak(){
-        izena =(TextView)  findViewById(R.id.textIzena);
-        abizena = (EditText)  findViewById(R.id.textAbizena);
-        dni = (EditText)  findViewById(R.id.textdni);
-        emaila =(EditText)   findViewById(R.id.textEmaila);
+        izena = findViewById(R.id.textIzena);
+        telefonoa =  findViewById(R.id.textTelefonoa);
+        dni =  findViewById(R.id.textdni);
+        dni.setEnabled(false);
+        emaila =   findViewById(R.id.textEmaila);
+        emaila.setEnabled(false);
+        abizena =  findViewById(R.id.textAbizena2);
         db.collection(Values.ERABILTZAILEAK)
                 .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
                 .get()
@@ -121,7 +162,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                                 izena.setText(erabiltzailea.getIzena());
                                 emaila.setText(erabiltzailea.getEmail());
                                 dni.setText(erabiltzailea.getNanIfz());
-                                abizena.setText(erabiltzailea.getTelefonoa());
+                                telefonoa.setText(erabiltzailea.getTelefonoa());
+                                if (erabiltzailea.getEnpresaDa()) {
+                                    abizena.setVisibility(View.INVISIBLE);
+                                } else {
+                                    abizena.setVisibility(View.VISIBLE);
+                                    abizena.setText(erabiltzailea.getAbizena());
+                                }
 
                             }
 
