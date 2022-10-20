@@ -23,4 +23,8 @@ public class Gela {
     public Double getPrezioa() { return prezioa; }
     public String getGehigarriak() { return gehigarriak; }
 
+    public String toString() {
+        return izena + " | " + edukiera + " | " + prezioa + " | " + gehigarriak;
+    }
+
 }

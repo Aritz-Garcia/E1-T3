@@ -1,4 +1,4 @@
-package com.e1t3.onplan.ui.salas;
+package com.e1t3.onplan.ui.gelak;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
