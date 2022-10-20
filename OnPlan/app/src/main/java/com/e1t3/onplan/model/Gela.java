@@ -13,8 +13,14 @@ public class Gela {
     public Gela(DocumentSnapshot document) {
         this.id             = document.getId();
         this.izena          = document.getString(Values.GELAK_IZENA);
-        this.prezioa        = document.getDouble(Values.GELAK_PREZIOA);
         this.edukiera       = document.getLong(Values.GELAK_EDUKIERA).intValue(); //ezin da integer bat eskuratu
+        this.prezioa        = document.getDouble(Values.GELAK_PREZIOA);
         this.gehigarriak    = document.getString(Values.GELAK_GEHIGARRIAK);
     }
+
+    public String getIzena() { return izena; }
+    public int getEdukiera() { return edukiera; }
+    public Double getPrezioa() { return prezioa; }
+    public String getGehigarriak() { return gehigarriak; }
+
 }
