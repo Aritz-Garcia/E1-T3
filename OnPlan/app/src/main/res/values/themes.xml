@@ -18,6 +18,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="Button.Green" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/mainColorDarker</item>
+    </style>
 
     <style name="Theme.OnPlan.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

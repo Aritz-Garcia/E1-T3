@@ -3,7 +3,6 @@ package com.e1t3.onplan.model;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Erabiltzailea {
