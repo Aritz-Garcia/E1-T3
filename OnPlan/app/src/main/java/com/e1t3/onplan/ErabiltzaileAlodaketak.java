@@ -29,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,14 +47,15 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     private final int SELECT_PICTURE = 300;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
-
+    private DocumentReference id;
 
     private ImageView mSetImage;
-    private Button mOptionButton,mgorde;
+    private Button mOptionButton,mgorde,mborrar;
     private String mPath,email;
     public TextView izena,abizena,dni,emaila,telefonoa;
-
+    private boolean empresa_da;
     private Uri path;
+    private FirebaseUser user;
     private StorageReference storage;
 
 
@@ -61,7 +64,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+         user = FirebaseAuth.getInstance().getCurrentUser();
         email = user.getEmail();
         datuak();
         mSetImage = (ImageView) findViewById(R.id.limagen);
@@ -76,7 +79,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
 
-
+        mborrar = (Button) findViewById(R.id.beleminar);
+        mborrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                datuakezabatu();
+            }
+        });
 
         mgorde = (Button) findViewById(R.id.bgorde);
         mgorde.setOnClickListener(new View.OnClickListener() {
@@ -85,13 +94,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
                 boolean egokia[] = new boolean[3];
                 egokia[0] = stringIrakurri(izena.getText().toString(),findViewById(R.id.textIzena));
-                egokia[1] = zenbakiaIrakurri(abizena.getText().toString(),findViewById(R.id.textTelefonoa));
-                if(abizena.getText().toString().equals(null)){
-                   
+                egokia[1] = zenbakiaIrakurri(telefonoa.getText().toString(),findViewById(R.id.textTelefonoa));
+                if(empresa_da){
+                   egokia[2]=true;
                 }else{
                     egokia[2] = stringIrakurri(abizena.getText().toString(),findViewById(R.id.textIzena));
                 }
-                if (egokia[0] && egokia[1]&& egokia[2]) {
+                if (egokia[0] && egokia[1] && egokia[2]) {
                     datuakaldatu();
                 }
             }
@@ -99,6 +108,38 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void datuakezabatu(){
+
+       id.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+
+        Log.d(TAG, "ingreso a deleteAccount");
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG,"OK! Works fine!");
+                    startActivity(new Intent(ErabiltzaileAlodaketak.this, Login.class));
+                    finish();
+                } else {
+                    Log.w(TAG,"Something is wrong!");
+                }
+            }
+        });
 
     }
 
@@ -114,21 +155,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                                 Erabiltzailea erabiltzailea = new Erabiltzailea(document);
 
                                 DocumentReference actualizar = db.collection(Values.ERABILTZAILEAK).document(erabiltzailea.getId());
-                                actualizar.update(Values.ERABILTZAILEAK_IZENA,izena.getText().toString())
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w(TAG, "Error updating document", e);
-                                            }
-                                        });
+                               id = db.collection(Values.ERABILTZAILEAK).document(erabiltzailea.getId());
 
-
+                                if(empresa_da){
+                                    actualizar.update(Values.ERABILTZAILEAK_IZENA,izena.getText().toString(),Values.ERABILTZAILEAK_TELEFONOA,telefonoa.getText().toString());
+                                }else{
+                                    actualizar.update(Values.ERABILTZAILEAK_IZENA,izena.getText().toString(),Values.ERABILTZAILEAK_TELEFONOA,telefonoa.getText().toString(),Values.ERABILTZAILEAK_ABIZENA,abizena.getText().toString());
+                                }
                             }
 
                         } else {
@@ -138,6 +171,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                 });
 
     }
+
     private void cargarimagen(Uri path){
         //StorageReference fotoRef = storage.child("FotosUsuario");
     }
@@ -169,6 +203,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                                     abizena.setVisibility(View.VISIBLE);
                                     abizena.setText(erabiltzailea.getAbizena());
                                 }
+                                empresa_da = erabiltzailea.getEnpresaDa();
 
                             }
 
@@ -191,7 +226,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         }
     }
 
-
     public boolean zenbakiaIrakurri(String textua, EditText text){
         if( textua.length()==0 ) {
             text.setError("Beharrezko kanpua");
@@ -206,7 +240,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
             return true;
         }
     }
-
 
     private void showOptions() {
         final CharSequence[] option = { "Elegir de galeria", "Cancelar"};
