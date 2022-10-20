@@ -13,8 +13,12 @@ import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 public class Ekitaldia {
 
@@ -60,10 +64,6 @@ public class Ekitaldia {
     // Getters and setters
     public String getId() {
         return id;
-    }
-
-    public String getDataOrdua() {
-        return hasierakoDataOrdua.toDate().toString() + " - " + bukaerakoDataOrdua.toDate().toString();
     }
 
     public Map<String, Object> getDocument() {
@@ -123,4 +123,20 @@ public class Ekitaldia {
             linearLayout.addView(linearLayoutGertaera);
         }
     }
+
+    public String getHasierakoDataOrdua() {
+        return this.getDataString(this.hasierakoDataOrdua.getSeconds()*1000);
+    }
+
+    public String getBukaerakoDataOrdua() {
+        return this.getDataString(this.bukaerakoDataOrdua.getSeconds()*1000);
+    }
+    private String getDataString(long miliseconds) {
+        Date date = new Date(miliseconds);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC+2"));
+        String formattedDate = sdf.format(date);
+        return formattedDate; // Tuesday,November 1,2011 12:00,AM
+    }
+
 }

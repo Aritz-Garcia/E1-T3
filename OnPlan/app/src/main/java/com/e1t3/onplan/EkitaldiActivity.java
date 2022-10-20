@@ -196,8 +196,10 @@ public class EkitaldiActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             Ekitaldia ekitaldia = new Ekitaldia(document);
 
-                            TextView data = binding.getRoot().findViewById(R.id.ekitaldiData);
-                            data.setText(ekitaldia.getDataOrdua().toString());
+                            TextView dataH = binding.getRoot().findViewById(R.id.ekitaldiDataHasiera);
+                            dataH.setText(ekitaldia.getHasierakoDataOrdua());
+                            TextView dataB = binding.getRoot().findViewById(R.id.ekitaldiDataBukaera);
+                            dataB.setText(ekitaldia.getBukaerakoDataOrdua());
 
                             ekitaldia.setUpGertaerak(linearLayout);
                         } else { }

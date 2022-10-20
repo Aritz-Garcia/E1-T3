@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_kontaktua">Kontaktua</string>
+    <string name="pasahitza">Pasahitza</string>
+    <string name="helbide_elektronikoa">Helbide elektronikoa</string>
+    <string name="sartu">Saioa hasi</string>
+    <string name="erregistratu">Erregistratu</string>
+    <string name="btnCerrarSesion">Saioa amaitu</string>
+    <string name="btnEditarUsuario">Erabiltzailea editatu</string>
+    <string name="Izena">Izena</string>
+    <string name="Abizena">Abizena</string>
+    <string name="Telefonoa">Telefonoa</string>
+    <string name="Email">Emaila</string>
+    <string name="DNI">NAN/IFZ</string>
+    <string name="dataTextErdia">"-tik "</string>
+    <string name="dataTextBukaera">-ra</string>
+    <string name="nav_user_name">Erabiltzailearen izena</string>
+    <string name="nav_user_email">prueba@prueba.com</string>
+    <string name="nav_header_desc">Nabegazio menua</string>
+    <string name="action_settings">Ezarpenak</string>
+    <string name="menu_agenda">Ajenda</string>
+    <string name="menu_salas">Gelak</string>
+    <string name="menu_slideshow">BRIHIXE</string>
+    <string name="button_sumarEvento">Ekitaldi bat gehitu</string>
+    <string name="nombre_del_evento">Ekitaldiaren izena</string>
+    <string name="dia_y_hora_de_inicio">Hasieraren data eta ordua</string>
+    <string name="dia_y_hora_de_fin">Bukaeraren data eta ordua</string>
+    <string name="descripcion">Deskribapena</string>
+    <string name="aforo">Edukiera:</string>
+    <string name="presupuesto">Aurrekontua:</string>
+    <string name="btnVolverAgenda">Bueltatu</string>
+    <string name="btnSiguiente">Hurrengoa</string>
+    <string name="fecha_final">Bukaerako data:</string>
+    <string name="hora_fin">Bukaerako ordua:</string>
+    <string name="fecha_inicio">Hasierako data:</string>
+    <string name="hora_inicio">Hasierako ordua:</string>
+    <string name="etAforo">Edukiera</string>
+    <string name="etDescripcion">Deskribapena</string>
+    <string name="etPresupuesto">Aurrekontua</string>
+    <string name="button">Botoia</string>
+    <string name="volver_atras">Atzera bueltatu</string>
+    <string name="messages_header">Mesuak</string>
+    <string name="signature_title">Zure sinadura</string>
+    <string name="crear_evento">Ekitaldi bat sortu</string>
+    <string name="dataTextHasiera">" "</string>
+</resources>

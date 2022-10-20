@@ -25,15 +25,14 @@
                 android:text="Nombre del evento"/>
 
             <TextView
-                android:id="@+id/ekitaldiData"
-                android:layout_width="0dp"
+                android:id="@+id/ekitaldiDataHasiera"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Placeholder"
                 android:textColor="@color/mainColor"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena"
                 android:textSize="14dp"
-                android:text="Placeholder"/>
+                app:layout_constraintLeft_toRightOf="@+id/dataStart"
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
 
             <TextView
                 android:id="@+id/ekitaldiDeskribapena"
@@ -45,7 +44,7 @@
                 android:textSize="24dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ekitaldiData" />
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiDataHasiera" />
             <TextView
                 android:id="@+id/ekitaldiMota"
                 android:layout_width="0dp"
@@ -101,7 +100,43 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@+id/headline"
-                tools:layout_editor_absoluteX="16dp"></LinearLayout>
+                tools:layout_editor_absoluteX="16dp"/>
+
+            <TextView
+                android:id="@+id/dataStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dataTextHasiera"
+                android:textColor="@color/mainColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
+
+            <TextView
+                android:id="@+id/dataMiddle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dataTextErdia"
+                android:textColor="@color/mainColor"
+                app:layout_constraintStart_toEndOf="@+id/ekitaldiDataHasiera"
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
+
+            <TextView
+                android:id="@+id/ekitaldiDataBukaera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Placeholder"
+                android:textColor="@color/mainColor"
+                app:layout_constraintStart_toEndOf="@+id/dataMiddle"
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dataTextBukaera"
+                android:textColor="@color/mainColor"
+                app:layout_constraintStart_toEndOf="@+id/ekitaldiDataBukaera"
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -1,19 +1,19 @@
-<resources>
-    <string name="app_name">ON PLAN</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_user_name">User Name</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">ON PLAN</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_user_name">Nombre de usuario</string>
     <string name="nav_user_email">prueba@prueba.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_desc">Menu de navegación</string>
+    <string name="action_settings">Ajustes</string>
 
     <string name="menu_agenda">Agenda</string>
     <string name="menu_salas">Salas</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_kontaktua">Kontaktua</string>
+    <string name="menu_slideshow">BRIHI</string>
+    <string name="menu_kontaktua">Contacto</string>
 
     <string name="button_sumarEvento">Sumar Evento</string>
-    <string name="funcion_sumarEvento">sumarEvento</string>
+    <string name="funcion_sumarEvento" translatable="false">sumarEvento</string>
     <string name="nombre_del_evento">Nombre del Evento</string>
     <string name="dia_y_hora_de_inicio">Dia y hora de inicio:</string>
     <string name="descripcion">Descripción:</string>
@@ -22,56 +22,57 @@
     <string name="presupuesto">Presupuesto:</string>
     <string name="btnVolverAgenda">Volver</string>
     <string name="btnSiguiente">Siguiente</string>
-    <string name="fecha_final">Fecha final</string>
-    <string name="fecha_inicio">Fecha inicio</string>
-    <string name="hora_inicio">Hora Inicio</string>
-    <string name="hora_fin">Hora Fin</string>
-    <string name="vacio"> </string>
+    <string name="fecha_final">Fecha final:</string>
+    <string name="fecha_inicio">Fecha inicio:</string>
+    <string name="hora_inicio">Hora Inicio:</string>
+    <string name="hora_fin">Hora Fin:</string>
+    <string name="vacio" translatable="false"> </string>
     <string name="etAforo">Aforo</string>
     <string name="etDescripcion">Descripción</string>
     <string name="etPresupuesto">Presupuesto</string>
-    <string name="button">Button</string>
+    <string name="button">Botón</string>
     <string name="volver_atras">Volver Atras</string>
-    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
 
     <!-- Visual -->
-    <string name="visual">Visual</string>
-    <string name="modo_oscuro">Modo oscuro</string>
+    <string name="visual" translatable="false">Visual</string>
+    <string name="modo_oscuro" translatable="false">Modo oscuro</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="messages_header">Mensages</string>
+    <string name="sync_header" translatable="false">Sync</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="signature_title">Tu firma</string>
+    <string name="reply_title" translatable="false">Default reply action</string>
 
     <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    <string name="sync_title" translatable="false">Sync email periodically</string>
+    <string name="attachment_title" translatable="false">Download incoming attachments</string>
+    <string name="attachment_summary_on" translatable="false">Automatically download attachments for incoming emails
     </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="attachment_summary_off" translatable="false">Only download attachments when manually requested</string>
     <string name="crear_evento">Crear Evento</string>
-    <string name="large_text">MuchoTEsto</string>
+    <string name="large_text" translatable="false">MuchoTEsto</string>
 
-    <string name="pasahitza">Pasahitza</string>
-    <string name="helbide_elektronikoa">Helbide elektronikoa</string>
-    <string name="google">Google</string>
-    <string name="sartu">Sartu</string>
-    <string name="erregistratu">Erregistratu</string>
+    <string name="pasahitza">Contraseña</string>
+    <string name="helbide_elektronikoa">Correo electronico</string>
+    <string name="sartu">Iniciar sesión</string>
+    <string name="erregistratu">Registrarse</string>
     <string name="btnCerrarSesion">Cerrar Sesion</string>
     <string name="btnEditarUsuario">Editar Usuario</string>
 
 
     <!--String de registro -->
-    <string name="Izena">Izena</string>
-    <string name="Abizena">Abizena</string>
     <string name="Telefonoa">Telefonoa</string>
     <string name="Email">Email</string>
-    <string name="Pasahitza">Pasahitza</string>
     <string name="DNI">DNI/NIF</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="dataTextHasiera" tools:ignore="MissingTranslation">"Del "</string>
+    <string name="dataTextErdia">" al "</string>
+    <string name="dataTextBukaera">" "</string>
+    <string name="Izena">Nombre</string>
+    <string name="Abizena">Apellido</string>
 
 </resources>
