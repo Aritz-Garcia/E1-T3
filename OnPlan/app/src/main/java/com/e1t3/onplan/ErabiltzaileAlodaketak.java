@@ -50,7 +50,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
     private ImageView mSetImage;
     private Button mOptionButton,mgorde;
-    private String mPath;
+    private String mPath,email;
     public TextView izena,abizena,dni,emaila,telefonoa;
 
     private Uri path;
@@ -62,11 +62,9 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
 
-        datuak();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-
+        email = user.getEmail();
+        datuak();
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
         storage = FirebaseStorage.getInstance().getReference();
@@ -85,11 +83,32 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         mgorde.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                boolean egokia[] = new boolean[2];
+                egokia[0] = stringIrakurri(izena.getText().toString(),findViewById(R.id.textIzena));
+                egokia[1] = zenbakiaIrakurri(telefonoa.getText().toString(),findViewById(R.id.textAbizena));
+                if (egokia[0] && egokia[1]) {
+                    datuakaldatu();
+                }
             }
 
         });
 
+
+
+    }
+
+    private void datuakaldatu(){
+
+    }
+    private void cargarimagen(Uri path){
+        //StorageReference fotoRef = storage.child("FotosUsuario");
+    }
+
+    private void datuak(){
+        izena =(TextView)  findViewById(R.id.textIzena);
+        abizena = (EditText)  findViewById(R.id.textAbizena);
+        dni = (EditText)  findViewById(R.id.textdni);
+        emaila =(EditText)   findViewById(R.id.textEmaila);
         db.collection(Values.ERABILTZAILEAK)
                 .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
                 .get()
@@ -99,13 +118,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Erabiltzailea erabiltzailea = new Erabiltzailea(document);
-                                String nombre;
-                                if (erabiltzailea.getEnpresaDa()) {
-                                    nombre = erabiltzailea.getIzena();
-                                } else {
-                                    nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
-                                }
-                                izena.setText(nombre);
+                                izena.setText(erabiltzailea.getIzena());
                                 emaila.setText(erabiltzailea.getEmail());
                                 dni.setText(erabiltzailea.getNanIfz());
                                 abizena.setText(erabiltzailea.getTelefonoa());
@@ -117,19 +130,36 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                         }
                     }
                 });
-
     }
 
-    private void cargarimagen(Uri path){
-        //StorageReference fotoRef = storage.child("FotosUsuario");
+    public boolean stringIrakurri(String textua, EditText text){
+        if( textua.length()==0 )  {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
+            text.setError("Bakarrik letrak");
+            return false;
+        }else{
+            return true;
+        }
     }
 
-    private void datuak(){
-        izena =(TextView)  findViewById(R.id.textIzena);
-        abizena = (EditText)  findViewById(R.id.textAbizena);
-        dni = (EditText)  findViewById(R.id.textdni);
-        emaila =(EditText)   findViewById(R.id.textEmaila);
+
+    public boolean zenbakiaIrakurri(String textua, EditText text){
+        if( textua.length()==0 ) {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if(textua.length()!=9) {
+            text.setError("Bederatziko luzeera");
+            return false;
+        }else if((!textua.matches("[0-9]+\\.?")) ){
+            text.setError("Bakarrik zenbakiak");
+            return false;
+        }else{
+            return true;
+        }
     }
+
 
     private void showOptions() {
         final CharSequence[] option = { "Elegir de galeria", "Cancelar"};
