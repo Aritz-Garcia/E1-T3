@@ -74,7 +74,6 @@ public class GelakFragment extends Fragment {
                                 llista.add(Html.fromHtml(gela.toString()));
                                 arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, llista);
                                 lvGelak.setAdapter(arrayAdapter);
-                                Log.d(TAG, "Dena ondo: ", task.getException());
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
