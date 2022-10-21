@@ -28,6 +28,7 @@
                 android:id="@+id/ekitaldiDataHasiera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Placeholder"
                 android:textColor="@color/mainColor"
                 android:textSize="14dp"
@@ -45,29 +46,18 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ekitaldiDataHasiera" />
-            <TextView
-                android:id="@+id/ekitaldiMota"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Tipo de evento :"
-                android:textColor="@color/mainColor"
-                android:textSize="16dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/ekitaldiAurrekontua"
-                app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena" />
 
             <TextView
                 android:id="@+id/ekitaldiAurrekontua"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Presupuesto :"
                 android:textColor="@color/mainColor"
                 android:textSize="16dp"
-                app:layout_constraintLeft_toRightOf="@+id/ekitaldiMota"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena" />
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena"
+                tools:layout_editor_absoluteX="224dp" />
+
             <TextView
                 android:id="@+id/ekitaldiGela"
                 android:layout_width="0dp"
@@ -77,8 +67,7 @@
                 android:textColor="@color/mainColor"
                 android:textSize="16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ekitaldiAurrekontua" />
+                app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena" />
 
             <TextView
                 android:id="@+id/headline"
@@ -106,6 +95,7 @@
                 android:id="@+id/dataStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/dataTextHasiera"
                 android:textColor="@color/mainColor"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,6 +105,7 @@
                 android:id="@+id/dataMiddle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/dataTextErdia"
                 android:textColor="@color/mainColor"
                 app:layout_constraintStart_toEndOf="@+id/ekitaldiDataHasiera"
@@ -124,6 +115,7 @@
                 android:id="@+id/ekitaldiDataBukaera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Placeholder"
                 android:textColor="@color/mainColor"
                 app:layout_constraintStart_toEndOf="@+id/dataMiddle"
@@ -133,10 +125,28 @@
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="@string/dataTextBukaera"
                 android:textColor="@color/mainColor"
                 app:layout_constraintStart_toEndOf="@+id/ekitaldiDataBukaera"
                 app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/ekitaldiAurrekontua"
+                app:layout_constraintStart_toEndOf="@+id/ekitaldiAurrekontua" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/ekitaldiGela"
+                app:layout_constraintStart_toEndOf="@+id/ekitaldiGela" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

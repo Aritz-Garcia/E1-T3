@@ -139,4 +139,19 @@ public class Ekitaldia {
         return formattedDate; // Tuesday,November 1,2011 12:00,AM
     }
 
+    public String getIzena() {
+        return izena;
+    }
+
+    public String getDeskribapena() {
+        return deskribapena;
+    }
+
+    public String getGela() {
+        return gela;
+    }
+
+    public double getAurrekontua() {
+        return aurrekontua;
+    }
 }
