@@ -23,13 +23,14 @@ public class Gela {
         this.gehigarriak    = document.getString(Values.GELAK_GEHIGARRIAK);
     }
 
+    public String getId() { return id; }
     public String getIzena() { return izena; }
     public int getEdukiera() { return edukiera; }
     public Double getPrezioa() { return prezioa; }
     public String getGehigarriak() { return gehigarriak; }
 
     public String toString() {
-        return "<b>Izena:</b> " + izena + "<br/><b>Edukiera:</b> " + edukiera + "<br/><b>Prezioa:</b> " + prezioa + "<br/><b>Gehigarriak:</b> " + gehigarriak;
+        return "<br/><b style='font-size:30px'>Izena:</b> " + izena + "<br/><b>Edukiera:</b> " + edukiera + "<br/><b>Prezioa:</b> " + prezioa + "<br/><b>Gehigarriak:</b> " + gehigarriak + "<br/>";
     }
 
 }

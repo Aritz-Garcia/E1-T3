@@ -16,11 +16,16 @@ import com.e1t3.onplan.EkitaldiInprimakia;
 import com.e1t3.onplan.R;
 import com.e1t3.onplan.EkitaldiakIkusi;
 import com.e1t3.onplan.databinding.FragmentHomeBinding;
+import com.e1t3.onplan.model.Ekitaldia;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class HomeFragment extends Fragment implements CalendarView.OnDateChangeListener {
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
+    public Ekitaldia ekitaldia;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,48 +39,63 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         return root;
     }
 
-    public void onSelectedDayChange (CalendarView calendarview, int i, int i1, int i2) {
+    public void onSelectedDayChange (CalendarView calendarview, int anio, int mes, int dia) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence []items = new CharSequence[3];
         items[0] = "Agregar evento";
         items[1] = "Ver eventos";
         items[2] = "Cancelar";
 
-        final int dia, mes, anio;
-        anio = i;
-        mes = i1 + 1;
-        dia = i2;
+        Calendar calendar = Calendar.getInstance();
 
-        builder.setTitle("Seleccione una tarea")
-                .setItems(items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 0) {
-                            //agregar evento
-                            Intent intent = new Intent(getActivity(), EkitaldiInprimakia.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("dia", dia);
-                            bundle.putInt("mes", mes);
-                            bundle.putInt("anio", anio);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        } else if (i == 1) {
-                            //ver evento
-                            Intent intent = new Intent(getActivity(), EkitaldiakIkusi.class);
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("dia", dia);
-                            bundle.putInt("mes", mes);
-                            bundle.putInt("anio", anio);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                        } else {
-                            return;
+
+        mes++;//se le suma uno porque empieza desde el mes 0
+
+        if( dia<calendar.get(Calendar.DAY_OF_MONTH) ) {
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
+            builder2.setMessage("La fecha seleccionada ya ha pasado, no se puede crear un evento ese dia")
+                    .setTitle("Error")
+                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
                         }
-                    }
-                });
+                    });
+            AlertDialog dialog = builder2.create();
+            dialog.show();
+        }else{
+                int finalMes = mes;
+                builder.setTitle("Seleccione una tarea")
+                        .setItems(items, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if (i == 0) {
+                                    //agregar evento
+                                    Intent intent = new Intent(getActivity(), EkitaldiInprimakia.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("dia", dia);
+                                    bundle.putInt("mes", finalMes);
+                                    bundle.putInt("anio", anio);
 
-        AlertDialog dialog = builder.create();
-        dialog.show();
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                } else if (i == 1) {
+                                    //ver evento
+                                    Intent intent = new Intent(getActivity(), EkitaldiakIkusi.class);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putInt("dia", dia);
+                                    bundle.putInt("mes", finalMes);
+                                    bundle.putInt("anio", anio);
+                                    intent.putExtras(bundle);
+                                    startActivity(intent);
+                                } else {
+                                    return;
+                                }
+                            }
+                        });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            }
     }
 
     @Override

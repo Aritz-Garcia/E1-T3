@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.ui.dialog.DatePickerFragment;
 
 import java.text.ParseException;
@@ -27,6 +28,7 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
     private TextView tvDiaHoraIn, tvDiaHoraFin, tvAforo, tvPresupuesto, tvDescripcion;
     private Button btnSiguiente, btnVolverAgenda;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    public Ekitaldia ekitaldia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +107,12 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            } else {
+            }else if(!stringIrakurri(etNombreEvento.getText().toString(),findViewById(R.id.etNombreEvento)) || !zenbakiaIrakurri(etAforo.getText().toString(),findViewById(R.id.etAforo)) || !zenbakiaIrakurri(etPresupuesto.getText().toString(),findViewById(R.id.etPresupuesto)) ){
+
+            }else{
+                ekitaldia.setIzena(etNombreEvento.getText().toString());
+                ekitaldia.setAurrekontua(Double.parseDouble(etPresupuesto.getText().toString()));
+                ekitaldia.setDeskribapena(etDescripcion.getText().toString());
                 Intent i = new Intent(this, com.e1t3.onplan.EkitaldiInprimakiaGelak.class);
                 startActivity(i);
             }
@@ -197,5 +204,31 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
             }
         }, 0, 0, true);
         timePickerDialog.show();
+    }
+
+    public boolean stringIrakurri(String textua, EditText text){
+        if( textua.length()==0 )  {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
+            text.setError("Bakarrik letrak");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public boolean zenbakiaIrakurri(String textua, EditText text){
+        if( textua.length()==0 ) {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if(Integer.parseInt(textua)<0) {
+            text.setError("Ezin da izan negatiboa");
+            return false;
+        }else if((!textua.matches("[0-9]+\\.?")) ){
+            text.setError("Bakarrik zenbakiak");
+            return false;
+        }else{
+            return true;
+        }
     }
 }
