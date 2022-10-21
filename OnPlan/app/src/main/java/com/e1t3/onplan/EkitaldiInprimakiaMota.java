@@ -6,6 +6,8 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e1t3.onplan.model.Ekitaldia;
+
 public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnVolverAtrasTE, btnCrearEvento;
@@ -28,7 +30,13 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
             this.finish();
         } else if (view.getId() == btnCrearEvento.getId()) {
             //crear evento
+            ekitaldiaSortu();
             this.finish();
         }
+    }
+
+    public void ekitaldiaSortu(){
+        Ekitaldia ekitaldia;
+
     }
 }

@@ -16,6 +16,7 @@ import com.e1t3.onplan.EkitaldiInprimakia;
 import com.e1t3.onplan.R;
 import com.e1t3.onplan.EkitaldiakIkusi;
 import com.e1t3.onplan.databinding.FragmentHomeBinding;
+import com.e1t3.onplan.model.Ekitaldia;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
     private FragmentHomeBinding binding;
     private CalendarView calendarview;
+    public Ekitaldia ekitaldia;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
         mes++;//se le suma uno porque empieza desde el mes 0
 
-        if(anio<calendar.get(Calendar.YEAR) || mes<calendar.get(Calendar.MONTH) || dia< calendar.get(Calendar.DAY_OF_MONTH) ) {
+        if( dia<calendar.get(Calendar.DAY_OF_MONTH) ) {
             AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
             builder2.setMessage("La fecha seleccionada ya ha pasado, no se puede crear un evento ese dia")
                     .setTitle("Error")
@@ -74,6 +76,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                     bundle.putInt("dia", dia);
                                     bundle.putInt("mes", finalMes);
                                     bundle.putInt("anio", anio);
+
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 } else if (i == 1) {

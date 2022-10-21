@@ -154,4 +154,19 @@ public class Ekitaldia {
     public double getAurrekontua() {
         return aurrekontua;
     }
+
+
+    public void setIzena(String izena){
+        this.izena = izena;
+    }
+    public void setAurrekontua(double aurrekontua){
+        this.aurrekontua = aurrekontua;
+    }
+    public void setDeskribapena(String deskribapena){
+        this.deskribapena = deskribapena;
+    }
+    public void setHasierakoDataOrdua(Timestamp hasierakoDataOrdua){
+        this.hasierakoDataOrdua = hasierakoDataOrdua;
+    }
+
 }
