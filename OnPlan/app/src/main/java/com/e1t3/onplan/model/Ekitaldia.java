@@ -43,9 +43,6 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-        DAOGertaerak daoGertaerak = new DAOGertaerak();
-        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        this.gerataerak         = daoGertaerak.lortuGertaerakIdz(ids);
     }
 
     public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
@@ -80,48 +77,10 @@ public class Ekitaldia {
         );
     }
 
-    public void setUpGertaerak(LinearLayout linearLayout) {
-        for (Gertaera gertaera : this.gerataerak) {
-            LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
-            linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
-            linearLayoutGertaera.setGravity(Gravity.CENTER_VERTICAL);
-            linearLayoutGertaera.setPadding(16, 16, 16, 16);
-
-            TextView gertaeraOrdua = new TextView(linearLayout.getContext());
-            gertaeraOrdua.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
-            gertaeraOrdua.setTextColor(Color.parseColor("#004f53"));
-
-            LinearLayout checkLayout = new LinearLayout(linearLayout.getContext());
-
-            CheckBox gertaeraEginda = new CheckBox(linearLayout.getContext());
-
-            LinearLayout textLayout = new LinearLayout(linearLayout.getContext());
-
-            TextView gertaeraIzena = new TextView(linearLayout.getContext());
-            gertaeraIzena.setTextSize(1,20);
-            gertaeraIzena.setTextColor(Color.parseColor("#001e20"));
-
-            TextView gertaeraDeskribapena = new TextView(linearLayout.getContext());
-            gertaeraDeskribapena.setTextColor(Color.parseColor("#004f53"));
-
-
-
-            linearLayoutGertaera.addView(gertaeraOrdua);
-            checkLayout.setOrientation(LinearLayout.VERTICAL);
-            linearLayoutGertaera.addView(checkLayout);
-            checkLayout.addView(gertaeraEginda);
-            textLayout.setOrientation(LinearLayout.VERTICAL);
-            linearLayoutGertaera.addView(textLayout);
-            textLayout.addView(gertaeraIzena);
-            textLayout.addView(gertaeraDeskribapena);
-
-            gertaeraOrdua.setText(gertaera.getOrdua());
-            gertaeraEginda.setChecked(gertaera.eginDa());
-            gertaeraIzena.setText(gertaera.getIzena());
-            gertaeraDeskribapena.setText(gertaera.getDeskribapena());
-
-            linearLayout.addView(linearLayoutGertaera);
-        }
+    public void setUpGertaerak(DocumentSnapshot document, LinearLayout linearLayout){
+        DAOGertaerak daoGertaerak = new DAOGertaerak();
+        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+        this.gerataerak         = daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
     }
 
     public String getHasierakoDataOrdua() {

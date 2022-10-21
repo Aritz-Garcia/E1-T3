@@ -11,4 +11,6 @@
     <color name="mainColorLight">#00e2ec</color>
     <color name="mainColorDark">#004f53</color>
     <color name="mainColorDarker">#001e20</color>
+    <color name="test">#BBDFEB</color>
+    <color name="testColor">#6B6751</color>
 </resources>

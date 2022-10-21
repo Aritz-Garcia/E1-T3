@@ -64,4 +64,8 @@ public class Gertaera {
     public String getDeskribapena() {
         return deskribapena;
     }
+
+    public void setEginda() {
+        this.eginDa = true;
+    }
 }

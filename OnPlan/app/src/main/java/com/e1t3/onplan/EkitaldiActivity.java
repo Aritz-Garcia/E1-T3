@@ -3,14 +3,13 @@ package com.e1t3.onplan;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
-import com.e1t3.onplan.databinding.ActivityEkitaldiBinding;
+import com.e1t3.onplan.databinding.ActivityEkitaldiaBinding;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.EkitaldiMota;
@@ -26,7 +25,7 @@ import java.util.List;
 public class EkitaldiActivity extends AppCompatActivity {
 
     //Layout Android elementuak
-    private ActivityEkitaldiBinding binding;
+    private ActivityEkitaldiaBinding binding;
     private LinearLayout linearLayout;
 
     // Datubaserako objektuak
@@ -170,7 +169,7 @@ public class EkitaldiActivity extends AppCompatActivity {
                 )
         );
 
-        binding = ActivityEkitaldiBinding.inflate(getLayoutInflater());
+        binding = ActivityEkitaldiaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().setSubtitle("oier1310@gmail.com");
 
@@ -184,7 +183,6 @@ public class EkitaldiActivity extends AppCompatActivity {
         //set the spinners adapter to the previously created one.
         //FloatingActionButton fab = binding.fab;
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
-        ekitaldia.setUpGertaerak(linearLayout);
         setUp("1Dm6GUbJi5y6KEy6leyl");
 
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -214,12 +212,19 @@ public class EkitaldiActivity extends AppCompatActivity {
 
                             TextView izena = binding.getRoot().findViewById(R.id.ekitaldiIzena);
                             izena.setText(ekitaldia.getIzena());
+
                             TextView deskribapena = binding.getRoot().findViewById(R.id.ekitaldiDeskribapena);
                             deskribapena.setText(ekitaldia.getDeskribapena());
+
                             TextView aurrekontua = binding.getRoot().findViewById(R.id.ekitaldiAurrekontua);
                             aurrekontua.setText(String.format("%.2f",ekitaldia.getAurrekontua()));
 
-                            ekitaldia.setUpGertaerak(linearLayout);
+                            TextView gela = binding.getRoot().findViewById(R.id.ekitaldiGela);
+                            gela.setText(ekitaldia.getGela());
+
+                            ekitaldia.setUpGertaerak(document, linearLayout);
+
+
                         } else { }
                     }
                 });
