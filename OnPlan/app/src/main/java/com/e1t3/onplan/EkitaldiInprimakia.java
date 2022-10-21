@@ -105,7 +105,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-            } else {
+            }else if(!stringIrakurri(etNombreEvento.getText().toString(),findViewById(R.id.etNombreEvento)) || !zenbakiaIrakurri(etAforo.getText().toString(),findViewById(R.id.etAforo)) || !zenbakiaIrakurri(etPresupuesto.getText().toString(),findViewById(R.id.etPresupuesto)) ){
+
+            }else{
                 Intent i = new Intent(this, com.e1t3.onplan.EkitaldiInprimakiaGelak.class);
                 startActivity(i);
             }
@@ -197,5 +199,31 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
             }
         }, 0, 0, true);
         timePickerDialog.show();
+    }
+
+    public boolean stringIrakurri(String textua, EditText text){
+        if( textua.length()==0 )  {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
+            text.setError("Bakarrik letrak");
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public boolean zenbakiaIrakurri(String textua, EditText text){
+        if( textua.length()==0 ) {
+            text.setError("Beharrezko kanpua");
+            return false;
+        }else if(Integer.parseInt(textua)<0) {
+            text.setError("Ezin da izan negatiboa");
+            return false;
+        }else if((!textua.matches("[0-9]+\\.?")) ){
+            text.setError("Bakarrik zenbakiak");
+            return false;
+        }else{
+            return true;
+        }
     }
 }
