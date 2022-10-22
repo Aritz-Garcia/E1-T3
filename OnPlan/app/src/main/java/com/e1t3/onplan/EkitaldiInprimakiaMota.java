@@ -57,7 +57,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         ekitaldia = getSharedPreferences("datuak", Context.MODE_PRIVATE);
         editor = ekitaldia.edit();
 
-        EkitaldiMota();
+        ekitaldiMota();
 
     }
 
@@ -68,7 +68,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         }
     }
 
-    public void EkitaldiMota() {
+    private void ekitaldiMota() {
         llist.add(Html.fromHtml(EkitaldiMota.OSPAKIZUNA.toString()));
         llist.add(Html.fromHtml(EkitaldiMota.IKUSKIZUNA.toString()));
         llist.add(Html.fromHtml(EkitaldiMota.HITZALDIA.toString()));
@@ -78,19 +78,37 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         lvEkitaldiMota.setAdapter(arrayAdapter);
     }
 
+    private String ekitaldiMotaString(String ekitaldiMota) {
+        switch (ekitaldiMota) {
+            case "Ospakizuna":
+                return "OSPAKIZUNA";
+            case "Ikuskizuna":
+                return "IKUSKIZUNA";
+            case "Hitzaldia":
+                return "HITZALDIA";
+            case "Erakusketa":
+                return "ERAKUSKETA";
+            case "Beste mota":
+                return "BESTE_MOTA";
+        }
+        return "";
+    }
+
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posizioa, long l) {
         String ekitaldiMota = llist.get(posizioa).toString();
+        String ekitaldiMotaString = ekitaldiMotaString(ekitaldiMota);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Zihur zaude " + ekitaldiMota + " ekitaldi mota aukeratu nahi duzula")
                 .setTitle("Ohartarazpena")
                 .setPositiveButton("Onartu", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota);
+                        editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMotaString);
                         editor.commit();
-                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, MainActivity.class);
+                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, EkitaldiInprimakiaGertaerak.class);
                         startActivity(intent);
                     }
                 })

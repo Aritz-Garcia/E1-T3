@@ -2,6 +2,7 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -15,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -24,7 +24,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
-import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.shared.Values;
 import com.e1t3.onplan.ui.dialog.DatePickerFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,24 +49,20 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
     private SharedPreferences ekitaldiDatuak;
     private SharedPreferences.Editor editor;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_evento);
 
         etNombreEvento = findViewById(R.id.etNombreEvento);
-        tvDiaHoraIn = findViewById(R.id.tvDiaHoraIni);
         etFechaIn = findViewById(R.id.etFechaInicio);
         etHoraIn = findViewById(R.id.etHoraInicio);
-        tvDiaHoraFin = findViewById(R.id.tvDiaHoraFin);
         etFechaFin = findViewById(R.id.etFechaFin);
         etHoraFin = findViewById(R.id.etHoraFin);
-        tvAforo = findViewById(R.id.tvAforo);
         etAforo = findViewById(R.id.etAforo);
-        tvPresupuesto = findViewById(R.id.tvPresupuesto);
         etPresupuesto = findViewById(R.id.etPresupuesto);
-        tvDescripcion = findViewById(R.id.tvDescripcion);
-        etDescripcion = findViewById(R.id.etDescripcion);
+        etDescripcion = findViewById(R.id.etDeskribapena);
 
         Bundle bundle = getIntent().getExtras();
         int dia, mes, anio;
@@ -135,6 +130,8 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                 Double ekitaldiAurrekontua = Double.parseDouble(etPresupuesto.getText().toString());
                 String ekitaldiDeskribapena = etDescripcion.getText().toString();
 
+                String hasieraDataOrdua = etFechaIn.getText().toString() + " " + etHoraIn.getText().toString();
+                String bukaeraDataOrdua = etFechaFin.getText().toString() + " " + etHoraFin.getText().toString();
 
                 ekitaldia.setIzena(ekitaldiIzena);
                 ekitaldia.setAurrekontua(ekitaldiAurrekontua);
@@ -144,6 +141,8 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                 editor = ekitaldiDatuak.edit();
                 getEranbilytzaileaId();
                 editor.putString(Values.EKITALDIAK_IZENA, ekitaldiIzena);
+                editor.putString(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, hasieraDataOrdua);
+                editor.putString(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, bukaeraDataOrdua);
                 editor.putInt("edukiera", edukiera);
                 editor.putFloat(Values.EKITALDIAK_AURREKONTUA, ekitaldiAurrekontua.floatValue());
                 editor.putString(Values.EKITALDIAK_DESKRIBAPENA, ekitaldiDeskribapena);
