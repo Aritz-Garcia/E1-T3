@@ -64,6 +64,7 @@ public class GelakFragment extends Fragment {
 
     private void listaGelak() {
         db.collection(Values.GELAK)
+                .orderBy(Values.GELAK_EDUKIERA)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

@@ -90,7 +90,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
                     public void onClick(DialogInterface dialogInterface, int i) {
                         editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota);
                         editor.commit();
-                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, HomeFragment.class);
+                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, MainActivity.class);
                         startActivity(intent);
                     }
                 })
