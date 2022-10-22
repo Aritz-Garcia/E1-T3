@@ -2,7 +2,9 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
@@ -35,6 +37,8 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     private ListView lvGelakForm;
     private List<Spanned> llist = new ArrayList<>();
     private ArrayAdapter<Spanned> arrayAdapter;
+    private SharedPreferences ekitaldia;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +51,12 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
         lvGelakForm = findViewById(R.id.lvGelakForm);
         lvGelakForm.setOnItemClickListener(this);
 
-        listaGelak();
+        ekitaldia = getSharedPreferences("datuak", Context.MODE_PRIVATE);
+        editor = ekitaldia.edit();
+
+        int edukiera = ekitaldia.getInt("edukiera", 0);
+
+        listaGelak(edukiera);
 
 
     }
@@ -64,8 +73,9 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    private void listaGelak() {
+    private void listaGelak(int edukiera) {
         db.collection(Values.GELAK)
+                .whereGreaterThanOrEqualTo(Values.GELAK_EDUKIERA, edukiera)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -87,12 +97,10 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posizioa, long l) {
         //Toast.makeText(this, llist.get(posizioa), Toast.LENGTH_SHORT).show();
-        String proba = llist.get(posizioa).toString();
-        String[] proba1 = proba.split("\n");
-        String[] proba2 = proba1[1].split(": ");
-        getIdGela(proba2[1]);
-        Intent i = new Intent(this, EkitaldiInprimakiaMota.class);
-        startActivity(i);
+        String datuGuztaik = llist.get(posizioa).toString();
+        String[] izenaLortu = datuGuztaik.split("\n");
+        String[] izena = izenaLortu[1].split(": ");
+        getIdGela(izena[1]);
     }
 
     private void getIdGela(String gelaIzena) {
@@ -105,7 +113,9 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Gela gela =  new Gela(document);
-                                gela.getId();
+                                String gelaId = gela.getId();
+                                editor.putString(Values.EKITALDIAK_GELA, gelaId);
+                                editor.commit();
                                 Intent i = new Intent(EkitaldiInprimakiaGelak.this, EkitaldiInprimakiaMota.class);
                                 startActivity(i);
                             }

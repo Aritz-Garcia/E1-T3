@@ -1,22 +1,39 @@
 package com.e1t3.onplan;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.e1t3.onplan.model.Ekitaldia;
+import com.e1t3.onplan.model.Erabiltzailea;
+import com.e1t3.onplan.model.Gela;
+import com.e1t3.onplan.shared.Values;
 import com.e1t3.onplan.ui.dialog.DatePickerFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +45,10 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
     private TextView tvDiaHoraIn, tvDiaHoraFin, tvAforo, tvPresupuesto, tvDescripcion;
     private Button btnSiguiente, btnVolverAgenda;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-    public Ekitaldia ekitaldia;
+    public Ekitaldia ekitaldia = new Ekitaldia();
+    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SharedPreferences ekitaldiDatuak;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,10 +130,27 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
             }else if(!stringIrakurri(etNombreEvento.getText().toString(),findViewById(R.id.etNombreEvento)) || !zenbakiaIrakurri(etAforo.getText().toString(),findViewById(R.id.etAforo)) || !zenbakiaIrakurri(etPresupuesto.getText().toString(),findViewById(R.id.etPresupuesto)) ){
 
             }else{
-                ekitaldia.setIzena(etNombreEvento.getText().toString());
-                ekitaldia.setAurrekontua(Double.parseDouble(etPresupuesto.getText().toString()));
-                ekitaldia.setDeskribapena(etDescripcion.getText().toString());
-                Intent i = new Intent(this, com.e1t3.onplan.EkitaldiInprimakiaGelak.class);
+                String ekitaldiIzena = etNombreEvento.getText().toString();
+                int edukiera = Integer.parseInt(etAforo.getText().toString());
+                Double ekitaldiAurrekontua = Double.parseDouble(etPresupuesto.getText().toString());
+                String ekitaldiDeskribapena = etDescripcion.getText().toString();
+
+
+                ekitaldia.setIzena(ekitaldiIzena);
+                ekitaldia.setAurrekontua(ekitaldiAurrekontua);
+                ekitaldia.setDeskribapena(ekitaldiDeskribapena);
+
+                ekitaldiDatuak = getSharedPreferences("datuak", Context.MODE_PRIVATE);
+                editor = ekitaldiDatuak.edit();
+                getEranbilytzaileaId();
+                editor.putString(Values.EKITALDIAK_IZENA, ekitaldiIzena);
+                editor.putInt("edukiera", edukiera);
+                editor.putFloat(Values.EKITALDIAK_AURREKONTUA, ekitaldiAurrekontua.floatValue());
+                editor.putString(Values.EKITALDIAK_DESKRIBAPENA, ekitaldiDeskribapena);
+                editor.commit();
+
+
+                Intent i = new Intent(this, EkitaldiInprimakiaGelak.class);
                 startActivity(i);
             }
         } else if (view.getId() == btnVolverAgenda.getId()) {
@@ -230,5 +267,29 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
         }else{
             return true;
         }
+    }
+
+    private void getEranbilytzaileaId() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+        db.collection(Values.ERABILTZAILEAK)
+                .whereEqualTo(Values.ERABILTZAILEAK_EMAIL, email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Erabiltzailea erabiltzailea = new Erabiltzailea(document);
+                                String erabiltzaileaId = erabiltzailea.getId();
+                                editor.putString(Values.EKITALDIAK_ERABILTZAILEA, erabiltzaileaId);
+                                editor.commit();
+                            }
+
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }

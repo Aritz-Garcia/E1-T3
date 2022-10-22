@@ -33,6 +33,8 @@ public class Ekitaldia {
     private String usuario;
     private List<Gertaera> gerataerak;
 
+    public Ekitaldia() {}
+
     public Ekitaldia(DocumentSnapshot document) {
         this.id                 = document.getId();
         this.izena              = document.getString(Values.EKITALDIAK_IZENA);
@@ -118,6 +120,7 @@ public class Ekitaldia {
     public void setIzena(String izena){
         this.izena = izena;
     }
+
     public void setAurrekontua(double aurrekontua){
         this.aurrekontua = aurrekontua;
     }
