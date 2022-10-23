@@ -21,7 +21,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
+        android:id="@+id/lista"
         android:layout_width="409dp"
         android:layout_height="637dp"
         android:layout_marginStart="1dp"
