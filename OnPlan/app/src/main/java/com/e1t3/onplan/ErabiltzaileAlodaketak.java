@@ -169,7 +169,8 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                         }
                     }
                 });
-
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
     }
 
     private void cargarimagen(Uri path){

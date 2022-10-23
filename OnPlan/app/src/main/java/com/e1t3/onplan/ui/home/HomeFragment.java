@@ -18,6 +18,8 @@ import com.e1t3.onplan.EkitaldiakIkusi;
 import com.e1t3.onplan.databinding.FragmentHomeBinding;
 import com.e1t3.onplan.model.Ekitaldia;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,7 +41,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         return root;
     }
 
-    public void onSelectedDayChange (CalendarView calendarview, int anio, int mes, int dia) {
+    public void onSelectedDayChange (CalendarView calendarview, int i, int i1, int i2) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence []items = new CharSequence[3];
         items[0] = "Agregar evento";
@@ -47,11 +49,25 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         items[2] = "Cancelar";
 
         Calendar calendar = Calendar.getInstance();
+        Date date1,date2;
+        int monthDay =calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        String day = String.valueOf(monthDay);
+        String mes = String.valueOf(month+1);
+        String año = String.valueOf(year);
 
+        i1++;//se le suma uno porque empieza desde el mes 0
+        String dayC = String.valueOf(i2);
+        String mesC = String.valueOf(i1);
+        String añoC = String.valueOf(i);
 
-        mes++;//se le suma uno porque empieza desde el mes 0
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+           date1= sdf.parse(day + "-" + mes + "-" + año);
+           date2 = sdf.parse(dayC + "-" + mesC + "-" + añoC);
 
-        if( dia<calendar.get(Calendar.DAY_OF_MONTH) ) {
+        if(date2.before(date1)){
             AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
             builder2.setMessage("La fecha seleccionada ya ha pasado, no se puede crear un evento ese dia")
                     .setTitle("Error")
@@ -64,7 +80,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
             AlertDialog dialog = builder2.create();
             dialog.show();
         }else{
-                int finalMes = mes;
+                int finalMes = i1;
                 builder.setTitle("Seleccione una tarea")
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
@@ -73,9 +89,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                     //agregar evento
                                     Intent intent = new Intent(getActivity(), EkitaldiInprimakia.class);
                                     Bundle bundle = new Bundle();
-                                    bundle.putInt("dia", dia);
+                                    bundle.putInt("dia", i2);
                                     bundle.putInt("mes", finalMes);
-                                    bundle.putInt("anio", anio);
+                                    bundle.putInt("anio", i);
 
                                     intent.putExtras(bundle);
                                     startActivity(intent);
@@ -83,9 +99,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                     //ver evento
                                     Intent intent = new Intent(getActivity(), EkitaldiakIkusi.class);
                                     Bundle bundle = new Bundle();
-                                    bundle.putInt("dia", dia);
+                                    bundle.putInt("dia", i2);
                                     bundle.putInt("mes", finalMes);
-                                    bundle.putInt("anio", anio);
+                                    bundle.putInt("anio", i);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 } else {
@@ -96,6 +112,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
             AlertDialog dialog = builder.create();
             dialog.show();
             }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
