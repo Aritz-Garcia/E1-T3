@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,9 +34,8 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
     private Button btnLineaTiempo;
     private FirebaseUser user;
     private String email;
-    private ListView lista;
+    private LinearLayout lista;
     private  ArrayAdapter<Ekitaldia> adapter;
-    private ArrayList<Ekitaldia> ekitaldiak =new ArrayList<Ekitaldia>();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -49,7 +49,6 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
         email = user.getEmail();
         lista = findViewById(R.id.lista);
         erabiltzaileId();
-        adapter = new ArrayAdapter<>(EkitaldiakIkusi.this,android.R.layout.simple_list_item_1, ekitaldiak);
 
     }
 
@@ -83,11 +82,20 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Ekitaldia ekitaldia = new Ekitaldia(document);
-                                ekitaldiak.add(ekitaldia);
+                                //create button with the name of the event
+                                Button btn = new Button(EkitaldiakIkusi.this);
+                                btn.setText(ekitaldia.getIzena());
+                                btn.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(EkitaldiakIkusi.this, EkitaldiActivity.class);
+                                        intent.putExtra("id", ekitaldia.getId());
+                                        startActivity(intent);
+                                    }
+                                });
+                                lista.addView(btn);
 
                             }
-                            adapter.notifyDataSetChanged();
-                            lista.setAdapter(adapter);
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

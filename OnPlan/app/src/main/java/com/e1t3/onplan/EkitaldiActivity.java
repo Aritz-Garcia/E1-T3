@@ -37,137 +37,7 @@ public class EkitaldiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.ekitaldia = new Ekitaldia(
-                "Id ekitaldia",
-                "Ekitaldia 1",
-                "Ekitaldiaren deskribapena",
-                Timestamp.now(),
-                Timestamp.now(),
-                "Id gela",
-                69,
-                EkitaldiMota.BESTE_MOTA,
-                "Id erabiltzailea",
-                List.of(new Gertaera(
-                        "Id gertaera",
-                        "Gertaera 1",
-                        "Gertaeraren deskribapena",
-                        false,
-                        Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        ),
-                        new Gertaera(
-                                "Id gertaera",
-                                "Gertaera 1",
-                                "Gertaeraren deskribapena",
-                                false,
-                                Timestamp.now()
-                        )
-                )
-        );
+
 
         binding = ActivityEkitaldiaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -183,8 +53,8 @@ public class EkitaldiActivity extends AppCompatActivity {
         //set the spinners adapter to the previously created one.
         //FloatingActionButton fab = binding.fab;
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
-        setUp("1Dm6GUbJi5y6KEy6leyl");
-
+        String id = getIntent().getExtras().getString("id");
+        setUp(id);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -194,7 +64,7 @@ public class EkitaldiActivity extends AppCompatActivity {
 //        });
     }
 
-    private void setUp(String id){
+    public void setUp(String id){
         db.collection(Values.EKITALDIAK)
                 .document(id)
                 .get()
