@@ -347,6 +347,7 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
                                 editor.putString("id", ekitaldiaId);
                                 editor.commit();
                                 DocumentReference ekitaldiak = db.collection(Values.EKITALDIAK).document(ekitaldiaId);
+                                ekitaldiak.update(Values.EKITALDIAK_GERTAERAK, FieldValue.arrayRemove(""));
                                 ekitaldiak.update(Values.EKITALDIAK_GERTAERAK, FieldValue.arrayUnion(ekitaldi.getString(Values.EKITALDIAK_GERTAERAK, "")));
                             }
                         } else {

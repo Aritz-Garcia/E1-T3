@@ -139,6 +139,7 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
 
                 ekitaldiDatuak = getSharedPreferences("datuak", Context.MODE_PRIVATE);
                 editor = ekitaldiDatuak.edit();
+                editor.clear().apply();
                 getEranbilytzaileaId();
                 editor.putString(Values.EKITALDIAK_IZENA, ekitaldiIzena);
                 editor.putString(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, hasieraDataOrdua);

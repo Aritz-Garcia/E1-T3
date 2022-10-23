@@ -2,7 +2,9 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -35,10 +37,12 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     private Button btnVolverAtras;
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ListView lvGelakForm;
-    private List<Spanned> llist = new ArrayList<>();
+    private List<Spanned> llist1 = new ArrayList<>();
+    private List<Spanned> llist2 = new ArrayList<>();
     private ArrayAdapter<Spanned> arrayAdapter;
     private SharedPreferences ekitaldia;
     private SharedPreferences.Editor editor;
+    private static int gelak = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +57,11 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
 
         ekitaldia = getSharedPreferences("datuak", Context.MODE_PRIVATE);
         editor = ekitaldia.edit();
+        arrayAdapter = new ArrayAdapter<>(EkitaldiInprimakiaGelak.this, android.R.layout.simple_list_item_1, llist1);
 
-        int edukiera = ekitaldia.getInt("edukiera", 0);
+        listaGelakAurrekontua();
+        listaGelakEdukiera();
 
-        listaGelak(edukiera);
 
 
     }
@@ -73,9 +78,9 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    private void listaGelak(int edukiera) {
+    private void listaGelakAurrekontua() {
         db.collection(Values.GELAK)
-                .whereGreaterThanOrEqualTo(Values.GELAK_EDUKIERA, edukiera)
+                .whereLessThanOrEqualTo(Values.GELAK_PREZIOA, ekitaldia.getFloat(Values.EKITALDIAK_AURREKONTUA, 0))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -83,8 +88,79 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Gela gela =  new Gela(document);
-                                llist.add(Html.fromHtml(gela.toString()));
-                                arrayAdapter = new ArrayAdapter<>(EkitaldiInprimakiaGelak.this, android.R.layout.simple_list_item_1, llist);
+                                llist1.add(Html.fromHtml(gela.toString()));
+//                                arrayAdapter = new ArrayAdapter<>(EkitaldiInprimakiaGelak.this, android.R.layout.simple_list_item_1, llist);
+//                                lvGelakForm.setAdapter(arrayAdapter);
+
+                            }
+                            if (llist1.size() == 0) {
+                                gelak++;
+                                AlertDialog.Builder builder = new AlertDialog.Builder(EkitaldiInprimakiaGelak.this);
+                                builder.setMessage("Ez dago gelarik aurrekontu horretarako. Berriro Sailatu")
+                                        .setTitle("Error")
+                                        .setPositiveButton("Datuak berriro sartu", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                finish();
+                                            }
+                                        })
+                                        .setNegativeButton("Irten", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Intent intent = new Intent(EkitaldiInprimakiaGelak.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            } else {
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void listaGelakEdukiera() {
+        db.collection(Values.GELAK)
+                .whereLessThan(Values.GELAK_EDUKIERA, ekitaldia.getInt("edukiera", 0))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Gela gela = new Gela(document);
+                                llist2.add(Html.fromHtml(gela.toString()));
+                                for (int i = 0; i < llist1.size(); i++) {
+                                    for (int j = 0; j < llist2.size(); j++) {
+                                        if (llist1.get(i).toString().equals(llist2.get(j).toString()))
+                                            llist1.remove(i);
+                                    }
+                                }
+                            }
+                            if (llist1.size() == 0 && gelak == 0) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(EkitaldiInprimakiaGelak.this);
+                                builder.setMessage("Ez dago gelarik kapasitate horretarako. Berriro Sailatu")
+                                        .setTitle("Error")
+                                        .setPositiveButton("Datuak berriro sartu", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                finish();
+                                            }
+                                        })
+                                        .setNegativeButton("Irten", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                Intent intent = new Intent(EkitaldiInprimakiaGelak.this, MainActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            } else {
+                                arrayAdapter.notifyDataSetChanged();
                                 lvGelakForm.setAdapter(arrayAdapter);
                             }
                         } else {
@@ -94,10 +170,11 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                 });
     }
 
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posizioa, long l) {
         //Toast.makeText(this, llist.get(posizioa), Toast.LENGTH_SHORT).show();
-        String datuGuztaik = llist.get(posizioa).toString();
+        String datuGuztaik = llist1.get(posizioa).toString();
         String[] izenaLortu = datuGuztaik.split("\n");
         String[] izena = izenaLortu[1].split(": ");
         getIdGela(izena[1]);
@@ -114,10 +191,26 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Gela gela =  new Gela(document);
                                 String gelaId = gela.getId();
-                                editor.putString(Values.EKITALDIAK_GELA, gelaId);
-                                editor.commit();
-                                Intent i = new Intent(EkitaldiInprimakiaGelak.this, EkitaldiInprimakiaMota.class);
-                                startActivity(i);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(EkitaldiInprimakiaGelak.this);
+                                builder.setMessage("Zihur zaude " + gelaIzena + " gela aukeratu nahi duzula")
+                                        .setTitle("Ohartarazpena")
+                                        .setPositiveButton("Onartu", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                editor.putString(Values.EKITALDIAK_GELA, gelaId);
+                                                editor.commit();
+                                                Intent intent = new Intent(EkitaldiInprimakiaGelak.this, EkitaldiInprimakiaMota.class);
+                                                startActivity(intent);
+                                            }
+                                        })
+                                        .setNegativeButton("Ezeztatu", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            }
+                                        });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());

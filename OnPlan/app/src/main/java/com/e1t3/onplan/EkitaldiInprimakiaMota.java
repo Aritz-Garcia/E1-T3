@@ -27,11 +27,20 @@ import com.e1t3.onplan.shared.Values;
 import com.e1t3.onplan.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -40,8 +49,10 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
     private ListView lvEkitaldiMota;
     private List<Spanned> llist = new ArrayList<>();
     private ArrayAdapter<Spanned> arrayAdapter;
-    private SharedPreferences ekitaldia;
+    private SharedPreferences ekitaldi;
     private SharedPreferences.Editor editor;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SimpleDateFormat formato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +65,9 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         lvEkitaldiMota = findViewById(R.id.lvEkitaldiMota);
         lvEkitaldiMota.setOnItemClickListener(this);
 
-        ekitaldia = getSharedPreferences("datuak", Context.MODE_PRIVATE);
-        editor = ekitaldia.edit();
+        ekitaldi = getSharedPreferences("datuak", Context.MODE_PRIVATE);
+        editor = ekitaldi.edit();
+        formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
         ekitaldiMota();
 
@@ -108,8 +120,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
                     public void onClick(DialogInterface dialogInterface, int i) {
                         editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMotaString);
                         editor.commit();
-                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, EkitaldiInprimakiaGertaerak.class);
-                        startActivity(intent);
+                        gertaeraAukeartuEdoez();
                     }
                 })
                 .setNegativeButton("Ezeztatu", new DialogInterface.OnClickListener() {
@@ -121,4 +132,57 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private void gertaeraAukeartuEdoez() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Gertaera berri bat sortu nahi duzu ekitaldi honetarako?")
+                .setTitle("Ohartarazpena")
+                .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, EkitaldiInprimakiaGertaerak.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Ez", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ekitaldiDatuakGorde();
+                        Intent intent = new Intent(EkitaldiInprimakiaMota.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void ekitaldiDatuakGorde() {
+        Timestamp hasieraDataOrdua = new Timestamp(dataAldatu(ekitaldi.getString(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, "")));
+        Timestamp bukareaDataOrdua = new Timestamp(dataAldatu(ekitaldi.getString(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, "")));
+
+        CollectionReference ekitaldiak = db.collection(Values.EKITALDIAK);
+        Map<String, Object> ekitaldia = new HashMap();
+        ekitaldia.put(Values.EKITALDIAK_IZENA,ekitaldi.getString(Values.EKITALDIAK_IZENA, ""));
+        ekitaldia.put(Values.EKITALDIAK_EKITALDI_MOTA,ekitaldi.getString(Values.EKITALDIAK_EKITALDI_MOTA, ""));
+        ekitaldia.put(Values.EKITALDIAK_AURREKONTUA,ekitaldi.getFloat(Values.EKITALDIAK_AURREKONTUA, 0));
+        ekitaldia.put(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, hasieraDataOrdua);
+        ekitaldia.put(Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, bukareaDataOrdua);
+        ekitaldia.put(Values.EKITALDIAK_DESKRIBAPENA,ekitaldi.getString(Values.EKITALDIAK_DESKRIBAPENA, ""));
+        ekitaldia.put(Values.EKITALDIAK_ERABILTZAILEA,ekitaldi.getString(Values.EKITALDIAK_ERABILTZAILEA, ""));
+        ekitaldia.put(Values.EKITALDIAK_GELA,ekitaldi.getString(Values.EKITALDIAK_GELA, ""));
+        //ekitaldia.put(Values.EKITALDIAK_GERTAERAK, FieldValue.arrayUnion(ekitaldi.getString(Values.EKITALDIAK_GERTAERAK, "")));
+        ekitaldiak.document().set(ekitaldia);
+    }
+
+    private Date dataAldatu (String data) {
+        Date gertaeraDataOrdua = null;
+        try {
+            gertaeraDataOrdua =  formato.parse(data);
+            return gertaeraDataOrdua;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return gertaeraDataOrdua;
+    }
+
 }
