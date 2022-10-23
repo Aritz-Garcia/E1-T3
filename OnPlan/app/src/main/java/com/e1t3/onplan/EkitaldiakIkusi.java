@@ -33,6 +33,7 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
     private FirebaseUser user;
     private String email;
     private ListView lista;
+    private  ArrayAdapter<Ekitaldia> adapter;
     private ArrayList<Ekitaldia> ekitaldiak =new ArrayList<Ekitaldia>();
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -47,8 +48,8 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
         email = user.getEmail();
         lista = findViewById(R.id.lista);
         erabiltzaileId();
-        ArrayAdapter<Ekitaldia> adapter = new ArrayAdapter<Ekitaldia>(this,R.layout.activity_view_eventos, ekitaldiak);
-        lista.setAdapter(adapter);
+        adapter = new ArrayAdapter<>(EkitaldiakIkusi.this,android.R.layout.simple_list_item_1, ekitaldiak);
+
     }
 
     public void erabiltzaileId(){
@@ -61,23 +62,7 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Erabiltzailea erabiltzailea = new Erabiltzailea(document);
-                                db.collection(Values.EKITALDIAK)
-                                        .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA,erabiltzailea.getId().toString())
-                                        .get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                                        Ekitaldia ekitaldia = new Ekitaldia(document);
-                                                        ekitaldiak.add(ekitaldia);
-                                                    }
-
-                                                } else {
-                                                    Log.d(TAG, "Error getting documents: ", task.getException());
-                                                }
-                                            }
-                                        });
+                                ekitaldilista(erabiltzailea);
                             }
 
                         } else {
@@ -85,9 +70,31 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                         }
                     }
                 });
+    }
 
+    public void ekitaldilista(Erabiltzailea erabiltzailea){
+        db.collection(Values.EKITALDIAK)
+                .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA,erabiltzailea.getId())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Ekitaldia ekitaldia = new Ekitaldia(document);
+                                ekitaldiak.add(ekitaldia);
+
+                            }
+                            adapter.notifyDataSetChanged();
+                            lista.setAdapter(adapter);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
 
     }
+
     @Override
     public void onClick(View view) {
         if (view.getId() == btnLineaTiempo.getId()) {
