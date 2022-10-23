@@ -130,5 +130,8 @@ public class Ekitaldia {
     public void setHasierakoDataOrdua(Timestamp hasierakoDataOrdua){
         this.hasierakoDataOrdua = hasierakoDataOrdua;
     }
+    public String toString() {
+        return  izena ;
+    }
 
 }
