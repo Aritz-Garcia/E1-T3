@@ -43,4 +43,10 @@
     <string name="signature_title">Zure sinadura</string>
     <string name="crear_evento">Ekitaldi bat sortu</string>
     <string name="dataTextHasiera">" "</string>
+    <string name="crear_suceso">Gertaera Sortu</string>
+    <string name="hora_de_inicio_del_suceso">Gertaeraren hasiera</string>
+    <string name="dia_de_inicio_del_suceso">Gertaeraren egun hasiera</string>
+    <string name="nombre_del_suceso">Gertaeraren Izena</string>
+    <string name="btnSalir">Atera</string>
+    <string name="guardar">Gorde</string>
 </resources>

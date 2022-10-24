@@ -13,39 +13,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiaBinding;
+import com.e1t3.onplan.databinding.ActivityEkitaldiaEditatuBinding;
 import com.e1t3.onplan.model.Ekitaldia;
-import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.List;
-
-public class EkitaldiActivity extends AppCompatActivity {
-
+public class EkitaldiaEditatu extends AppCompatActivity {
     //Layout Android elementuak
-    private ActivityEkitaldiaBinding binding;
+    private ActivityEkitaldiaEditatuBinding binding;
     private LinearLayout linearLayout;
+    private Button btnGorde;
 
     // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
-    private FloatingActionButton fab;
 
     private Ekitaldia ekitaldia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        binding = ActivityEkitaldiaBinding.inflate(getLayoutInflater());
+        binding = ActivityEkitaldiaEditatuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
 
@@ -61,16 +53,19 @@ public class EkitaldiActivity extends AppCompatActivity {
         String id = getIntent().getExtras().getString("id");
         setUp(id);
 
-        fab = binding.getRoot().findViewById(R.id.floatingActionButton);
-
-        fab.setOnClickListener(new View.OnClickListener() {
+        btnGorde = findViewById(R.id.btnGorde);
+        btnGorde.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EkitaldiActivity.this, EkitaldiaEditatu.class);
+            public void onClick(View v) {
+                ekitaldia.setIzena(binding.ekitaldiIzena.getText().toString());
+                ekitaldia.setDeskribapena(binding.ekitaldiDeskribapena.getText().toString());
+                daoEkitaldiak.gehituEdoEguneratuEkitaldia(ekitaldia);
+                Intent intent = new Intent(EkitaldiaEditatu.this, EkitaldiActivity.class);
                 intent.putExtra("id", ekitaldia.getId());
                 startActivity(intent);
             }
         });
+
     }
 
     public void setUp(String id){

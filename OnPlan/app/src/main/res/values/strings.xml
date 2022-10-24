@@ -79,5 +79,6 @@
     <string name="dia_de_inicio_del_suceso">Dia de inicio del suceso</string>
     <string name="nombre_del_suceso">Nombre del suceso</string>
     <string name="btnSalir">Salir</string>
+    <string name="guardar">Guardar</string>
 
 </resources>
