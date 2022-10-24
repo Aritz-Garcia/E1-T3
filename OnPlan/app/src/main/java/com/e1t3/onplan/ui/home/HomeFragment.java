@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         return root;
     }
 
-    public void onSelectedDayChange (CalendarView calendarview, int i, int i1, int i2) {
+    public void onSelectedDayChange (CalendarView calendarview, int i3, int i1, int i2) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence []items = new CharSequence[3];
         items[0] = "Agregar evento";
@@ -55,17 +55,17 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
         int year = calendar.get(Calendar.YEAR);
         String day = String.valueOf(monthDay);
         String mes = String.valueOf(month+1);
-        String año = String.valueOf(year);
+        String anio = String.valueOf(year);
 
         i1++;//se le suma uno porque empieza desde el mes 0
         String dayC = String.valueOf(i2);
         String mesC = String.valueOf(i1);
-        String añoC = String.valueOf(i);
+        String anioC = String.valueOf(i3);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try {
-           date1= sdf.parse(day + "-" + mes + "-" + año);
-           date2 = sdf.parse(dayC + "-" + mesC + "-" + añoC);
+           date1= sdf.parse(day + "-" + mes + "-" + anio);
+           date2 = sdf.parse(dayC + "-" + mesC + "-" + anioC);
 
         if(date2.before(date1)){
             AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("dia", i2);
                                     bundle.putInt("mes", finalMes);
-                                    bundle.putInt("anio", i);
+                                    bundle.putInt("anio", i3);
 
                                     intent.putExtras(bundle);
                                     startActivity(intent);
@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                     Bundle bundle = new Bundle();
                                     bundle.putInt("dia", i2);
                                     bundle.putInt("mes", finalMes);
-                                    bundle.putInt("anio", i);
+                                    bundle.putInt("anio", i3);
                                     intent.putExtras(bundle);
                                     startActivity(intent);
                                 } else {
