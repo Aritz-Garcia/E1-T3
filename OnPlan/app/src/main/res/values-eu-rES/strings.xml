@@ -49,4 +49,6 @@
     <string name="nombre_del_suceso">Gertaeraren Izena</string>
     <string name="btnSalir">Atera</string>
     <string name="guardar">Gorde</string>
+    <string name="ezabatu">Kendu</string>
+    <string name="gehitu">Gehitu</string>
 </resources>

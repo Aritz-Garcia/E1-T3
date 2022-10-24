@@ -96,7 +96,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                             TextView gela = binding.getRoot().findViewById(R.id.ekitaldiGela);
                             gela.setText(ekitaldia.getGela());
 
-                            ekitaldia.setUpGertaerak(document, linearLayout);
+                            ekitaldia.setUpGertaerakEdit(document, linearLayout);
 
 
                         } else { }

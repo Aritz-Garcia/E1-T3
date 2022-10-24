@@ -31,7 +31,7 @@ public class Ekitaldia {
     private double aurrekontua;
     private EkitaldiMota ekitaldiMota;
     private String usuario;
-    private List<Gertaera> gerataerak;
+    private List<String> gerataerak;
 
     public Ekitaldia() {}
 
@@ -45,19 +45,7 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
-    }
-
-    public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
-        this.id = id;
-        this.izena = izena;
-        this.deskribapena = deskribapena;
-        this.hasierakoDataOrdua = hasierakoDataOrdua;
-        this.bukaerakoDataOrdua = bukaerakoDataOrdua;
-        this.gela = gela;
-        this.aurrekontua = aurrekontua;
-        this.ekitaldiMota = ekitaldiMota;
-        this.usuario = usuario;
-        this.gerataerak = gerataerak;
+        this.gerataerak         = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
     }
 
     // Getters and setters
@@ -73,7 +61,7 @@ public class Ekitaldia {
                 Values.EKITALDIAK_BUKAERAKO_DATA_ORDUA, bukaerakoDataOrdua,
                 Values.EKITALDIAK_GELA, gela,
                 Values.EKITALDIAK_AURREKONTUA, aurrekontua,
-                Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota.toString(),
+                Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota,
                 Values.EKITALDIAK_ERABILTZAILEA, usuario,
                 Values.EKITALDIAK_GERTAERAK, gerataerak
         );
@@ -82,7 +70,7 @@ public class Ekitaldia {
     public void setUpGertaerak(DocumentSnapshot document, LinearLayout linearLayout){
         DAOGertaerak daoGertaerak = new DAOGertaerak();
         List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        this.gerataerak         = daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
+        if (ids.size() > 0) daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
     }
 
     public String getHasierakoDataOrdua() {
@@ -134,4 +122,9 @@ public class Ekitaldia {
         return  izena ;
     }
 
+    public void setUpGertaerakEdit(DocumentSnapshot document, LinearLayout linearLayout) {
+        DAOGertaerak daoGertaerak = new DAOGertaerak();
+        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+        if (ids != null) daoGertaerak.lortuGertaerakIdzEdit(ids, linearLayout);
+    }
 }

@@ -13,4 +13,5 @@
     <color name="mainColorDarker">#001e20</color>
     <color name="test">#BBDFEB</color>
     <color name="testColor">#6B6751</color>
+    <color name="delete_red">#FE4444</color>
 </resources>
