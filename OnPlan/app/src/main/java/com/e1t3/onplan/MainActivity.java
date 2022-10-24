@@ -2,7 +2,9 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView tvNombreUsuario, tvEmailUsuario;
     private ImageView imagenUser;
     private Button btnCerrarSesion,btnEditarUsuario;
+    private SharedPreferences erabiltzaileDatuak;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -77,6 +81,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnCerrarSesion.setOnClickListener(this);
         btnEditarUsuario = headerView.findViewById(R.id.btnEditarUsuario);
         btnEditarUsuario.setOnClickListener(this);
+
+        erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
+        editor = erabiltzaileDatuak.edit();
+        editor.clear().apply();
+        editor.commit();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
@@ -149,6 +158,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     nombre = erabiltzailea.getIzena() + " "  + erabiltzailea.getAbizena();
                                 }
                                 tvNombreUsuario.setText(nombre);
+                                editor.putString(Values.ERABILTZAILEAK_EMAIL, erabiltzailea.getEmail());
+                                editor.putString("id", erabiltzailea.getId());
+                                editor.commit();
                             }
 
                         } else {

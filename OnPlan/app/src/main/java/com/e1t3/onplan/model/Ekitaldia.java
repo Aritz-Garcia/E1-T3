@@ -12,6 +12,7 @@ import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,7 +32,8 @@ public class Ekitaldia {
     private double aurrekontua;
     private EkitaldiMota ekitaldiMota;
     private String usuario;
-    private List<Gertaera> gerataerak;
+    private Object gertaera;
+    private List<Gertaera> gertaerak;
 
     public Ekitaldia() {}
 
@@ -45,6 +47,7 @@ public class Ekitaldia {
         this.aurrekontua        = document.getDouble(Values.EKITALDIAK_AURREKONTUA);
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
+        this.gertaera           = document.get(Values.EKITALDIAK_GERTAERAK);
     }
 
     public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
@@ -57,7 +60,7 @@ public class Ekitaldia {
         this.aurrekontua = aurrekontua;
         this.ekitaldiMota = ekitaldiMota;
         this.usuario = usuario;
-        this.gerataerak = gerataerak;
+        this.gertaerak = gerataerak;
     }
 
     // Getters and setters
@@ -75,14 +78,14 @@ public class Ekitaldia {
                 Values.EKITALDIAK_AURREKONTUA, aurrekontua,
                 Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMota.toString(),
                 Values.EKITALDIAK_ERABILTZAILEA, usuario,
-                Values.EKITALDIAK_GERTAERAK, gerataerak
+                Values.EKITALDIAK_GERTAERAK, gertaerak
         );
     }
 
     public void setUpGertaerak(DocumentSnapshot document, LinearLayout linearLayout){
         DAOGertaerak daoGertaerak = new DAOGertaerak();
         List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        this.gerataerak         = daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
+        this.gertaerak         = daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
     }
 
     public String getHasierakoDataOrdua() {
@@ -116,6 +119,9 @@ public class Ekitaldia {
         return aurrekontua;
     }
 
+//    public Object getProba() {
+//        return gertaera;
+//    }
 
     public void setIzena(String izena){
         this.izena = izena;
@@ -130,8 +136,8 @@ public class Ekitaldia {
     public void setHasierakoDataOrdua(Timestamp hasierakoDataOrdua){
         this.hasierakoDataOrdua = hasierakoDataOrdua;
     }
-    public String toString() {
-        return  izena ;
-    }
+//    public String toString() {
+//        return  izena ;
+//    }
 
 }
