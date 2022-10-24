@@ -58,7 +58,6 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
         ekitaldia = getSharedPreferences("datuak", Context.MODE_PRIVATE);
         editor = ekitaldia.edit();
         arrayAdapter = new ArrayAdapter<>(EkitaldiInprimakiaGelak.this, android.R.layout.simple_list_item_1, llist1);
-
         listaGelakAurrekontua();
         listaGelakEdukiera();
 
@@ -101,6 +100,7 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                         .setPositiveButton("Datuak berriro sartu", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
+                                                gelak=0;
                                                 finish();
                                             }
                                         })
@@ -113,7 +113,6 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                         });
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
-                            } else {
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
@@ -147,6 +146,7 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                         .setPositiveButton("Datuak berriro sartu", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
+                                                gelak=0;
                                                 finish();
                                             }
                                         })

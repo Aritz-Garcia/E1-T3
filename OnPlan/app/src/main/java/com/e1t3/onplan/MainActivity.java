@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     .load(photoUrl)
                     .into(imagenUser);
         }
+        this.setup(email,headerView);
     }
 
     @Override

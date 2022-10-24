@@ -140,6 +140,7 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                 ekitaldiDatuak = getSharedPreferences("datuak", Context.MODE_PRIVATE);
                 editor = ekitaldiDatuak.edit();
                 editor.clear().apply();
+                editor.commit();
                 getEranbilytzaileaId();
                 editor.putString(Values.EKITALDIAK_IZENA, ekitaldiIzena);
                 editor.putString(Values.EKITALDIAK_HASIERAKO_DATA_ORDUA, hasieraDataOrdua);
@@ -264,6 +265,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
         }else if((!textua.matches("[0-9]+\\.?")) ){
             text.setError("Bakarrik zenbakiak");
             return false;
+        }else if (textua.length()>6) {
+            text.setError("Zenbakia oso handia da.");
+            return false;
         }else{
             return true;
         }
@@ -291,5 +295,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                         }
                     }
                 });
+    }
+
+    public void proba() {
+        
     }
 }

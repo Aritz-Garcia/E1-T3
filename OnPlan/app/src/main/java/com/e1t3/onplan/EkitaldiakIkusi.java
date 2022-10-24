@@ -71,8 +71,19 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                     }
                 });
     }
-
+    private String dosDigitos(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
+    }
     public void ekitaldilista(Erabiltzailea erabiltzailea){
+        Bundle bundle = getIntent().getExtras();
+        int dia, mes, anio;
+        dia = bundle.getInt("dia");
+        mes = bundle.getInt("mes");
+        anio = bundle.getInt("anio");
+
+        String selectedDate = dosDigitos(dia) + "/" + dosDigitos(mes) + "/" + anio;
+
+
         db.collection(Values.EKITALDIAK)
                 .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA,erabiltzailea.getId())
                 .get()
@@ -81,6 +92,7 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+
                                 Ekitaldia ekitaldia = new Ekitaldia(document);
                                 //create button with the name of the event
                                 Button btn = new Button(EkitaldiakIkusi.this);
