@@ -264,6 +264,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
         }else if((!textua.matches("[0-9]+\\.?")) ){
             text.setError("Bakarrik zenbakiak");
             return false;
+        }else if (textua.length()>6) {
+            text.setError("Zenbakia oso handia da.");
+            return false;
         }else{
             return true;
         }

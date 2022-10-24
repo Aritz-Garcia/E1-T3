@@ -113,7 +113,6 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                         });
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
-                            } else {
                             }
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
