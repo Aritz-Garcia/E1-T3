@@ -12,6 +12,7 @@ import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,6 +47,18 @@ public class Ekitaldia {
         this.ekitaldiMota       = EkitaldiMota.valueOf(document.getString(Values.EKITALDIAK_EKITALDI_MOTA));
         this.usuario            = document.getString(Values.EKITALDIAK_ERABILTZAILEA);
         this.gerataerak         = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
+    }
+
+    public Ekitaldia(String id, String izena, String deskribapena, Timestamp hasierakoDataOrdua, Timestamp bukaerakoDataOrdua, String gela, double aurrekontua, EkitaldiMota ekitaldiMota, String usuario, List<Gertaera> gerataerak) {
+        this.id = id;
+        this.izena = izena;
+        this.deskribapena = deskribapena;
+        this.hasierakoDataOrdua = hasierakoDataOrdua;
+        this.bukaerakoDataOrdua = bukaerakoDataOrdua;
+        this.gela = gela;
+        this.aurrekontua = aurrekontua;
+        this.ekitaldiMota = ekitaldiMota;
+        this.usuario = usuario;
     }
 
     // Getters and setters

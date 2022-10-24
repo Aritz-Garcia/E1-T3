@@ -3,8 +3,10 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,14 +25,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
+import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,6 +41,9 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
@@ -57,6 +62,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     private Uri path;
     private FirebaseUser user;
     private StorageReference storage;
+    private SharedPreferences erabiltzaileDatuak;
+    private SharedPreferences.Editor editor;
+    private List<String> ekitaldiaList;
+    private List<Gertaera> gertaeraList;
 
 
     @Override
@@ -71,6 +80,9 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         mOptionButton = (Button) findViewById(R.id.belegir);
         storage = FirebaseStorage.getInstance().getReference();
 
+        erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
+        editor = erabiltzaileDatuak.edit();
+//        getEkitaldiakId();
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +96,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 datuakezabatu();
+//                getEkitaldiakId();
             }
         });
 
@@ -344,4 +357,48 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         builder.show();
     }
 
+//    private void getEkitaldiakId() {
+//        db.collection(Values.EKITALDIAK)
+//                .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA, erabiltzaileDatuak.getString("id", ""))
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Ekitaldia ekitaldia = new Ekitaldia(document);
+//                                Object proba = ekitaldia.getProba();
+//                                for (int i = 0; i<size(proba))
+//                            }
+//                        } else {
+//                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
+//
+//    private void getGertaerakId() {
+//        db.collection(Values.GERTAERAK)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                Gertaera gertaera = new Gertaera(document);
+//                                gertaeraList.add(gertaera);
+//                                for (int i = 0; i<ekitaldiaList.size();i++) {
+//                                    for (int j = 0; j<gertaeraList.size(); j++) {
+//                                        if (ekitaldiaList.get(i).getProba().equals(gertaeraList.get(j).getId())) {
+//
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        } else {
+//                            Log.d(TAG, "Error getting documents: ", task.getException());
+//                        }
+//                    }
+//                });
+//    }
 }
