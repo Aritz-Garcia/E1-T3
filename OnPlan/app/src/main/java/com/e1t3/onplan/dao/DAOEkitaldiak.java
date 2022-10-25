@@ -66,9 +66,9 @@ public class DAOEkitaldiak {
         return true;
     }
 
-    public boolean ezabatuEkitaldia(Ekitaldia ekitaldia){
+    public boolean ezabatuEkitaldiaId(String id){
         db.collection(Values.EKITALDIAK)
-                .document(ekitaldia.getId())
+                .document(id)
                 .delete();
         return true;
     }

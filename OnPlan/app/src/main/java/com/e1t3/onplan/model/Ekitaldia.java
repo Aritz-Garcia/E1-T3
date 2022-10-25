@@ -1,18 +1,12 @@
 package com.e1t3.onplan.model;
 
-import android.graphics.Color;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -143,5 +137,9 @@ public class Ekitaldia {
 
     public void ezabatuGertaera(String id) {
         this.gerataerak.remove(id);
+    }
+
+    public List<String> getGertaerak() {
+        return this.gerataerak;
     }
 }

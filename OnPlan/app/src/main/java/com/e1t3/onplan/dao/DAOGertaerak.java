@@ -238,15 +238,15 @@ public class DAOGertaerak {
                             gehituBotoia.setImageResource(R.drawable.gertaera_add);
                             gehituBotoia.setCustomSize(100);
 
-                            //TODO: Gehitu botoia onClickListener-a
-                            gehituBotoia.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Intent intent = new Intent(linearLayout.getContext(), GertaeraSortuActivity.class);
-                                    intent.putExtra("id", gertaera.getId());
-                                    linearLayout.getContext().startActivity(intent);
-                                }
-                            });
+//                            //TODO: Gehitu botoia onClickListener-a
+//                            gehituBotoia.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    Intent intent = new Intent(linearLayout.getContext(), GertaeraSortuActivity.class);
+//                                    intent.putExtra("id", gertaera.getId());
+//                                    linearLayout.getContext().startActivity(intent);
+//                                }
+//                            });
 
                             linearLayoutGertaera.addView(gehituBotoia);
                             linearLayout.addView(linearLayoutGertaera);

@@ -25,6 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.e1t3.onplan.dao.DAOEkitaldiak;
+import com.e1t3.onplan.dao.DAOErabiltzaileak;
+import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.model.Gertaera;
@@ -82,7 +85,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
         erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
         editor = erabiltzaileDatuak.edit();
-//        getEkitaldiakId();
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,8 +97,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         mborrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                datuakezabatu();
-//                getEkitaldiakId();
+                getEkitaldiakId();
+                DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
+                daoErabiltzaileak.ezabatuErabiltzailea(erabiltzaileDatuak.getString("id", ""));
+                borrarUsuario();
             }
         });
 
@@ -121,38 +125,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         });
 
 
-
-    }
-
-    private void datuakezabatu(){
-
-       id.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
-
-        Log.d(TAG, "ingreso a deleteAccount");
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG,"OK! Works fine!");
-                    startActivity(new Intent(ErabiltzaileAlodaketak.this, Login.class));
-                    finish();
-                } else {
-                    Log.w(TAG,"Something is wrong!");
-                }
-            }
-        });
 
     }
 
@@ -357,48 +329,44 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         builder.show();
     }
 
-//    private void getEkitaldiakId() {
-//        db.collection(Values.EKITALDIAK)
-//                .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA, erabiltzaileDatuak.getString("id", ""))
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Ekitaldia ekitaldia = new Ekitaldia(document);
-//                                Object proba = ekitaldia.getProba();
-//                                for (int i = 0; i<size(proba))
-//                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
-//
-//    private void getGertaerakId() {
-//        db.collection(Values.GERTAERAK)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            for (QueryDocumentSnapshot document : task.getResult()) {
-//                                Gertaera gertaera = new Gertaera(document);
-//                                gertaeraList.add(gertaera);
-//                                for (int i = 0; i<ekitaldiaList.size();i++) {
-//                                    for (int j = 0; j<gertaeraList.size(); j++) {
-//                                        if (ekitaldiaList.get(i).getProba().equals(gertaeraList.get(j).getId())) {
-//
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        } else {
-//                            Log.d(TAG, "Error getting documents: ", task.getException());
-//                        }
-//                    }
-//                });
-//    }
+    private void getEkitaldiakId() {
+        db.collection(Values.EKITALDIAK)
+                .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA, erabiltzaileDatuak.getString("id", ""))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Ekitaldia ekitaldia = new Ekitaldia(document);
+
+                                for (int i = 0; i<ekitaldia.getGertaerak().size(); i++) {
+                                    DAOGertaerak daoGertaerak = new DAOGertaerak();
+                                    daoGertaerak.ezabatuGertaeraIdz(ekitaldia.getGertaerak().get(i));
+                                }
+                                DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
+                                daoEkitaldiak.ezabatuEkitaldiaId(ekitaldia.getId());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void borrarUsuario() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        currentUser.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG,"OK! Works fine!");
+                    startActivity(new Intent(ErabiltzaileAlodaketak.this, Login.class));
+                    finish();
+                } else {
+                    Log.w(TAG,"Something is wrong!");
+                }
+            }
+        });
+    }
 }
