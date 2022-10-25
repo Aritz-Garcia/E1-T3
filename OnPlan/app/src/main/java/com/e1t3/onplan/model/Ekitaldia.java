@@ -138,6 +138,10 @@ public class Ekitaldia {
     public void setUpGertaerakEdit(DocumentSnapshot document, LinearLayout linearLayout) {
         DAOGertaerak daoGertaerak = new DAOGertaerak();
         List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        if (ids != null) daoGertaerak.lortuGertaerakIdzEdit(ids, linearLayout);
+        if (ids != null) daoGertaerak.lortuGertaerakIdzEdit(ids, linearLayout, this);
+    }
+
+    public void ezabatuGertaera(String id) {
+        this.gerataerak.remove(id);
     }
 }

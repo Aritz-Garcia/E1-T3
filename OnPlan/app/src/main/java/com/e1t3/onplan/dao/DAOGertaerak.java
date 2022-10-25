@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.e1t3.onplan.R;
+import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -144,7 +145,7 @@ public class DAOGertaerak {
         return true;
     }
 
-    public void lortuGertaerakIdzEdit(List<String> ids, LinearLayout linearLayout) {
+    public void lortuGertaerakIdzEdit(List<String> ids, LinearLayout linearLayout, Ekitaldia ekitaldia) {
         List<Gertaera> gertaerak= new ArrayList<>();
 
         db.collection(Values.GERTAERAK)
@@ -218,6 +219,9 @@ public class DAOGertaerak {
                                         linearLayout.removeView(linearLayoutGertaera);
                                         DAOGertaerak daoGertaerak = new DAOGertaerak();
                                         daoGertaerak.ezabatuGertaeraIdz(gertaera.getId());
+                                        ekitaldia.ezabatuGertaera(gertaera.getId());
+                                        DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
+                                        daoEkitaldiak.gehituEdoEguneratuEkitaldia(ekitaldia);
                                     }
                                 });
 
@@ -235,14 +239,14 @@ public class DAOGertaerak {
                             gehituBotoia.setCustomSize(100);
 
                             //TODO: Gehitu botoia onClickListener-a
-//                            gehituBotoia.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    Intent intent = new Intent(linearLayout.getContext(), GertaeraSortuActivity.class);
-//                                    intent.putExtra("id", gertaera.getId());
-//                                    linearLayout.getContext().startActivity(intent);
-//                                }
-//                            });
+                            gehituBotoia.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(linearLayout.getContext(), GertaeraSortuActivity.class);
+                                    intent.putExtra("id", gertaera.getId());
+                                    linearLayout.getContext().startActivity(intent);
+                                }
+                            });
 
                             linearLayoutGertaera.addView(gehituBotoia);
                             linearLayout.addView(linearLayoutGertaera);
