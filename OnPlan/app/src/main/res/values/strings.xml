@@ -75,10 +75,14 @@
     <string name="Izena">Nombre</string>
     <string name="Abizena">Apellido</string>
     <string name="crear_suceso">Crear Suceso</string>
-    <string name="hora_de_inicio_del_suceso">Hora de inicio del suceso</string>
-    <string name="dia_de_inicio_del_suceso">Dia de inicio del suceso</string>
+    <string name="hora_de_inicio_del_suceso">Hora :</string>
+    <string name="dia_de_inicio_del_suceso">Dia :</string>
     <string name="nombre_del_suceso">Nombre del suceso</string>
     <string name="btnSalir">Salir</string>
     <string name="guardar">Guardar</string>
+    <string name="gehitu_gertaera">Añadir suceso</string>
+    <string name="ezabatu">Eliminar</string>
+    <string name="gehitu">Añadir</string>
+    <string name="title_gertaera_popup">Nuevo suceso</string>
 
 </resources>

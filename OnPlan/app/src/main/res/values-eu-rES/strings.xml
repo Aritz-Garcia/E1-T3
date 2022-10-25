@@ -44,11 +44,13 @@
     <string name="crear_evento">Ekitaldi bat sortu</string>
     <string name="dataTextHasiera">" "</string>
     <string name="crear_suceso">Gertaera Sortu</string>
-    <string name="hora_de_inicio_del_suceso">Gertaeraren hasiera</string>
-    <string name="dia_de_inicio_del_suceso">Gertaeraren egun hasiera</string>
+    <string name="hora_de_inicio_del_suceso">Ordua :</string>
+    <string name="dia_de_inicio_del_suceso">Eguna :</string>
     <string name="nombre_del_suceso">Gertaeraren Izena</string>
     <string name="btnSalir">Atera</string>
     <string name="guardar">Gorde</string>
     <string name="ezabatu">Kendu</string>
     <string name="gehitu">Gehitu</string>
+    <string name="gehitu_gertaera">Gehitu gertaera</string>
+    <string name="title_gertaera_popup">Gertaera berria</string>
 </resources>
