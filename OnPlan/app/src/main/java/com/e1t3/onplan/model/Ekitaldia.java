@@ -142,4 +142,16 @@ public class Ekitaldia {
     public List<String> getGertaerak() {
         return this.gerataerak;
     }
+    public boolean getDataTarteanDago(Date fecha){
+
+
+        Date date= hasierakoDataOrdua.toDate();
+        Date date2= bukaerakoDataOrdua.toDate();
+        if(fecha.after(date) && fecha.before(date2)){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }
