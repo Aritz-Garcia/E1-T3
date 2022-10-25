@@ -1,14 +1,20 @@
 package com.e1t3.onplan.dao;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.print.PrintAttributes;
+import android.text.InputType;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
@@ -22,12 +28,16 @@ import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -147,8 +157,8 @@ public class DAOGertaerak {
 
     public void lortuGertaerakIdzEdit(List<String> ids, LinearLayout linearLayout, Ekitaldia ekitaldia) {
         List<Gertaera> gertaerak= new ArrayList<>();
-
-        db.collection(Values.GERTAERAK)
+        if (ids.size() > 0) {
+            db.collection(Values.GERTAERAK)
                 .whereIn(FieldPath.documentId(), ids)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -230,30 +240,69 @@ public class DAOGertaerak {
                                 linearLayoutGertaera.addView(buttonLayout);
                                 linearLayout.addView(linearLayoutGertaera);
                             }
-                            LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
-                            linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
-                            linearLayoutGertaera.setPadding(16, 16, 16, 16);
 
-                            FloatingActionButton gehituBotoia = new FloatingActionButton(linearLayout.getContext());
-                            gehituBotoia.setImageResource(R.drawable.gertaera_add);
-                            gehituBotoia.setCustomSize(100);
-
-//                            //TODO: Gehitu botoia onClickListener-a
-//                            gehituBotoia.setOnClickListener(new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    Intent intent = new Intent(linearLayout.getContext(), GertaeraSortuActivity.class);
-//                                    intent.putExtra("id", gertaera.getId());
-//                                    linearLayout.getContext().startActivity(intent);
-//                                }
-//                            });
-
-                            linearLayoutGertaera.addView(gehituBotoia);
-                            linearLayout.addView(linearLayoutGertaera);
 
                         } else {
                         }
                     }
                 });
+        }
+        LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
+        linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayoutGertaera.setPadding(16, 16, 16, 16);
+
+        FloatingActionButton gehituBotoia = new FloatingActionButton(linearLayout.getContext());
+        gehituBotoia.setImageResource(R.drawable.gertaera_add);
+        gehituBotoia.setCustomSize(100);
+
+        //TODO: Gehitu botoia onClickListener-a
+        gehituBotoia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(linearLayout.getContext());
+                builder.setTitle(R.string.title_gertaera_popup);
+                // I'm using fragment here so I'm using getView() to provide ViewGroup
+                // but you can provide here any other instance of ViewGroup from your Fragment / Activity
+                View viewInflated = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.gehitu_gertera_popup, (ViewGroup) null, false);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                builder.setView(viewInflated);
+
+                final EditText izena = (EditText) viewInflated.findViewById(R.id.popupIzena);
+                final EditText deskribapena = (EditText) viewInflated.findViewById(R.id.popupDeskribapena);
+                final EditText data = (EditText) viewInflated.findViewById(R.id.popupData);
+                final EditText ordua = (EditText) viewInflated.findViewById(R.id.popupOrdua);
+
+                // Set up the buttons
+                builder.setPositiveButton(R.string.gehitu, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if(validate()) {
+                            // get miliseconds from string date
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Date date = null;
+                            try {
+                                date = sdf.parse(data.getText().toString() + " " + ordua.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            Gertaera g = new Gertaera("TEST",izena.getText().toString(), deskribapena.getText().toString(), false, new Timestamp(date));
+                            gehituEdoEguneratuGertaera(g);
+                        }
+                    }
+                });
+                builder.setNegativeButton(R.string.volver_atras, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        linearLayoutGertaera.addView(gehituBotoia);
+        linearLayout.addView(linearLayoutGertaera);
     }
 }
