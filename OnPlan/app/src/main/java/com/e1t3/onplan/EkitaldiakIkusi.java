@@ -27,13 +27,18 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnLineaTiempo;
     private FirebaseUser user;
     private String email;
+    private Date fecha;
     private LinearLayout lista;
     private  ArrayAdapter<Ekitaldia> adapter;
 
@@ -81,7 +86,13 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
         mes = bundle.getInt("mes");
         anio = bundle.getInt("anio");
 
-        String selectedDate = dosDigitos(dia) + "/" + dosDigitos(mes) + "/" + anio;
+        String selectedDate = anio + "/" + mes + "/" + dia;
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
+        try {
+            fecha = formato.parse(selectedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         db.collection(Values.EKITALDIAK)
@@ -95,17 +106,19 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
 
                                 Ekitaldia ekitaldia = new Ekitaldia(document);
                                 //create button with the name of the event
-                                Button btn = new Button(EkitaldiakIkusi.this);
-                                btn.setText(ekitaldia.getIzena());
-                                btn.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent intent = new Intent(EkitaldiakIkusi.this, EkitaldiActivity.class);
-                                        intent.putExtra("id", ekitaldia.getId());
-                                        startActivity(intent);
-                                    }
-                                });
-                                lista.addView(btn);
+                                if (ekitaldia.getDataTarteanDago(fecha)) {
+                                    Button btn = new Button(EkitaldiakIkusi.this);
+                                    btn.setText(ekitaldia.getIzena());
+                                    btn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(EkitaldiakIkusi.this, EkitaldiActivity.class);
+                                            intent.putExtra("id", ekitaldia.getId());
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    lista.addView(btn);
+                                }
 
                             }
                         } else {
