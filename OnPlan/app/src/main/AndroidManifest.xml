@@ -57,12 +57,14 @@
             android:exported="false" />
         <activity
             android:name=".EkitaldiakIkusi"
+            android:label="EKITALDIAK"
             android:exported="false" />
         <activity
             android:name=".EkitaldiActivity"
             android:exported="false" />
         <activity
             android:name=".EkitaldiaEditatu"
+            android:label="EDIZIOA"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -71,6 +73,7 @@
             android:theme="@style/Theme.OnPlan.NoActionBar" />
         <activity
             android:name=".ErabiltzaileAlodaketak"
+            android:label="ERABILTZAILEA"
             android:exported="false" />
     </application>
 

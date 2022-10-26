@@ -56,9 +56,9 @@ public class DAOErabiltzaileak {
         return true;
     }
 
-    public boolean ezabatuErabiltzailea(Erabiltzailea erabiltzailea) {
+    public boolean ezabatuErabiltzailea(String id) {
         db.collection(Values.ERABILTZAILEAK)
-                .document(erabiltzailea.getId())
+                .document(id)
                 .delete();
         return true;
     }

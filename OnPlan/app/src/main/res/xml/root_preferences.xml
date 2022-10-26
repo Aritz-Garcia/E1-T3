@@ -5,7 +5,7 @@
 
         <SwitchPreferenceCompat
             android:title="@string/modo_oscuro"
-            app:key="visual" />
+            app:key="@string/settings_visual" />
 
     </PreferenceCategory>
 
