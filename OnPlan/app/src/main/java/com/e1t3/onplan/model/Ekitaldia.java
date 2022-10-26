@@ -9,6 +9,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -53,6 +54,7 @@ public class Ekitaldia {
         this.aurrekontua = aurrekontua;
         this.ekitaldiMota = ekitaldiMota;
         this.usuario = usuario;
+        this.gerataerak = new ArrayList<>();
     }
 
     // Getters and setters
@@ -72,12 +74,6 @@ public class Ekitaldia {
                 Values.EKITALDIAK_ERABILTZAILEA, usuario,
                 Values.EKITALDIAK_GERTAERAK, gerataerak
         );
-    }
-
-    public void setUpGertaerak(DocumentSnapshot document, LinearLayout linearLayout){
-        DAOGertaerak daoGertaerak = new DAOGertaerak();
-        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        if (ids.size() > 0) daoGertaerak.lortuGertaerakIdz(ids, linearLayout);
     }
 
     public String getHasierakoDataOrdua() {
@@ -129,12 +125,6 @@ public class Ekitaldia {
         return  izena ;
     }
 
-    public void setUpGertaerakEdit(DocumentSnapshot document, LinearLayout linearLayout) {
-        DAOGertaerak daoGertaerak = new DAOGertaerak();
-        List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
-        daoGertaerak.lortuGertaerakIdzEdit(ids, linearLayout, this);
-    }
-
     public void ezabatuGertaera(String id) {
         this.gerataerak.remove(id);
     }
@@ -143,11 +133,9 @@ public class Ekitaldia {
         return this.gerataerak;
     }
     public boolean getDataTarteanDago(Date fecha){
-
-
         Date date= hasierakoDataOrdua.toDate();
         Date date2= bukaerakoDataOrdua.toDate();
-        if(fecha.after(date) && fecha.before(date2)){
+        if(fecha.compareTo(date) >= 0 && fecha.compareTo(date2) <= 0){
             return true;
         }else{
             return false;
