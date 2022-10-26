@@ -156,14 +156,14 @@
         <LinearLayout
             android:id="@+id/llKontaktuaMaps"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="290dp"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <fragment
+                android:id="@+id/map"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/google_maps_kontaktua" />
+                android:layout_height="match_parent"
+                class="com.google.android.gms.maps.SupportMapFragment" />
         </LinearLayout>
     </LinearLayout>
 
