@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickListener {
+public class EkitaldiakIkusi extends AppCompatActivity{
 
-    private Button btnLineaTiempo;
+
     private FirebaseUser user;
     private String email;
     private Date fecha;
@@ -48,8 +48,6 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_eventos);
-        btnLineaTiempo = findViewById(R.id.btnLineaTimepo);
-        btnLineaTiempo.setOnClickListener(this);
         user = FirebaseAuth.getInstance().getCurrentUser();
         email = user.getEmail();
         lista = findViewById(R.id.lista);
@@ -127,13 +125,5 @@ public class EkitaldiakIkusi extends AppCompatActivity implements View.OnClickLi
                     }
                 });
 
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == btnLineaTiempo.getId()) {
-            Intent i = new Intent(this, EkitaldiActivity.class);
-            startActivity(i);
-        }
     }
 }
