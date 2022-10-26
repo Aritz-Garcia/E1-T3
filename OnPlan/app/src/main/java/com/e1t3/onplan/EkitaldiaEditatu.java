@@ -203,6 +203,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                     gertaeraIzena.setText(gertaera.getIzena());
                                     gertaeraDeskribapena.setText(gertaera.getDeskribapena());
 
+
                                     LinearLayout buttonLayout = new LinearLayout(linearLayout.getContext());
                                     buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
 
