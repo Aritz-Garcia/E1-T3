@@ -92,7 +92,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
         setUp(id);
 
         btnBorrar = findViewById(R.id.btnBorrar);
-        btnGorde.setOnClickListener(new View.OnClickListener() {
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
@@ -155,7 +155,6 @@ public class EkitaldiaEditatu extends AppCompatActivity {
     }
 
     public void lortuGertaerakIdzEdit(List<String> ids, LinearLayout linearLayout, Ekitaldia ekitaldia) {
-        List<Gertaera> gertaerak= new ArrayList<>();
         if (ids.size() > 0) {
             db.collection(Values.GERTAERAK)
                     .whereIn(FieldPath.documentId(), ids)
@@ -198,8 +197,6 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                     TextView gertaeraDeskribapena = new TextView(linearLayout.getContext());
                                     gertaeraDeskribapena.setTextColor(Color.parseColor("#004f53"));
 
-
-
                                     linearLayoutGertaera.addView(gertaeraOrdua);
                                     checkLayout.setOrientation(LinearLayout.VERTICAL);
                                     linearLayoutGertaera.addView(checkLayout);
@@ -241,93 +238,91 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                     linearLayout.addView(linearLayoutGertaera);
                                 }
 
-                                LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
-                                linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
-                                linearLayoutGertaera.setPadding(16, 16, 16, 16);
+                            } else { }
 
-                                FloatingActionButton gehituBotoia = new FloatingActionButton(linearLayout.getContext());
-                                gehituBotoia.setImageResource(R.drawable.gertaera_add);
-                                gehituBotoia.setCustomSize(100);
-
-                                //TODO: Gehitu botoia onClickListener-a
-                                gehituBotoia.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(linearLayout.getContext());
-                                        builder.setTitle(R.string.title_gertaera_popup);
-                                        // I'm using fragment here so I'm using getView() to provide ViewGroup
-                                        // but you can provide here any other instance of ViewGroup from your Fragment / Activity
-                                        View viewInflated = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.gehitu_gertera_popup, (ViewGroup) null, false);
-                                        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                                        builder.setView(viewInflated);
-
-                                        izenaText = (EditText) viewInflated.findViewById(R.id.popupIzena);
-                                        deskribapenaText = (EditText) viewInflated.findViewById(R.id.popupDeskribapena);
-                                        dataText = (EditText) viewInflated.findViewById(R.id.popupData);
-                                        dataText.setText("");
-
-                                        dataText.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                showDatePickerDialogFin();
-                                            }
-                                        });
-                                        orduaText = (EditText) viewInflated.findViewById(R.id.popupOrdua);
-                                        String ordua = "00:00";
-                                        orduaText.setText(ordua);
-                                        orduaText.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                showTimePickerDialog();
-                                            }
-                                        });
-
-                                        izena = izenaText.getText().toString();
-                                        deskribapena = deskribapenaText.getText().toString();
-                                        data = dataText.getText().toString();
-                                        ordua = orduaText.getText().toString();
-
-                                        // Set up the buttons
-                                        builder.setPositiveButton(R.string.gehitu, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                                if(validate()) {
-                                                    // get miliseconds from string date
-                                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                                                    Date date = null;
-                                                    try {
-                                                        date = sdf.parse(dataText.getText().toString() + " " + orduaText.getText().toString());
-                                                    } catch (ParseException e) {
-                                                        e.printStackTrace();
-                                                    }
-
-                                                    Gertaera g = new Gertaera(ekitaldia.getId() + "G" +ekitaldia.getGertaerak().size()+1 ,izenaText.getText().toString(), deskribapenaText.getText().toString(), false, new Timestamp(date));
-                                                    DAOGertaerak daoGertaerak = new DAOGertaerak();
-                                                    ekitaldia.gehituGertaera(g);
-                                                    daoGertaerak.gehituEdoEguneratuGertaera(g);
-                                                }
-                                            }
-                                        });
-                                        builder.setNegativeButton(R.string.volver_atras, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                        builder.show();
-                                    }
-                                });
-
-                                linearLayoutGertaera.addView(gehituBotoia);
-                                linearLayout.addView(linearLayoutGertaera);
-
-                            } else {
-                            }
                         }
                     });
         }
+        LinearLayout linearLayoutGertaera = new LinearLayout(linearLayout.getContext());
+        linearLayoutGertaera.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayoutGertaera.setPadding(16, 16, 16, 16);
 
+        FloatingActionButton gehituBotoia = new FloatingActionButton(linearLayout.getContext());
+        gehituBotoia.setImageResource(R.drawable.gertaera_add);
+        gehituBotoia.setCustomSize(100);
+
+        //TODO: Gehitu botoia onClickListener-a
+        gehituBotoia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(linearLayout.getContext());
+                builder.setTitle(R.string.title_gertaera_popup);
+                // I'm using fragment here so I'm using getView() to provide ViewGroup
+                // but you can provide here any other instance of ViewGroup from your Fragment / Activity
+                View viewInflated = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.gehitu_gertera_popup, (ViewGroup) null, false);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                builder.setView(viewInflated);
+
+                izenaText = (EditText) viewInflated.findViewById(R.id.popupIzena);
+                deskribapenaText = (EditText) viewInflated.findViewById(R.id.popupDeskribapena);
+                dataText = (EditText) viewInflated.findViewById(R.id.popupData);
+                dataText.setText("");
+
+                dataText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showDatePickerDialogFin();
+                    }
+                });
+                orduaText = (EditText) viewInflated.findViewById(R.id.popupOrdua);
+                String ordua = "00:00";
+                orduaText.setText(ordua);
+                orduaText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showTimePickerDialog();
+                    }
+                });
+
+                izena = izenaText.getText().toString();
+                deskribapena = deskribapenaText.getText().toString();
+                data = dataText.getText().toString();
+                ordua = orduaText.getText().toString();
+
+                // Set up the buttons
+                builder.setPositiveButton(R.string.gehitu, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        if(validate()) {
+                            // get miliseconds from string date
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                            Date date = null;
+                            try {
+                                date = sdf.parse(dataText.getText().toString() + " " + orduaText.getText().toString());
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            Gertaera g = new Gertaera(ekitaldia.getId() + "G" +ekitaldia.getGertaerak().size()+1 ,izenaText.getText().toString(), deskribapenaText.getText().toString(), false, new Timestamp(date));
+                            DAOGertaerak daoGertaerak = new DAOGertaerak();
+                            ekitaldia.gehituGertaera(g);
+                            daoGertaerak.gehituEdoEguneratuGertaera(g);
+                        }
+                    }
+                });
+                builder.setNegativeButton(R.string.volver_atras, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+
+        linearLayoutGertaera.addView(gehituBotoia);
+        linearLayout.addView(linearLayoutGertaera);
     }
 
     private void showDatePickerDialogFin() {
