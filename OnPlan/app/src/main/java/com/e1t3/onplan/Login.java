@@ -47,6 +47,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnSartu.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
+
+        //EzarpenakActivity ezarpenakActivity = new EzarpenakActivity();
+        //ezarpenakActivity.setDayNight();
     }
 
     @Override

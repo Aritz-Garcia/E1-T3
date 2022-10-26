@@ -81,4 +81,6 @@
     <string name="btnSalir">Salir</string>
     <string name="guardar">Guardar</string>
 
+    <string name="settings_visual">visual</string>
+
 </resources>
