@@ -54,13 +54,14 @@
             android:exported="false" />
         <activity
             android:name=".EkitaldiakIkusi"
+            android:label="EKITALDIAK"
             android:exported="false" />
         <activity
             android:name=".EkitaldiActivity"
             android:exported="false" />
         <activity
             android:name=".EkitaldiaEditatu"
-            android:label=""
+            android:label="EDIZIOA"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -41,6 +41,7 @@ public class EkitaldiakIkusi extends AppCompatActivity{
     private Date fecha;
     private LinearLayout lista;
     private  ArrayAdapter<Ekitaldia> adapter;
+    private TextView nada;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,10 +49,15 @@ public class EkitaldiakIkusi extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_eventos);
+        nada = findViewById(R.id.nada);
+        nada.setVisibility(View.INVISIBLE);
         user = FirebaseAuth.getInstance().getCurrentUser();
         email = user.getEmail();
         lista = findViewById(R.id.lista);
         erabiltzaileId();
+        if(lista == null){
+            nada.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -124,6 +130,7 @@ public class EkitaldiakIkusi extends AppCompatActivity{
                         }
                     }
                 });
+
 
     }
 }
