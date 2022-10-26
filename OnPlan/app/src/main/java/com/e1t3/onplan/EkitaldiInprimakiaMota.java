@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.shared.EkitaldiMota;
@@ -53,11 +55,15 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
     private SharedPreferences.Editor editor;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SimpleDateFormat formato;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_tipo_de_evento);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         btnVolverAtrasTE = findViewById(R.id.btnVolverAtrasET);
         btnVolverAtrasTE.setOnClickListener(this);
@@ -183,6 +189,15 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
             e.printStackTrace();
         }
         return gertaeraDataOrdua;
+    }
+
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

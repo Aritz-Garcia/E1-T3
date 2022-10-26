@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.shared.Values;
@@ -41,11 +42,15 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     private ArrayAdapter<Spanned> arrayAdapter;
     private SharedPreferences ekitaldia;
     private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_eventos_salas);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         btnVolverAtras = findViewById(R.id.btnVolverAtras);
         btnVolverAtras.setOnClickListener(this);
@@ -159,6 +164,15 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                         }
                     }
                 });
+    }
+
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

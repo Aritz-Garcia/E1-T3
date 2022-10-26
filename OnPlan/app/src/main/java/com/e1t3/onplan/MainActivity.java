@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnCerrarSesion,btnEditarUsuario;
     private SharedPreferences erabiltzaileDatuak;
     private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         tvEmailUsuario = headerView.findViewById(R.id.tvUserEmail);
         tvNombreUsuario = headerView.findViewById(R.id.tvUserName);
@@ -121,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, com.e1t3.onplan.EzarpenakActivity.class);
+            Intent i = new Intent(this, EzarpenakActivity.class);
             startActivity(i);
             return true;
         }
@@ -202,5 +208,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     }
                 });
+    }
+
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

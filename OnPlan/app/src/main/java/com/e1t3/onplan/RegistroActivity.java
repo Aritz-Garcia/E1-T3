@@ -1,7 +1,11 @@
 package com.e1t3.onplan;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +34,7 @@ public class RegistroActivity extends AppCompatActivity {
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private SharedPreferences sharedPreferences;
 
     public boolean[] egokia = new boolean[7];
 
@@ -39,6 +44,9 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
+        
         mAuth = FirebaseAuth.getInstance();
 
         aukeratuta = findViewById(R.id.RBPersona);
@@ -233,7 +241,12 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-    /*
-    meter datos en la base de datos firebase
-     */
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }

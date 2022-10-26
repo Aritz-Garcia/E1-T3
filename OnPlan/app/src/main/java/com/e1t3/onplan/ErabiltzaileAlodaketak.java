@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOErabiltzaileak;
@@ -67,14 +68,16 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     private StorageReference storage;
     private SharedPreferences erabiltzaileDatuak;
     private SharedPreferences.Editor editor;
-    private List<String> ekitaldiaList;
-    private List<Gertaera> gertaeraList;
+    private SharedPreferences sharedPreferences;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_erabiltzaile_aldaketak);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
          user = FirebaseAuth.getInstance().getCurrentUser();
         email = user.getEmail();
@@ -368,5 +371,14 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

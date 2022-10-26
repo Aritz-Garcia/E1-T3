@@ -21,6 +21,7 @@ import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
@@ -48,12 +49,16 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SharedPreferences ekitaldiDatuak;
     private SharedPreferences.Editor editor;
+    private SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_evento);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         etNombreEvento = findViewById(R.id.etNombreEvento);
         etFechaIn = findViewById(R.id.etFechaInicio);
@@ -297,7 +302,12 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                 });
     }
 
-    public void proba() {
-        
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

@@ -17,7 +17,6 @@ import androidx.preference.SwitchPreferenceCompat;
 public class EzarpenakActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,6 @@ public class EzarpenakActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         setDayNight();
     }
 
@@ -54,16 +52,15 @@ public class EzarpenakActivity extends AppCompatActivity {
                 switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
-                        boolean oscuro = (Boolean) newValue;
-                        if (oscuro) {
-                            editor.putBoolean("oscuro", true);
-                        } else {
+                        if (switchPreference.isChecked()) {
                             editor.putBoolean("oscuro", false);
+                        } else {
+                            editor.putBoolean("oscuro", true);
                         }
                         editor.commit();
-                        EzarpenakActivity ezarpenakActivity = new EzarpenakActivity();
+                        EzarpenakActivity ezarpenakActivity = (EzarpenakActivity) getActivity();
                         ezarpenakActivity.setDayNight();
-                        return false;
+                        return true;
                     }
                 });
             }
@@ -71,9 +68,7 @@ public class EzarpenakActivity extends AppCompatActivity {
     }
 
     public void setDayNight() {
-        editor.putBoolean("oscuro", false);
-        editor.commit();
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", true);
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

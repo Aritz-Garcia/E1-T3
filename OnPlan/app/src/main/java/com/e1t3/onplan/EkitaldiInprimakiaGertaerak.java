@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -54,11 +55,15 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
     private SimpleDateFormat formato;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static int sartu = 0;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ekitaldi_inprimakia_gertaerak);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         etGertaeraIzena = findViewById(R.id.etGertaeraIzena);
         etGertaeraDeskribapena = findViewById(R.id.etGertaeraDeskribapena);
@@ -374,11 +379,13 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
                 });
     }
 
-    //Konprobatu gertaeren ordua berdina baden
-    /**private boolean gertareaDataKonprobaketa() {
-
-
-        return false;
-    }*/
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 
 }

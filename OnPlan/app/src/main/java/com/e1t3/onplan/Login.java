@@ -3,11 +3,14 @@ package com.e1t3.onplan;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,11 +34,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etEmail, etPassword;
     private Button btnErregistratu, btnSartu;
     private FirebaseAuth mAuth;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
@@ -47,9 +54,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnSartu.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
-
-        //EzarpenakActivity ezarpenakActivity = new EzarpenakActivity();
-        //ezarpenakActivity.setDayNight();
     }
 
     @Override
@@ -114,4 +118,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         Intent i = new Intent(this, RegistroActivity.class);
         startActivity(i);
     }
+    public void setDayNight() {
+        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
 }

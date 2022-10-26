@@ -44,7 +44,8 @@
         <activity
             android:name=".EzarpenakActivity"
             android:exported="false"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".EkitaldiInprimakiaGelak"
             android:exported="false">
