@@ -17,6 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.063"></LinearLayout>
+        app:layout_constraintVertical_bias="0.063">
+
+        <TextView
+            android:id="@+id/nada"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ez dago ekitaldirik egun honetan"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

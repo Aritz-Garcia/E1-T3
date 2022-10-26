@@ -54,7 +54,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
     //Layout Android elementuak
     private ActivityEkitaldiaEditatuBinding binding;
     private LinearLayout linearLayout;
-    private Button btnGorde;
+    private Button btnGorde, btnBorrar;
 
     // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -90,6 +90,17 @@ public class EkitaldiaEditatu extends AppCompatActivity {
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
         String id = getIntent().getExtras().getString("id");
         setUp(id);
+
+        btnBorrar = findViewById(R.id.btnBorrar);
+        btnGorde.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
+                DAOGertaerak daoGertaerak = new DAOGertaerak();
+                daoGertaerak.gertaerakIdzEzabatu(ekitaldia.getGertaerak());
+                daoEkitaldiak.ezabatuEkitaldiaId(ekitaldia.getId());
+            }
+        });
 
         btnGorde = findViewById(R.id.btnGorde);
         btnGorde.setOnClickListener(new View.OnClickListener() {
