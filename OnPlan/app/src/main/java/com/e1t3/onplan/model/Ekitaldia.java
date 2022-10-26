@@ -2,6 +2,7 @@ package com.e1t3.onplan.model;
 
 import android.widget.LinearLayout;
 
+import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
@@ -141,5 +142,11 @@ public class Ekitaldia {
             return false;
         }
 
+    }
+
+    public void gehituGertaera(Gertaera g) {
+        this.gerataerak.add(g.getId());
+        DAOEkitaldiak dao = new DAOEkitaldiak();
+        dao.gehituEdoEguneratuEkitaldia(this);
     }
 }

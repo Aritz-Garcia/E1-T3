@@ -62,6 +62,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:inputType="date"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -85,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:focusable="false"
                 android:inputType="time"
                 android:textSize="12sp" />
 
