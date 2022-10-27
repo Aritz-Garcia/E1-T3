@@ -4,16 +4,10 @@ package com.e1t3.onplan;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -32,11 +25,8 @@ import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
-import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.Values;
-import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,13 +36,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
@@ -211,10 +197,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
     public boolean stringIrakurri(String textua, EditText text){
         if( textua.length()==0 )  {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
-            text.setError("Bakarrik letrak");
+            text.setError(getString(R.string.error_soloLetras));
             return false;
         }else{
             return true;
@@ -223,13 +209,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
     public boolean zenbakiaIrakurri(String textua, EditText text){
         if( textua.length()==0 ) {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if(textua.length()!=9) {
-            text.setError("Bederatziko luzeera");
+            text.setError(getString(R.string.error_maximoNueve));
             return false;
         }else if((!textua.matches("[0-9]+\\.?")) ){
-            text.setError("Bakarrik zenbakiak");
+            text.setError(getString(R.string.error_soloNumeros));
             return false;
         }else{
             return true;
@@ -256,7 +242,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
                       Glide.with(ErabiltzaileAlodaketak.this)
                                       .load(uri)
                                               . fitCenter().centerCrop().into(mSetImage);
-                        Toast.makeText(ErabiltzaileAlodaketak.this,"se ha subido bien", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ErabiltzaileAlodaketak.this,getString(R.string.toast_ondoIgota), Toast.LENGTH_SHORT).show();
                       UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                               .setPhotoUri(uri)
                               .build();

@@ -106,13 +106,13 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int posizioa, long l) {
-        String ekitaldiMota = llist.get(posizioa).toString();
+        String ekitaldiMota = llist.get(posizioa);
         String ekitaldiMotaString = ekitaldiMotaString(ekitaldiMota);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Zihur zaude " + ekitaldiMota + " ekitaldi mota aukeratu nahi duzula")
-                .setTitle("Ohartarazpena")
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        builder.setMessage(ekitaldiMota + R.string.dialog_seguroEkitaldi)
+                .setTitle(R.string.dialog_aviso)
+                .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMotaString);
@@ -120,7 +120,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
                         gertaeraAukeartuEdoez();
                     }
                 })
-                .setNegativeButton(R.string.nok, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dialog_cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -132,16 +132,16 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
 
     private void gertaeraAukeartuEdoez() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.gertaera_text)
-                .setTitle(R.string.ohartarazpena)
-                .setPositiveButton(R.string.bai, new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.dialog_crearSucesos)
+                .setTitle(R.string.dialog_aviso)
+                .setPositiveButton(R.string.dialog_si, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(EkitaldiInprimakiaMota.this, EkitaldiInprimakiaGertaerak.class);
                         startActivity(intent);
                     }
                 })
-                .setNegativeButton(R.string.ez, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ekitaldiDatuakGorde();
@@ -167,7 +167,6 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         ekitaldia.put(Values.EKITALDIAK_DESKRIBAPENA,ekitaldi.getString(Values.EKITALDIAK_DESKRIBAPENA, ""));
         ekitaldia.put(Values.EKITALDIAK_ERABILTZAILEA,ekitaldi.getString(Values.EKITALDIAK_ERABILTZAILEA, ""));
         ekitaldia.put(Values.EKITALDIAK_GELA,ekitaldi.getString(Values.EKITALDIAK_GELA, ""));
-        //ekitaldia.put(Values.EKITALDIAK_GERTAERAK, FieldValue.arrayUnion(ekitaldi.getString(Values.EKITALDIAK_GERTAERAK, "")));
         ekitaldiak.document().set(ekitaldia);
     }
 

@@ -14,17 +14,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.e1t3.onplan.model.Ekitaldia;
-import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.Values;
 import com.e1t3.onplan.ui.dialog.DatePickerFragment;
@@ -97,9 +94,9 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
             if (egunaKonprobatu()) {
                 if(stringIrakurri(etGertaeraIzena.getText().toString(),findViewById(R.id.etGertaeraIzena))) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("Gertaera gehiago sortu nahi dituzu?")
-                            .setTitle("Ohartarazpena")
-                            .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+                    builder.setMessage(R.string.dialog_masSucesos)
+                            .setTitle(R.string.dialog_aviso)
+                            .setPositiveButton(R.string.dialog_si, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if (sartu != 0) {
@@ -112,11 +109,11 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
                                     etGertaeraDeskribapena.setText(null);
                                     etGertaeraEguna.setText(null);
                                     etGertaeraOrdua.setText(null);
-                                    btnVolverSuceso.setText("Salir");
+                                    btnVolverSuceso.setText(R.string.dialog_salir);
                                     sartu++;
                                 }
                             })
-                            .setNegativeButton("Ez", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                     if (sartu != 0) {
@@ -163,9 +160,9 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
     private boolean egunaKonprobatu() {
         if (egunKonprobaketa2().equals(konprobaketa())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("No hay datos metidos en la fecha y hora del suceso. Vuelve a intentarlo")
-                    .setTitle("Error")
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.dialog_fechaYHoraSucVacio)
+                    .setTitle(R.string.dialog_error)
+                    .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             etGertaeraEguna.setText("");
@@ -178,9 +175,9 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
             return false;
         } else if (egunKonprobaketa1().after(egunKonprobaketa2()) && egunKonprobaketa3().after(egunKonprobaketa2())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("La fecha es anterior a la fecha de inicio del evento. Vuelve a intentarlo")
-                    .setTitle("Error")
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.dialog_fechaAnterior)
+                    .setTitle(R.string.dialog_error)
+                    .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             etGertaeraEguna.setText("");
@@ -193,9 +190,9 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
             return false;
         } else if (egunKonprobaketa3().before(egunKonprobaketa2()) && egunKonprobaketa1().before(egunKonprobaketa2())) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("La fecha es posterior a la fecha de fin del evento. Vuelve a intentarlo")
-                    .setTitle("Error")
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.dialog_fechaPosterior)
+                    .setTitle(R.string.dialog_error)
+                    .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             etGertaeraEguna.setText("");
@@ -264,10 +261,10 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
 
     private boolean stringIrakurri(String textua, EditText text){
         if( textua.length()==0 )  {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
-            text.setError("Bakarrik letrak");
+            text.setError(getString(R.string.error_soloLetras));
             return false;
         }else{
             return true;

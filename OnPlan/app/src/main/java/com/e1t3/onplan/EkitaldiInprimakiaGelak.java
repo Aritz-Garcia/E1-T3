@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -91,15 +90,15 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                             }
                             if (llist.size() == 0) {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(EkitaldiInprimakiaGelak.this);
-                                builder.setMessage("Ez dago gelarik aurrekontu edo/eta edukiera horretarako. Berriro Sailatu")
-                                        .setTitle("Error")
-                                        .setPositiveButton("Datuak berriro sartu", new DialogInterface.OnClickListener() {
+                                builder.setMessage(R.string.dialog_sinSalas)
+                                        .setTitle(R.string.dialog_error)
+                                        .setPositiveButton(R.string.dialog_datosOtraVez, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 finish();
                                             }
                                         })
-                                        .setNegativeButton("Irten", new DialogInterface.OnClickListener() {
+                                        .setNegativeButton(R.string.dialog_salir, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 Intent intent = new Intent(EkitaldiInprimakiaGelak.this, MainActivity.class);
@@ -139,9 +138,9 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                 Gela gela =  new Gela(document);
                                 String gelaId = gela.getId();
                                 AlertDialog.Builder builder = new AlertDialog.Builder(EkitaldiInprimakiaGelak.this);
-                                builder.setMessage("Zihur zaude " + gelaIzena + " gela aukeratu nahi duzula")
-                                        .setTitle("Ohartarazpena")
-                                        .setPositiveButton("Onartu", new DialogInterface.OnClickListener() {
+                                builder.setMessage(gelaIzena + R.string.dialog_seguroSalas)
+                                        .setTitle(R.string.dialog_aviso)
+                                        .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
                                                 editor.putString(Values.EKITALDIAK_GELA, gelaId);
@@ -150,7 +149,7 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
                                                 startActivity(intent);
                                             }
                                         })
-                                        .setNegativeButton("Ezeztatu", new DialogInterface.OnClickListener() {
+                                        .setNegativeButton(R.string.dialog_cancelar, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialogInterface, int i) {
 

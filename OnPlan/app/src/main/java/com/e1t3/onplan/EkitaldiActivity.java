@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiaBinding;
 import com.e1t3.onplan.model.Ekitaldia;
@@ -27,8 +25,6 @@ import com.e1t3.onplan.shared.Values;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -46,7 +42,6 @@ public class EkitaldiActivity extends AppCompatActivity {
 
     // Datubaserako objektuak
     public static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private DAOEkitaldiak daoEkitaldiak = new DAOEkitaldiak();
     private FloatingActionButton fab;
 
     private Ekitaldia ekitaldia;

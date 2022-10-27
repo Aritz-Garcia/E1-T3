@@ -44,9 +44,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
     public void onSelectedDayChange (CalendarView calendarview, int i3, int i1, int i2) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         CharSequence []items = new CharSequence[3];
-        items[0] = "Agregar evento";
-        items[1] = "Ver eventos";
-        items[2] = "Cancelar";
+        items[0] = getString(R.string.dialog_tarea_agregar);
+        items[1] = getString(R.string.dialog_tarea_ver);
+        items[2] = getString(R.string.dialog_cancelar);
 
         Calendar calendar = Calendar.getInstance();
         Date date1,date2;
@@ -69,9 +69,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
 
         if(date2.before(date1)){
             AlertDialog.Builder builder2 = new AlertDialog.Builder(getActivity());
-            builder2.setMessage("La fecha seleccionada ya ha pasado, no se puede crear un evento ese dia")
-                    .setTitle("Error")
-                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            builder2.setMessage(R.string.dialog_fechaPasado)
+                    .setTitle(R.string.dialog_error)
+                    .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
             dialog.show();
         }else{
                 int finalMes = i1;
-                builder.setTitle("Seleccione una tarea")
+                builder.setTitle(R.string.dialog_seleccinarTarea)
                         .setItems(items, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {

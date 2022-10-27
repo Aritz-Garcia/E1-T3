@@ -25,7 +25,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.databinding.ActivityMainBinding;
 import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
@@ -40,10 +39,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.protobuf.DescriptorProtos;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

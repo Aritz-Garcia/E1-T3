@@ -48,7 +48,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -155,7 +154,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                             lortuGertaerakIdzEdit(ids, linearLayout, ekitaldia);
 
 
-                        } else { }
+                        }
                     }
                 });
     }

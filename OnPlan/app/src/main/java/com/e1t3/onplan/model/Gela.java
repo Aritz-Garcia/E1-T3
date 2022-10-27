@@ -1,5 +1,8 @@
 package com.e1t3.onplan.model;
 
+import android.content.Context;
+
+import com.e1t3.onplan.R;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.firestore.DocumentSnapshot;
 
@@ -48,7 +51,8 @@ public class Gela {
      */
 
     public String toString() {
-        return "<br/><b style='font-size:30px'>Izena:</b> " + izena + "<br/><b>Edukiera:</b> " + edukiera + "<br/><b>Prezioa:</b> " + getTwoDecimals(prezioa) + "€<br/><b>Gehigarriak:</b> " + gehigarriak + "<br/>";
+
+        return "<br/><b style='font-size:30px'>" + R.string.gela_izena + "</b> " + izena + "<br/><b>" + R.string.gela_edukiera + "</b>" + edukiera + "<br/><b>" + R.string.gela_prezioa + "</b>" + getTwoDecimals(prezioa) + "€<br/><b>" + R.string.gela_gehigarria + "</b>" + gehigarriak + "<br/>";
     }
 
     /**

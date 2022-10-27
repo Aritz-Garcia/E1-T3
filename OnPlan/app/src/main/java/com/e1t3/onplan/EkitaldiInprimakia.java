@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -42,7 +41,6 @@ import java.util.Date;
 public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etNombreEvento, etFechaIn, etHoraIn, etFechaFin, etHoraFin, etAforo, etPresupuesto, etDescripcion;
-    private TextView tvDiaHoraIn, tvDiaHoraFin, tvAforo, tvPresupuesto, tvDescripcion;
     private Button btnSiguiente, btnVolverAgenda;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm");
     public Ekitaldia ekitaldia = new Ekitaldia();
@@ -101,9 +99,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
             Date comprovacion = comprovacion();
             if (comprovacionTiempo2().equals(comprovacion)) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("No hay datos metidos en la fecha de fin. Vuelve a intentarlo")
-                        .setTitle("Error")
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.dialog_datosMetidos)
+                        .setTitle(R.string.dialog_error)
+                        .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 etFechaFin.setText("");
@@ -115,9 +113,9 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
                 dialog.show();
             } else if (comprovacionTiempo1().after(comprovacionTiempo2()) || comprovacionTiempo1().equals(comprovacionTiempo2())) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("La fecha de fin es anterior o igual a la fecha de inicio. Vuelve a intentarlo")
-                        .setTitle("Error")
-                        .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                builder.setMessage(R.string.dialog_fechaIgualOAnterior)
+                        .setTitle(R.string.dialog_error)
+                        .setPositiveButton(R.string.dialog_aceptar, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 etFechaFin.setText("");
@@ -251,10 +249,10 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
 
     public boolean stringIrakurri(String textua, EditText text){
         if( textua.length()==0 )  {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
-            text.setError("Bakarrik letrak");
+            text.setError(getString(R.string.error_soloLetras));
             return false;
         }else{
             return true;
@@ -262,16 +260,16 @@ public class EkitaldiInprimakia extends AppCompatActivity implements View.OnClic
     }
     public boolean zenbakiaIrakurri(String textua, EditText text){
         if( textua.length()==0 ) {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if(Integer.parseInt(textua)<0) {
-            text.setError("Ezin da izan negatiboa");
+            text.setError(getString(R.string.error_nadaNegativo));
             return false;
         }else if((!textua.matches("[0-9]+\\.?")) ){
-            text.setError("Bakarrik zenbakiak");
+            text.setError(getString(R.string.error_soloNumeros));
             return false;
         }else if (textua.length()>6) {
-            text.setError("Zenbakia oso handia da.");
+            text.setError(getString(R.string.error_numeroGrande));
             return false;
         }else{
             return true;

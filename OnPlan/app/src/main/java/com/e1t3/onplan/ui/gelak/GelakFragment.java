@@ -2,10 +2,8 @@ package com.e1t3.onplan.ui.gelak;
 
 import static android.content.ContentValues.TAG;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spannable;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,10 +13,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.e1t3.onplan.R;
 import com.e1t3.onplan.databinding.FragmentSalasBinding;

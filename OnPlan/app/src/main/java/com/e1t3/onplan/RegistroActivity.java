@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import com.e1t3.onplan.dao.DAOErabiltzaileak;
-import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -22,7 +21,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
@@ -129,7 +127,7 @@ public class RegistroActivity extends AppCompatActivity {
                     startActivity(i);
                     RegistroActivity.this.finish();
                 } else {
-                    emaila.setError("Ezin da errepikatu emaila");
+                    emaila.setError(getString(R.string.error_repetirEmail));
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
                 }
             });
@@ -141,10 +139,10 @@ public class RegistroActivity extends AppCompatActivity {
 
     public boolean stringIrakurri(String textua, EditText text){
         if( textua.length()==0 )  {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if((!textua.matches("[a-zA-Z ]+\\.?"))){
-            text.setError("Bakarrik letrak");
+            text.setError(getString(R.string.error_soloLetras));
             return false;
         }else{
             return true;
@@ -154,13 +152,13 @@ public class RegistroActivity extends AppCompatActivity {
 
     public boolean zenbakiaIrakurri(String textua, EditText text){
         if( textua.length()==0 ) {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if(textua.length()!=9) {
-            text.setError("Bederatziko luzeera");
+            text.setError(getString(R.string.error_maximoNueve));
             return false;
         }else if((!textua.matches("[0-9]+\\.?")) ){
-            text.setError("Bakarrik zenbakiak");
+            text.setError(getString(R.string.error_soloNumeros));
             return false;
         }else{
             return true;
@@ -170,7 +168,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     public boolean dnikonprobatu(String textua, EditText text){
             if( textua.length()==0 )  {
-                text.setError("Beharrezko kanpua");
+                text.setError(getString(R.string.error_campoNecesario));
                 return false;
             }else if(!nif(textua, text)){
                 return false;
@@ -192,23 +190,23 @@ public class RegistroActivity extends AppCompatActivity {
             letra= "TRWAGMYFPDXBNJZSQVHLCKET";
             letra=letra.substring(numero,numero+1);
             if (!letra.equals(letr.toUpperCase())) {
-                text.setError("Letra ez da egokia");
+                text.setError(getString(R.string.error_letra));
                 return false;
             }else{
                 return true;
             }
         }else{
-            text.setError("Formatua ez da egokia ZZZZZZZZL");
+            text.setError(getString(R.string.error_formatoDNI));
            return false;
         }
     }
 
     public boolean emailkonprobatu(String textua, EditText text){
             if( textua.length()==0 )  {
-                text.setError("Beharrezko kanpua");
+                text.setError(getString(R.string.error_campoNecesario));
                 return false;
             }else if((!textua.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"))){
-                text.setError("aaaaa@aaaa.aaa formatua");
+                text.setError(getString(R.string.error_formatoEmail));
                 return false;
             }else{
                 return true;
@@ -218,10 +216,10 @@ public class RegistroActivity extends AppCompatActivity {
 
     public boolean pasahitzaIrakurri(String cadena, EditText text){
         if(cadena.length()==0){
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if(cadena.length()<6) {
-            text.setError("Gutxienez 6 karaktere");
+            text.setError(getString(R.string.error_caracteres));
             return false;
         }else {
             return true;
@@ -231,10 +229,10 @@ public class RegistroActivity extends AppCompatActivity {
     //devuelve un true o false si la primera constrase�a y la segunda contrase�a son iguales
     public boolean pasahitzaKonfirmatu(String pasahitza1, String pasahitza2, EditText text) {
         if(pasahitza2.length()==0) {
-            text.setError("Beharrezko kanpua");
+            text.setError(getString(R.string.error_campoNecesario));
             return false;
         }else if(!pasahitza1.equals(pasahitza2)){
-            text.setError("Bi pasahitzak berdinak izan behar dira");
+            text.setError(getString(R.string.error_compPass));
             return false;
         }else {
             return true;

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="radiobuttonkonporbatu"
-            android:text="Empresa"
+            android:text="@string/empresa"
             tools:ignore="TouchTargetSizeCheck" />
 
         <RadioButton
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="radiobuttonkonporbatu"
-            android:text="Persona"
+            android:text="@string/persona"
             tools:ignore="TouchTargetSizeCheck" />
 
     </RadioGroup>
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/group"
         app:layout_constraintVertical_bias="0.096"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck" />
+        tools:ignore="MissingConstraints,TouchTargetSizeCheck,TextContrastCheck" />
 
     <EditText
         android:id="@+id/AbizenaTextua"
@@ -168,7 +168,7 @@
         android:id="@+id/EzeztatuBotoia"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="Ezeztatu"
+        android:text="@string/dialog_cancelar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
@@ -181,7 +181,7 @@
         android:id="@+id/GordeBotoia"
         android:layout_width="113dp"
         android:layout_height="48dp"
-        android:text="Gorde"
+        android:text="@string/guardar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.895"
@@ -194,7 +194,7 @@
         android:id="@+id/radioerror"
         android:layout_width="162dp"
         android:layout_height="24dp"
-        android:text="Bat aukeratu behar da "
+        android:text="@string/registro_aukeratu"
         android:textColor="#FF0505"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
