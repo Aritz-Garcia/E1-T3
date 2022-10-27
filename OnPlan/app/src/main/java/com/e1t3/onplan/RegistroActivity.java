@@ -34,7 +34,7 @@ public class RegistroActivity extends AppCompatActivity {
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
     public boolean[] egokia = new boolean[7];
 
@@ -44,7 +44,7 @@ public class RegistroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
         
         mAuth = FirebaseAuth.getInstance();
@@ -242,7 +242,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

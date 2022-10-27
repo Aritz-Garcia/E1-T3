@@ -2,7 +2,9 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
@@ -45,10 +48,16 @@ public class EkitaldiakIkusi extends AppCompatActivity{
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    private SharedPreferences settingssp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_eventos);
+
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
+
         nada = findViewById(R.id.nada);
         nada.setVisibility(View.INVISIBLE);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -132,5 +141,14 @@ public class EkitaldiakIkusi extends AppCompatActivity{
                 });
 
 
+    }
+
+    public void setDayNight() {
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 }

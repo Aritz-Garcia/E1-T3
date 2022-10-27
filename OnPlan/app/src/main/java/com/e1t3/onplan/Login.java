@@ -34,14 +34,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private EditText etEmail, etPassword;
     private Button btnErregistratu, btnSartu;
     private FirebaseAuth mAuth;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
         etEmail = findViewById(R.id.etEmail);
@@ -119,7 +119,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         startActivity(i);
     }
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

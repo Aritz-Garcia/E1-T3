@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnCerrarSesion,btnEditarUsuario;
     private SharedPreferences erabiltzaileDatuak;
     private SharedPreferences.Editor editor;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
 
     @Override
@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
         tvEmailUsuario = headerView.findViewById(R.id.tvUserEmail);
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
