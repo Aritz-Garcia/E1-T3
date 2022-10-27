@@ -55,14 +55,14 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
     private SharedPreferences.Editor editor;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private SimpleDateFormat formato;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_tipo_de_evento);
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
         btnVolverAtrasTE = findViewById(R.id.btnVolverAtrasET);
@@ -192,7 +192,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
     }
 
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

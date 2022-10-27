@@ -42,14 +42,14 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     private ArrayAdapter<Spanned> arrayAdapter;
     private SharedPreferences ekitaldia;
     private SharedPreferences.Editor editor;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_eventos_salas);
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
         btnVolverAtras = findViewById(R.id.btnVolverAtras);
@@ -167,7 +167,7 @@ public class EkitaldiInprimakiaGelak extends AppCompatActivity implements View.O
     }
 
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

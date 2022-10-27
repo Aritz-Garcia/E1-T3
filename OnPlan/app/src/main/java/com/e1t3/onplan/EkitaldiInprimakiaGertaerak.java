@@ -55,14 +55,14 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
     private SimpleDateFormat formato;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private static int sartu = 0;
-    private SharedPreferences sharedPreferences;
+    private SharedPreferences settingssp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ekitaldi_inprimakia_gertaerak);
 
-        sharedPreferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
         etGertaeraIzena = findViewById(R.id.etGertaeraIzena);
@@ -380,7 +380,7 @@ public class EkitaldiInprimakiaGertaerak extends AppCompatActivity implements Vi
     }
 
     public void setDayNight() {
-        boolean oscuro = sharedPreferences.getBoolean("oscuro", false);
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {

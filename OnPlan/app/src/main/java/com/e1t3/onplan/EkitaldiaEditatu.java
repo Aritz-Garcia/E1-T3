@@ -6,6 +6,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOGertaerak;
@@ -72,12 +74,16 @@ public class EkitaldiaEditatu extends AppCompatActivity {
     private String data;
     private String ordua;
 
+    private SharedPreferences settingssp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityEkitaldiaEditatuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         //get String array from enum
         String[] motak = new String[EkitaldiMota.values().length];
@@ -459,6 +465,15 @@ public class EkitaldiaEditatu extends AppCompatActivity {
             return false;
         }
         return ekitaldia.getDataTarteanDago(date);
+    }
+
+    public void setDayNight() {
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }

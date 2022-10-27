@@ -1,6 +1,8 @@
 package com.e1t3.onplan;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOGertaerak;
@@ -48,6 +51,8 @@ public class EkitaldiActivity extends AppCompatActivity {
 
     private Ekitaldia ekitaldia;
 
+    private SharedPreferences settingssp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +61,8 @@ public class EkitaldiActivity extends AppCompatActivity {
         binding = ActivityEkitaldiaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        setDayNight();
 
         //get String array from enum
         String[] motak = new String[EkitaldiMota.values().length];
@@ -191,6 +198,15 @@ public class EkitaldiActivity extends AppCompatActivity {
                     }
                 });
         return gertaerak;
+    }
+
+    public void setDayNight() {
+        boolean oscuro = settingssp.getBoolean("oscuro", false);
+        if (oscuro) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 }
