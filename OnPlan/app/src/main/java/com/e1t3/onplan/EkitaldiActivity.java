@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiaBinding;
 import com.e1t3.onplan.model.Ekitaldia;
+import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EkitaldiActivity extends AppCompatActivity {
@@ -84,6 +86,23 @@ public class EkitaldiActivity extends AppCompatActivity {
         });
     }
 
+    private void setGelaIzena(TextView gela) {
+        db.collection(Values.GELAK)
+                .whereIn(FieldPath.documentId(), Collections.singletonList(ekitaldia.getGela()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Gela g = new Gela(document);
+                                gela.setText(g.getIzena());
+                            }
+                        }
+                    }
+                });
+    }
+
     public void setUp(String id){
         db.collection(Values.EKITALDIAK)
                 .document(id)
@@ -110,7 +129,7 @@ public class EkitaldiActivity extends AppCompatActivity {
                             aurrekontua.setText(String.format("%.2f",ekitaldia.getAurrekontua()));
 
                             TextView gela = binding.getRoot().findViewById(R.id.ekitaldiGela);
-                            gela.setText(ekitaldia.getGela());
+                            setGelaIzena(gela);
 
 
                             List<String> ids = ekitaldia.getGertaerak();

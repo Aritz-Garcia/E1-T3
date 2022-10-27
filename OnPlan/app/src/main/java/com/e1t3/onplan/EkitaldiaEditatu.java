@@ -32,6 +32,7 @@ import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOGertaerak;
 import com.e1t3.onplan.databinding.ActivityEkitaldiaEditatuBinding;
 import com.e1t3.onplan.model.Ekitaldia;
+import com.e1t3.onplan.model.Gela;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
@@ -48,6 +49,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -148,12 +151,29 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                             aurrekontua.setText(String.format("%.2f",ekitaldia.getAurrekontua()));
 
                             TextView gela = binding.getRoot().findViewById(R.id.ekitaldiGela);
-                            gela.setText(ekitaldia.getGela());
+                            setGelaIzena(gela);
 
                             List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
                             lortuGertaerakIdzEdit(ids, linearLayout, ekitaldia);
 
 
+                        } else { }
+                    }
+                });
+    }
+
+    private void setGelaIzena(TextView gela) {
+        db.collection(Values.GELAK)
+                .whereIn(FieldPath.documentId(), Collections.singletonList(ekitaldia.getGela()))
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Gela g = new Gela(document);
+                                gela.setText(g.getIzena());
+                            }
                         }
                     }
                 });
@@ -293,11 +313,13 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                         data = dataText.getText().toString();
                                         ordua = orduaText.getText().toString();
 
+                                        Button gehitu = (Button) viewInflated.findViewById(R.id.sortu);
+                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzera);
+                                        AlertDialog alertDialog = builder.create();
                                         // Set up the buttons
-                                        builder.setPositiveButton(R.string.gehitu, new DialogInterface.OnClickListener() {
+                                        gehitu.setOnClickListener( new View.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
+                                            public void onClick(View v) {
                                                 if(validate()) {
                                                     // get miliseconds from string date
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -316,13 +338,14 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                                     Intent intent = new Intent(linearLayout.getContext(), EkitaldiaEditatu.class);
                                                     intent.putExtra("id", ekitaldia.getId());
                                                     startActivity(intent);
+                                                    alertDialog.dismiss();
                                                 }
                                             }
                                         });
-                                        builder.setNegativeButton(R.string.volver_atras, new DialogInterface.OnClickListener() {
+                                        atzera.setOnClickListener( new View.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
+                                            public void onClick(View v) {
+                                                alertDialog.dismiss();
                                             }
                                         });
                                         builder.show();
@@ -379,11 +402,13 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                         data = dataText.getText().toString();
                                         ordua = orduaText.getText().toString();
 
+                                        Button gehitu = (Button) viewInflated.findViewById(R.id.sortu);
+                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzera);
+                                        AlertDialog alertDialog = builder.create();
                                         // Set up the buttons
-                                        builder.setPositiveButton(R.string.gehitu, new DialogInterface.OnClickListener() {
+                                        gehitu.setOnClickListener( new View.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
+                                            public void onClick(View v) {
                                                 if(validate()) {
                                                     // get miliseconds from string date
                                                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -398,13 +423,21 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                                     DAOGertaerak daoGertaerak = new DAOGertaerak();
                                                     ekitaldia.gehituGertaera(g);
                                                     daoGertaerak.gehituEdoEguneratuGertaera(g);
+                                                    //go to EkitaldiaEditatu
+                                                    Intent intent = new Intent(linearLayout.getContext(), EkitaldiaEditatu.class);
+                                                    intent.putExtra("id", ekitaldia.getId());
+                                                    startActivity(intent);
+                                                    alertDialog.dismiss();
                                                 }
                                             }
                                         });
-                                        builder.setNegativeButton(R.string.volver_atras, new DialogInterface.OnClickListener() {
+                                        atzera.setOnClickListener( new View.OnClickListener() {
                                             @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.cancel();
+                                            public void onClick(View v) {
+                                                Intent intent = new Intent(linearLayout.getContext(), EkitaldiaEditatu.class);
+                                                intent.putExtra("id", ekitaldia.getId());
+                                                startActivity(intent);
+                                                alertDialog.dismiss();
                                             }
                                         });
                                         builder.show();
@@ -443,10 +476,19 @@ public class EkitaldiaEditatu extends AppCompatActivity {
         timePickerDialog.show();
     }
 
-        private boolean validate(){
-        if (this.izenaText.getText().toString().isEmpty()) return false;
-        if (this.dataText.getText().toString().isEmpty()) return false;
-        if (this.orduaText.getText().toString().isEmpty()) return false;
+    private boolean validate(){
+        if (this.izenaText.getText().toString().isEmpty()) {
+            this.izenaText.setError(getString(R.string.error_beharreskoa));
+            return false;
+        }
+        if (this.dataText.getText().toString().isEmpty()) {
+            this.dataText.setError(getString(R.string.error_beharreskoa));
+            return false;
+        }
+        if (this.orduaText.getText().toString().isEmpty()) {
+            this.orduaText.setError(getString(R.string.error_beharreskoa));
+            return false;
+        }
         return egunaKonprobatu();
     }
 
@@ -461,9 +503,12 @@ public class EkitaldiaEditatu extends AppCompatActivity {
         try {
             date = sdf.parse(dataText.getText().toString() + " " + orduaText.getText().toString());
         } catch (ParseException e) {
+
             return false;
         }
-        return ekitaldia.getDataTarteanDago(date);
+        if (ekitaldia.getDataTarteanDago(date)) return true;
+        this.dataText.setError(getString(R.string.error_data));
+        return false;
     }
 
     public void setDayNight() {

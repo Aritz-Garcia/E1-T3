@@ -13,10 +13,6 @@
             android:icon="@drawable/gelak_nav"
             android:title="@string/menu_salas" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
-        <item
             android:id="@+id/nav_kontaktua"
             android:icon="@drawable/ic_nav_kontaktua"
             android:title="@string/menu_kontaktua" />

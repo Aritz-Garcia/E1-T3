@@ -7,9 +7,8 @@
     <string name="nav_header_desc">Menu de navegación</string>
     <string name="action_settings">Ajustes</string>
 
-    <string name="menu_agenda" translatable="false">Agenda</string>
+    <string name="menu_agenda" translatable="true">Agenda</string>
     <string name="menu_salas">Salas</string>
-    <string name="menu_slideshow">BRIHI</string>
     <string name="menu_kontaktua">Contacto</string>
 
     <string name="button_sumarEvento">Sumar Evento</string>
@@ -147,5 +146,13 @@
     <string name="error_compPass">Las dos contraseñas tienen que ser iguales</string>
 
     <string name="toast_ondoIgota">Se ha subido correctamente</string>
+    <string name="ok">Aceptar</string>
+    <string name="nok">Cancelar</string>
+    <string name="gertaera_text">¿Quieres crear un suceso nuevo para este evento?</string>
+    <string name="ohartarazpena">Abiso</string>
+    <string name="bai">Si</string>
+    <string name="ez">No</string>
+    <string name="error_data">La fecha tiene que estar en el periodo del evento</string>
+    <string name="error_beharreskoa">Este campo es obligatorio</string>
 
 </resources>
