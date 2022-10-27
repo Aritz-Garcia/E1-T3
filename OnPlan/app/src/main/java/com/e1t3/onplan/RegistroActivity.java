@@ -27,15 +27,15 @@ import java.util.Map;
 
 public class RegistroActivity extends AppCompatActivity {
 
+    /*Hemen sortu egingo ditugu programa osoan erabiliko ditugun aldagaiak.Adibidez labelak, botoiak*/
     private static final String TAG = "GoogleSignIn";
-    private FirebaseAuth mAuth;
-    private final DAOErabiltzaileak daoErabiltzaileak = new DAOErabiltzaileak();
-
     public TextView izena,abizena,dni,telefonoa,emaila,pasahitza1,pasahitza2, radioerror;
     public  RadioButton aukeratuta, aukeratuta2;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    /*Firebase aldagaiak */
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
     private SharedPreferences settingssp;
-
+    /*Hau izango da  balidazioen erantzunak hartzeko*/
     public boolean[] egokia = new boolean[7];
 
 
@@ -80,6 +80,7 @@ public class RegistroActivity extends AppCompatActivity {
                     }
             }
         });
+        /*Ez du datuak gordetzen eta login activity hasi egiten da*/
         Button ezeztatu = findViewById(R.id.EzeztatuBotoia);
         ezeztatu.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -97,7 +98,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-    //datuak hartu egiten ditugu activity_mainetik geroago konprobatzeko bere egitura
+    //datuak hartu egiten ditugu activity_registro geroago konprobatzeko bere egitura
     public void datuakhartu(){
         izena = findViewById(R.id.izenaTextua);
         dni = findViewById(R.id.DNITextua);
@@ -107,6 +108,8 @@ public class RegistroActivity extends AppCompatActivity {
         pasahitza2 = findViewById(R.id.Pasahitza2Textua);
     }
 
+    /*Sortu egiten ditugu documentu berri bat firebase data basean eta firebase autenthification erabiltzailearen datuekin.
+    *Ondoren MainActivity hasiko da bere seisioarekin hasita*/
     public void datuakbidali(){
             mAuth.createUserWithEmailAndPassword(emaila.getText().toString(), pasahitza1.getText().toString()).addOnCompleteListener(this, task -> {
                 if (task.isSuccessful()) {
@@ -138,7 +141,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
 
 
-
+    /*Balidazio metodo honek erabiltzen da bakarrik textua sartu ahal izateko*/
     public boolean stringIrakurri(String textua, EditText text){
         if( textua.length()==0 )  {
             text.setError("Beharrezko kanpua");
@@ -151,7 +154,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-
+    /*Balidazio metodo honek erabiltzen da bakarrik zenbakiak eta 9 luzeera sartu ahal izateko*/
     public boolean zenbakiaIrakurri(String textua, EditText text){
         if( textua.length()==0 ) {
             text.setError("Beharrezko kanpua");
@@ -167,7 +170,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-
+    /*Balidazio metodo honek erabiltzen da bakarrik dni formatua sartu ahal izateko*/
     public boolean dnikonprobatu(String textua, EditText text){
             if( textua.length()==0 )  {
                 text.setError("Beharrezko kanpua");
@@ -203,6 +206,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
+    /*Balidazio metodo honek erabiltzen da bakarrik emaila formatua sartu ahal izateko*/
     public boolean emailkonprobatu(String textua, EditText text){
             if( textua.length()==0 )  {
                 text.setError("Beharrezko kanpua");
@@ -215,7 +219,7 @@ public class RegistroActivity extends AppCompatActivity {
             }
     }
 
-
+    /*Balidazio metodo honek erabiltzen da bakarrik textua eta gutxienez 6 karaktere sartu ahal izateko*/
     public boolean pasahitzaIrakurri(String cadena, EditText text){
         if(cadena.length()==0){
             text.setError("Beharrezko kanpua");
@@ -228,7 +232,7 @@ public class RegistroActivity extends AppCompatActivity {
         }
     }
 
-    //devuelve un true o false si la primera constrase�a y la segunda contrase�a son iguales
+    //TRUE O FALSE itzultzen du lehenengo pasahitza eta bigarrena berdinak badira
     public boolean pasahitzaKonfirmatu(String pasahitza1, String pasahitza2, EditText text) {
         if(pasahitza2.length()==0) {
             text.setError("Beharrezko kanpua");
@@ -240,7 +244,7 @@ public class RegistroActivity extends AppCompatActivity {
             return true;
         }
     }
-
+    //Pantaila osoa beltza moduan jartzen du
     public void setDayNight() {
         boolean oscuro = settingssp.getBoolean("oscuro", false);
         if (oscuro) {
