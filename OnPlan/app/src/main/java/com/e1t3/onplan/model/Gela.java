@@ -1,16 +1,12 @@
 package com.e1t3.onplan.model;
 
-import android.graphics.Typeface;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.text.DecimalFormat;
 
 public class Gela {
+
     private String id;
     private String izena;
     private double prezioa;
@@ -25,15 +21,41 @@ public class Gela {
         this.gehigarriak    = document.getString(Values.GELAK_GEHIGARRIAK);
     }
 
-    public String getId() { return id; }
+    /**
+     * Metodo honek gelaren izena itzultzen du.
+     * @return String
+     */
+
     public String getIzena() { return izena; }
+
+    /**
+     * Metodo honek gelaren id-a itzultzen du.
+     * @return String
+     */
+
+    public String getId() { return id; }
+
+    /**
+     * Metodo honek gelaren edukiera itzultzen du.
+     * @return int
+     */
+
     public int getEdukiera() { return edukiera; }
-    public Double getPrezioa() { return prezioa; }
-    public String getGehigarriak() { return gehigarriak; }
+
+    /**
+     * Metodo honek gelaren datuak html formatu batean bueltatzen ditu.
+     * @return String
+     */
 
     public String toString() {
         return "<br/><b style='font-size:30px'>Izena:</b> " + izena + "<br/><b>Edukiera:</b> " + edukiera + "<br/><b>Prezioa:</b> " + getTwoDecimals(prezioa) + "€<br/><b>Gehigarriak:</b> " + gehigarriak + "<br/>";
     }
+
+    /**
+     * Metodo honek zenbaki bat bi desimal baino gehiago ez duen formatuan itzultzen du.
+     * @param value double
+     * @return String
+     */
 
     private static String getTwoDecimals(double value){
         DecimalFormat df = new DecimalFormat("0.00");

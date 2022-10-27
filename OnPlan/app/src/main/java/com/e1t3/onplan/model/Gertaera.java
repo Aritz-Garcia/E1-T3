@@ -3,20 +3,19 @@ package com.e1t3.onplan.model;
 import com.e1t3.onplan.shared.Values;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.type.Date;
 
 import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.TimeZone;
 
 public class Gertaera {
+
     private String id;
     private String izena;
     private String deskribapena;
     private boolean eginDa;
     private Timestamp ordua;
 
-    //constructor
     public Gertaera(String id, String izena, String deskribapena, boolean eginDa, Timestamp ordua) {
         this.id = id;
         this.izena = izena;
@@ -33,6 +32,10 @@ public class Gertaera {
         this.ordua          = document.getTimestamp(Values.GERTAERAK_ORDUA);
     }
 
+    /**
+     * Metodo honek gertaera baten datuak datubaseak ulertzen duen datu mota batean gordetzen ditu.
+     * @return String
+     */
 
     public Map<String, Object> getDocument() {
         return Map.of(
@@ -43,9 +46,28 @@ public class Gertaera {
         );
     }
 
+    /**
+     * Metodo honek gertaera baten id-a itzultzen du.
+     * @return String
+     */
+
     public String getId() {
         return id;
     }
+
+    /**
+     * Metodo honek gertaera baten izena itzultzen du.
+     * @return String
+     */
+
+    public String getIzena() {
+        return izena;
+    }
+
+    /**
+     * Metodo honek gertaera hastenden ordua itzultzen du.
+     * @return String
+     */
 
     public String getOrdua() {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
@@ -53,17 +75,27 @@ public class Gertaera {
         return sdf.format(this.ordua.toDate());
     }
 
-    public String getIzena() {
-        return izena;
-    }
+    /**
+     * Metodo honek gertaera egin den itzultzen du.
+     * @return String
+     */
 
     public boolean eginDa() {
         return this.eginDa;
     }
 
+    /**
+     * Metodo honek gertaera baten deskribapena itzultzen du.
+     * @return String
+     */
+
     public String getDeskribapena() {
         return deskribapena;
     }
+
+    /**
+     * Metodo honek gertaera egin dela ezartzen du.
+     */
 
     public void setEginda() {
         this.eginDa = true;

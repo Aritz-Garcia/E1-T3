@@ -5,7 +5,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.Map;
 
+/**
+ * Klase honek Erabiltzailearen datuak gordetzeko da.
+ */
+
 public class Erabiltzailea {
+
     private String id;
     private String izena;
     private String abizena;
@@ -14,6 +19,11 @@ public class Erabiltzailea {
     private String telefonoa;
     private boolean enpresaDa;
     private boolean admin;
+
+    /**
+     * Metodo honek erabiltzailearen datuak gordetzeko erabiltzen da.
+     * @param document DocumentSnapshot
+     */
 
     public Erabiltzailea(DocumentSnapshot document) {
         this.id             = document.getId();
@@ -26,16 +36,70 @@ public class Erabiltzailea {
         this.admin          = document.getBoolean(Values.ERABILTZAILEAK_ADMIN);
     }
 
-    //getters and setters
-    public String getId() {
-        return id;
-    }
+    //Getterrak eta seterrak
+
+    /**
+     * Metodo honek erabiltzailearen id-a bueltatzen du.
+     * @return String
+     */
+
+    public String getId() { return id; }
+
+    /**
+     * Metodo honek erabiltzailea enpresa den a la ez bueltatzend u.
+     * @return true enpresa bada
+     */
+
     public boolean getEnpresaDa() { return enpresaDa; }
+
+    /**
+     * Metodo honek erabiltzailearen izena bueltatzen du.
+     * @return String
+     */
+
     public String getIzena() { return izena; }
+
+    /**
+     * Metodo honek erabiltzailearen abizena bueltatzen du.
+     * @return String
+     */
+
     public String getAbizena() { return abizena; }
+
+    /**
+     * Metodo honek erabiltzailearen email-a bueltatzen du.
+     * @return String
+     */
+
     public String getEmail() { return email; }
+
+    /**
+     * Metodo honek erabiltzailearen nan-a edo ifz-a bueltatzen du.
+     * @return String
+     */
+
     public String getNanIfz() { return nanIfz; }
+
+    /**
+     * Metodo honek erabiltzailearen telefonoa bueltatzen du.
+     * @return String
+     */
+
     public String getTelefonoa() { return telefonoa; }
+
+    /**
+     * Metodo honek erabiltzailea admin den a la ez bueltatzend u.
+     * @return true admin bada
+     */
+
+    public boolean adminDa() {
+        return admin;
+    }
+
+    /**
+     * Metodo honek erabiltzailearen datuak Map batean gordetzen ditu datubaserako.
+     * @return Map<String, Object>
+     */
 
     public Map<String, Object> getDocument() {
         return Map.of(
@@ -49,7 +113,5 @@ public class Erabiltzailea {
         );
     }
 
-    public boolean adminDa() {
-        return admin;
-    }
+
 }

@@ -53,4 +53,15 @@
     <string name="gehitu">Gehitu</string>
     <string name="gehitu_gertaera">Gehitu gertaera</string>
     <string name="title_gertaera_popup">Gertaera berria</string>
+    <string name="beste_mota">Beste bat</string>
+    <string name="erakusketa">Erakusketa</string>
+    <string name="hitzaldia">Hitzaldia</string>
+    <string name="ikuskizuna">Ikuskizuna</string>
+    <string name="ospakizuna">Ospakizuna</string>
+    <string name="ok">Onartu</string>
+    <string name="nok">Ezeztatu</string>
+    <string name="gertaera_text">Gertaera berri bat sortu nahi duzu ekitaldi honetarako?</string>
+    <string name="ohartarazpena">Ohartarazpena</string>
+    <string name="bai">Bai</string>
+    <string name="ez">Ez</string>
 </resources>

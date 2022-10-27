@@ -1,40 +1,25 @@
 package com.e1t3.onplan;
 
-import static android.content.ContentValues.TAG;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
-import com.e1t3.onplan.model.Ekitaldia;
-import com.e1t3.onplan.model.Gela;
-import com.e1t3.onplan.shared.EkitaldiMota;
 import com.e1t3.onplan.shared.Values;
-import com.e1t3.onplan.ui.home.HomeFragment;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,7 +34,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
 
     private Button btnVolverAtrasTE;
     private ListView lvEkitaldiMota;
-    private List<Spanned> llist = new ArrayList<>();
+    private List<String> llist = new ArrayList<>();
     private ArrayAdapter<Spanned> arrayAdapter;
     private SharedPreferences ekitaldi;
     private SharedPreferences.Editor editor;
@@ -87,12 +72,8 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
     }
 
     private void ekitaldiMota() {
-        llist.add(Html.fromHtml(EkitaldiMota.OSPAKIZUNA.toString()));
-        llist.add(Html.fromHtml(EkitaldiMota.IKUSKIZUNA.toString()));
-        llist.add(Html.fromHtml(EkitaldiMota.HITZALDIA.toString()));
-        llist.add(Html.fromHtml(EkitaldiMota.ERAKUSKETA.toString()));
-        llist.add(Html.fromHtml(EkitaldiMota.BESTE_MOTA.toString()));
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, llist);
+        llist = List.of(getResources().getStringArray(R.array.ekitaldi_mota));
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, llist);
         lvEkitaldiMota.setAdapter(arrayAdapter);
     }
 
@@ -108,6 +89,16 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
                 return "ERAKUSKETA";
             case "Beste mota":
                 return "BESTE_MOTA";
+            case "Celebración":
+                return "OSPAKIZUNA";
+            case "Espectaculo":
+                return "IKUSKIZUNA";
+            case "Conferencia":
+                return "HITZALDIA";
+            case "Esposición":
+                return "ERAKUSKETA";
+            case "Otro":
+                return "BESTE_MOTA";
         }
         return "";
     }
@@ -121,7 +112,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Zihur zaude " + ekitaldiMota + " ekitaldi mota aukeratu nahi duzula")
                 .setTitle("Ohartarazpena")
-                .setPositiveButton("Onartu", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         editor.putString(Values.EKITALDIAK_EKITALDI_MOTA, ekitaldiMotaString);
@@ -129,7 +120,7 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
                         gertaeraAukeartuEdoez();
                     }
                 })
-                .setNegativeButton("Ezeztatu", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.nok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -141,16 +132,16 @@ public class EkitaldiInprimakiaMota extends AppCompatActivity implements View.On
 
     private void gertaeraAukeartuEdoez() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Gertaera berri bat sortu nahi duzu ekitaldi honetarako?")
-                .setTitle("Ohartarazpena")
-                .setPositiveButton("Bai", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.gertaera_text)
+                .setTitle(R.string.ohartarazpena)
+                .setPositiveButton(R.string.bai, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(EkitaldiInprimakiaMota.this, EkitaldiInprimakiaGertaerak.class);
                         startActivity(intent);
                     }
                 })
-                .setNegativeButton("Ez", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.ez, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ekitaldiDatuakGorde();

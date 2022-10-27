@@ -49,15 +49,11 @@ public class DAOGertaerak {
         db = FirebaseFirestore.getInstance();
     }
 
-    public boolean gehituEdoEguneratuGertaerak(List<Gertaera> gertaerak) {
-        for (Gertaera gertaera : gertaerak) {
-            Map<String, Object> ekitaldiDoc = gertaera.getDocument();
-            db.collection(Values.GERTAERAK)
-                    .document(gertaera.getId())
-                    .set(ekitaldiDoc);
-        }
-        return true;
-    }
+    /**
+     * Metodo honek gertaera bat gehitzen edo eguneratzen du
+     * @param gertaera Gertaera
+     * @return true gertaera gehitu edo eguneratu bada
+     */
 
     public boolean gehituEdoEguneratuGertaera(Gertaera gertaera) {
             Map<String, Object> ekitaldiDoc = gertaera.getDocument();
@@ -67,12 +63,24 @@ public class DAOGertaerak {
         return true;
     }
 
+    /**
+     * Metodo honek gertaera bat ezabatzen du
+     * @param id String
+     * @return true gertaera ezabatu bada
+     */
+
     public boolean ezabatuGertaeraIdz(String id) {
         db.collection(Values.GERTAERAK)
                 .document(id)
                 .delete();
         return true;
     }
+
+    /**
+     * Metodo honek gertaerak ezabatzen ditu
+     * @param ids List<String>
+     * @return true gertaerak ezabatu badira
+     */
 
     public boolean gertaerakIdzEzabatu(List<String> ids) {
         for (String id : ids) {

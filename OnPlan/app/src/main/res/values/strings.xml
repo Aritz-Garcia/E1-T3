@@ -85,6 +85,17 @@
     <string name="gehitu">Añadir</string>
     <string name="title_gertaera_popup">Nuevo suceso</string>
 
-    <string name="settings_visual">visual</string>
+    <string name="settings_visual" translatable="false">visual</string>
+    <string name="ospakizuna" >Celebración</string>
+    <string name="ikuskizuna" >Espectaculo</string>
+    <string name="hitzaldia" >Conferencia</string>
+    <string name="erakusketa" >Esposición</string>
+    <string name="beste_mota" >Otro</string>
+    <string name="ok">Aceptar</string>
+    <string name="nok">Cancelar</string>
+    <string name="gertaera_text" >¿Quieres crear un nuevo suceso para este evento?</string>
+    <string name="ohartarazpena" >Abiso</string>
+    <string name="bai" >Si</string>
+    <string name="ez" >No</string>
 
 </resources>
