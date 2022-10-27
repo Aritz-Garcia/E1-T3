@@ -54,7 +54,7 @@
             android:layout_marginRight="16dp"
             android:text="Descripción :"
             android:textColor="@color/mainColorDarker"
-            android:textSize="24dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ekitaldiDataHasiera" />
@@ -138,30 +138,28 @@
             app:layout_constraintStart_toEndOf="@+id/ekitaldiDataBukaera"
             app:layout_constraintTop_toBottomOf="@+id/ekitaldiIzena" />
 
-        <EditText
+        <TextView
             android:id="@+id/ekitaldiAurrekontua"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
             android:layout_marginEnd="16dp"
             android:ems="4"
             android:inputType="numberDecimal"
             android:text="TextView"
             android:textColor="@color/mainColorDarker"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena" />
+            app:layout_constraintBottom_toBottomOf="@+id/ekitaldiAurrekontuaText"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/ekitaldiGela"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
             android:text="TextView"
             android:textColor="@color/mainColorDarker"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/ekitaldiGelaText"
-            app:layout_constraintTop_toBottomOf="@+id/ekitaldiDeskribapena" />
+            app:layout_constraintBottom_toBottomOf="@+id/ekitaldiGelaText"
+            app:layout_constraintStart_toEndOf="@+id/ekitaldiGelaText" />
 
 
 

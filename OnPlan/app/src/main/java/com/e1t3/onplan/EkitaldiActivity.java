@@ -70,6 +70,7 @@ public class EkitaldiActivity extends AppCompatActivity {
         setUp(id);
 
         fab = binding.getRoot().findViewById(R.id.floatingActionButton);
+        fab.setCustomSize(130);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

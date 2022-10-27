@@ -48,4 +48,8 @@ public class Erabiltzailea {
                 Values.ERABILTZAILEAK_ADMIN, admin
         );
     }
+
+    public boolean adminDa() {
+        return admin;
+    }
 }

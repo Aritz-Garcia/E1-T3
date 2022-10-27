@@ -52,7 +52,7 @@
             android:layout_marginTop="16dp"
             android:text="Descripción :"
             android:textColor="@color/mainColorDarker"
-            android:textSize="24dp"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ekitaldiDataHasiera" />

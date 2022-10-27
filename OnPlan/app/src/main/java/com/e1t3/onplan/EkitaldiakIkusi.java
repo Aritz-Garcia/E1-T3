@@ -99,8 +99,50 @@ public class EkitaldiakIkusi extends AppCompatActivity{
         }
 
 
+        if (erabiltzailea.adminDa()) {
+            getAdminEvents();
+        } else {
+            getEvents(erabiltzailea);
+        }
+
+
+    }
+    private void getEvents(Erabiltzailea erabiltzailea) {
         db.collection(Values.EKITALDIAK)
                 .whereEqualTo(Values.EKITALDIAK_ERABILTZAILEA,erabiltzailea.getId())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                                Ekitaldia ekitaldia = new Ekitaldia(document);
+                                //create button with the name of the event
+                                if (ekitaldia.getDataTarteanDago(fecha)) {
+                                    Button btn = new Button(EkitaldiakIkusi.this);
+
+                                    btn.setText(ekitaldia.getIzena());
+                                    btn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(EkitaldiakIkusi.this, EkitaldiActivity.class);
+                                            intent.putExtra("id", ekitaldia.getId());
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    lista.addView(btn);
+                                }
+
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+    }
+    private void getAdminEvents() {
+        db.collection(Values.EKITALDIAK)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -130,7 +172,5 @@ public class EkitaldiakIkusi extends AppCompatActivity{
                         }
                     }
                 });
-
-
     }
 }
