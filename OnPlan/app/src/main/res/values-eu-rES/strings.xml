@@ -49,6 +49,13 @@
     <string name="guardar">Gorde</string>
     <string name="ezabatu">Kendu</string>
     <string name="gehitu">Gehitu</string>
+    <string name="aukeratu">Aukeratu</string>
+    <string name="erabiltzaileDatuak">Erabiltzailearen datuak</string>
+    <string name="ekitaldiak">Ekitaldiak</string>
+    <string name="edizioa">Edizioa</string>
+    <string name="erabiltzailea">Erabiltzailea</string>
+    <string name="abatar">Abatar</string>
+    <string name="erabiltzaileaEzabatu">Erabiltzailea ezabatu</string>
     <string name="gehitu_gertaera">Gehitu gertaera</string>
     <string name="title_gertaera_popup">Gertaera berria</string>
     <string name="beste_mota">Beste bat</string>
