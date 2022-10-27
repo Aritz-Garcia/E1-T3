@@ -26,6 +26,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.bumptech.glide.Glide;
 import com.e1t3.onplan.dao.DAOEkitaldiak;
 import com.e1t3.onplan.dao.DAOErabiltzaileak;
 import com.e1t3.onplan.dao.DAOGertaerak;
@@ -33,27 +34,31 @@ import com.e1t3.onplan.model.Ekitaldia;
 import com.e1t3.onplan.model.Erabiltzailea;
 import com.e1t3.onplan.model.Gertaera;
 import com.e1t3.onplan.shared.Values;
+import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
-    private final int MY_PERMISSIONS = 100;
+    /*private final int MY_PERMISSIONS = 100;
     private final int PHOTO_CODE = 200;
-    private final int SELECT_PICTURE = 300;
+    private final int SELECT_PICTURE = 300;*/
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
     private DocumentReference id;
@@ -64,12 +69,13 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
     public TextView izena,abizena,dni,emaila,telefonoa;
     private boolean empresa_da;
     private Uri path;
+    private String nombre_imagen;
     private FirebaseUser user;
     private StorageReference storage;
     private SharedPreferences erabiltzaileDatuak;
     private SharedPreferences.Editor editor;
     private SharedPreferences settingssp;
-
+    private static final int GALLERY_INTENT = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +90,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         datuak();
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
+
         storage = FirebaseStorage.getInstance().getReference();
 
         erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
@@ -91,7 +98,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showOptions();
+                /*showOptions();*/
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent,GALLERY_INTENT);
             }
         });
 
@@ -161,10 +171,6 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         startActivity(i);
     }
 
-    private void cargarimagen(Uri path){
-        //StorageReference fotoRef = storage.child("FotosUsuario");
-    }
-
     private void datuak(){
         izena = findViewById(R.id.textIzena);
         telefonoa =  findViewById(R.id.textTelefonoa);
@@ -230,106 +236,36 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
         }
     }
 
-    private void showOptions() {
-        final CharSequence[] option = { "Elegir de galeria", "Cancelar"};
-        final AlertDialog.Builder builder = new AlertDialog.Builder(ErabiltzaileAlodaketak.this);
-        builder.setTitle("Eleige una opción");
-        builder.setItems(option, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if(option[which] == "Elegir de galeria"){
-                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    intent.setType("image/*");
-                    startActivityForResult(intent.createChooser(intent, "Selecciona app de imagen"), SELECT_PICTURE);
-                }else {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        builder.show();
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("file_path", mPath);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        mPath = savedInstanceState.getString("file_path");
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK){
-            switch (requestCode){
-                case PHOTO_CODE:
-                    MediaScannerConnection.scanFile(this,
-                            new String[]{mPath}, null,
-                            new MediaScannerConnection.OnScanCompletedListener() {
-                                @Override
-                                public void onScanCompleted(String path, Uri uri) {
-                                    Log.i("ExternalStorage", "Scanned " + path + ":");
-                                    Log.i("ExternalStorage", "-> Uri = " + uri);
-                                }
-                            });
+        if(resultCode == RESULT_OK && requestCode == GALLERY_INTENT){
+              Uri uri = data.getData();
+               String pan =  uri.getPath();
+               String partes[] = pan.split("/");
+               pan = partes[partes.length-1];
+               pan = user.getUid() +"/"+ pan;
+              StorageReference filePath = storage.child("avatar").child(pan);
 
 
-                    Bitmap bitmap = BitmapFactory.decodeFile(mPath);
-                    mSetImage.setImageBitmap(bitmap);
-                    break;
-                case SELECT_PICTURE:
-                    path = data.getData();
-                    mSetImage.setImageURI(path);
-                    break;
-
-            }
+              filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                  @Override
+                  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                      Glide.with(ErabiltzaileAlodaketak.this)
+                                      .load(uri)
+                                              . fitCenter().centerCrop().into(mSetImage);
+                        Toast.makeText(ErabiltzaileAlodaketak.this,"se ha subido bien", Toast.LENGTH_SHORT).show();
+                      UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                              .setPhotoUri(uri)
+                              .build();
+                      FirebaseAuth.getInstance().getCurrentUser().updateProfile(userProfileChangeRequest);
+                  }
+              });
+            Intent i = new Intent(this, MainActivity.class);
+            startActivity(i);
         }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if(requestCode == MY_PERMISSIONS){
-            if(grantResults.length == 2 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(ErabiltzaileAlodaketak.this, "Permisos aceptados", Toast.LENGTH_SHORT).show();
-                mOptionButton.setEnabled(true);
-            }
-        }else{
-            showExplanation();
-        }
-    }
-
-    private void showExplanation() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(ErabiltzaileAlodaketak.this);
-        builder.setTitle("Permisos denegados");
-        builder.setMessage("Para usar las funciones de la app necesitas aceptar los permisos");
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent();
-                intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                Uri uri = Uri.fromParts("package", getPackageName(), null);
-                intent.setData(uri);
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                finish();
-            }
-        });
-
-        builder.show();
     }
 
     private void getEkitaldiakId() {
