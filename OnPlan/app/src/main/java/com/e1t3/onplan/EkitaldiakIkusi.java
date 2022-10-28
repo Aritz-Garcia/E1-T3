@@ -54,6 +54,16 @@ public class EkitaldiakIkusi extends AppCompatActivity{
         settingssp = getSharedPreferences("settings", Context.MODE_PRIVATE);
         setDayNight();
 
+
+        Button btnAtzera = findViewById(R.id.atzeraEkitaldiakIkusi);
+        btnAtzera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EkitaldiakIkusi.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         nada = findViewById(R.id.nada);
         nada.setVisibility(View.INVISIBLE);
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -63,6 +73,8 @@ public class EkitaldiakIkusi extends AppCompatActivity{
         if(lista == null){
             nada.setVisibility(View.VISIBLE);
         }
+
+
 
     }
 

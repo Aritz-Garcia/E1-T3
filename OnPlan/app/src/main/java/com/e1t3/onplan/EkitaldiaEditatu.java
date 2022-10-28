@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -49,7 +48,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -98,6 +96,15 @@ public class EkitaldiaEditatu extends AppCompatActivity {
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
         String id = getIntent().getExtras().getString("id");
         setUp(id);
+
+        Button btnAtzera = findViewById(R.id.atzeraEdit);
+        btnAtzera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EkitaldiaEditatu.this, EkitaldiActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnBorrar = findViewById(R.id.btnBorrar);
         btnBorrar.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +163,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                             List<String> ids = (List<String>) document.get(Values.EKITALDIAK_GERTAERAK);
                             lortuGertaerakIdzEdit(ids, linearLayout, ekitaldia);
 
-
-                        } else { }
+                        }
                     }
                 });
     }
@@ -314,7 +320,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                         ordua = orduaText.getText().toString();
 
                                         Button gehitu = (Button) viewInflated.findViewById(R.id.sortu);
-                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzera);
+                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzeraEkitaldiak);
                                         AlertDialog alertDialog = builder.create();
                                         // Set up the buttons
                                         gehitu.setOnClickListener( new View.OnClickListener() {
@@ -403,7 +409,7 @@ public class EkitaldiaEditatu extends AppCompatActivity {
                                         ordua = orduaText.getText().toString();
 
                                         Button gehitu = (Button) viewInflated.findViewById(R.id.sortu);
-                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzera);
+                                        Button atzera = (Button) viewInflated.findViewById(R.id.atzeraEkitaldiak);
                                         AlertDialog alertDialog = builder.create();
                                         // Set up the buttons
                                         gehitu.setOnClickListener( new View.OnClickListener() {

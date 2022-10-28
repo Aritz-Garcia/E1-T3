@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,6 +73,15 @@ public class EkitaldiActivity extends AppCompatActivity {
         linearLayout = binding.getRoot().findViewById(R.id.linearLayout);
         String id = getIntent().getExtras().getString("id");
         setUp(id);
+
+        Button btnAtzera = binding.getRoot().findViewById(R.id.atzeraEkitaldia);
+        btnAtzera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EkitaldiActivity.this, EkitaldiakIkusi.class);
+                startActivity(intent);
+            }
+        });
 
         fab = binding.getRoot().findViewById(R.id.floatingActionButton);
         fab.setCustomSize(130);
