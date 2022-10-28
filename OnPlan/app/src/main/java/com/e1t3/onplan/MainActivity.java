@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent i = new Intent(this, Login.class);
             startActivity(i);
         } else if (view.getId() == btnEditarUsuario.getId()) {
-            Intent i = new Intent(this, ErabiltzaileAlodaketak.class);
+            Intent i = new Intent(this, ErabiltzaileAldaketak.class);
             startActivity(i);
         }
     }
