@@ -98,11 +98,9 @@ public class HomeFragment extends Fragment implements CalendarView.OnDateChangeL
                                 } else if (i == 1) {
                                     //ver evento
                                     Intent intent = new Intent(getActivity(), EkitaldiakIkusi.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("dia", i2);
-                                    bundle.putInt("mes", finalMes);
-                                    bundle.putInt("anio", i3);
-                                    intent.putExtras(bundle);
+                                    intent.putExtra("dia", i2);
+                                    intent.putExtra("mes", finalMes);
+                                    intent.putExtra("anio", i3);
                                     startActivity(intent);
                                 } else {
                                     return;

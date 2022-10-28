@@ -102,6 +102,10 @@ public class EkitaldiaEditatu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EkitaldiaEditatu.this, EkitaldiActivity.class);
+                intent.putExtra("dia", getIntent().getExtras().getInt("dia"));
+                intent.putExtra("mes", getIntent().getExtras().getInt("mes"));
+                intent.putExtra("anio", getIntent().getExtras().getInt("anio"));
+                intent.putExtra("id", ekitaldia.getId());
                 startActivity(intent);
             }
         });

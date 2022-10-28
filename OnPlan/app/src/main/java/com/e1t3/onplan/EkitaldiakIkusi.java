@@ -101,11 +101,10 @@ public class EkitaldiakIkusi extends AppCompatActivity{
         return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
     public void ekitaldilista(Erabiltzailea erabiltzailea){
-        Bundle bundle = getIntent().getExtras();
         int dia, mes, anio;
-        dia = bundle.getInt("dia");
-        mes = bundle.getInt("mes");
-        anio = bundle.getInt("anio");
+        dia = getIntent().getExtras().getInt("dia");
+        mes = getIntent().getExtras().getInt("mes");
+        anio = getIntent().getExtras().getInt("anio");
 
         String selectedDate = anio + "/" + mes + "/" + dia;
         SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
@@ -144,6 +143,10 @@ public class EkitaldiakIkusi extends AppCompatActivity{
                                         @Override
                                         public void onClick(View v) {
                                             Intent intent = new Intent(EkitaldiakIkusi.this, EkitaldiActivity.class);
+
+                                            intent.putExtra("dia", getIntent().getExtras().getInt("dia"));
+                                            intent.putExtra("mes", getIntent().getExtras().getInt("mes"));
+                                            intent.putExtra("anio", getIntent().getExtras().getInt("anio"));
                                             intent.putExtra("id", ekitaldia.getId());
                                             startActivity(intent);
                                         }

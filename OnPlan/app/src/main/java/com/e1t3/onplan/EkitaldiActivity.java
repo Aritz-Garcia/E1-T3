@@ -79,6 +79,9 @@ public class EkitaldiActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(EkitaldiActivity.this, EkitaldiakIkusi.class);
+                intent.putExtra("dia", getIntent().getExtras().getInt("dia"));
+                intent.putExtra("mes", getIntent().getExtras().getInt("mes"));
+                intent.putExtra("anio", getIntent().getExtras().getInt("anio"));
                 startActivity(intent);
             }
         });
@@ -90,6 +93,9 @@ public class EkitaldiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EkitaldiActivity.this, EkitaldiaEditatu.class);
+                intent.putExtra("dia", getIntent().getExtras().getInt("dia"));
+                intent.putExtra("mes", getIntent().getExtras().getInt("mes"));
+                intent.putExtra("anio", getIntent().getExtras().getInt("anio"));
                 intent.putExtra("id", ekitaldia.getId());
                 startActivity(intent);
             }
