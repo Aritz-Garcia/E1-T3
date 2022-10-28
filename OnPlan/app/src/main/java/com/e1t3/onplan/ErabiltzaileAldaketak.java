@@ -3,6 +3,7 @@ package com.e1t3.onplan;
 
 import static android.content.ContentValues.TAG;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,7 +49,7 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
     private DocumentReference id;
 
     private ImageView mSetImage;
-    private Button mOptionButton,mgorde,mborrar;
+    private Button mOptionButton,mgorde,mborrar,mgordefoto;
     private String mPath,email;
     public TextView izena,abizena,dni,emaila,telefonoa;
     private boolean empresa_da;
@@ -60,6 +61,7 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private SharedPreferences settingssp;
     private static final int GALLERY_INTENT = 1;
+    private ProgressDialog mpprogressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,15 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
         datuak();
         mSetImage = (ImageView) findViewById(R.id.limagen);
         mOptionButton = (Button) findViewById(R.id.belegir);
-
+        mgordefoto = (Button) findViewById(R.id.mgordefoto);
+        mpprogressDialog = new ProgressDialog(this);
+        mgordefoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ErabiltzaileAldaketak.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         storage = FirebaseStorage.getInstance().getReference();
 
         erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
@@ -82,7 +92,6 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*showOptions();*/
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent,GALLERY_INTENT);
@@ -226,6 +235,10 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK && requestCode == GALLERY_INTENT){
+            mpprogressDialog.setTitle("Subiendo...");
+            mpprogressDialog.setMessage("Subiendo foto a firebase");
+            mpprogressDialog.setCancelable(false);
+            mpprogressDialog.show();
               Uri uri = data.getData();
                String pan =  uri.getPath();
                String partes[] = pan.split("/");
@@ -237,6 +250,7 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
               filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                   @Override
                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                      mpprogressDialog.dismiss();
                       Glide.with(ErabiltzaileAldaketak.this)
                                       .load(uri)
                                               . fitCenter().centerCrop().into(mSetImage);
@@ -247,8 +261,7 @@ public class ErabiltzaileAldaketak extends AppCompatActivity {
                       FirebaseAuth.getInstance().getCurrentUser().updateProfile(userProfileChangeRequest);
                   }
               });
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+
         }
     }
 
