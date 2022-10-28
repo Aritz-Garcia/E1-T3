@@ -117,4 +117,8 @@
     <string name="persona">Pertsona</string>
     <string name="registro_aukeratu">Bat aukeratu behar da</string>
     <string name="menu_agenda">Ajenda</string>
+    <string name="kontaktua_desk">Arazoren bat agertu zaizu gure zerbitzua erabiltzen zinela? Ez gorde zuretzat, pazarazazu hurrengoetatik nahigo duzun komunikabidetik!</string>
+    <string name="kontaktua_telefonoa">"Telefonoa: "</string>
+    <string name="kontaktua_email">"Helbide Elektronikoa: "</string>
+    <string name="kontaktua_non">"Non gaude gu: "</string>
 </resources>

@@ -155,4 +155,12 @@
     <string name="error_data">La fecha tiene que estar en el periodo del evento</string>
     <string name="error_beharreskoa">Este campo es obligatorio</string>
 
+    <string name="kontaktua_desk">¿Le ha aparecido algún problema al utilizar nuestro servicio? ¡No lo guardes para ti, hazlo apaciguar de los siguientes medios!</string>
+    <string name="kontaktua_telefonoa">Telefono: </string>
+    <string name="kontaktua_telefono_zenbakia" translatable="false">+34 785 254 584</string>
+    <string name="kontaktua_email">"Correo Electronico: "</string>
+    <string name="kontaktua_email_value" translatable="false">administracion_onplan@onplan.com</string>
+    <string name="kontaktua_non">"Donde estamos: "</string>
+    <string name="kontaktua_non_value" translatable="false">Done Petri Plaza, 5, 48014 Bilbo, Bizkaia</string>
+
 </resources>
