@@ -219,25 +219,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="38dp"
         android:text="@string/Telefonoa"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="113dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/ekitaldiGela"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="38dp"
         android:text="@string/Email"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="172dp" />
+        app:layout_constraintTop_toBottomOf="@+id/ekitaldiAurrekontua" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="38dp"
         android:text="@string/DNI"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ekitaldiGela" />
@@ -247,9 +249,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="38dp"
         android:text="@string/Abizena"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="303dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
         android:id="@+id/textTelefonoa"
