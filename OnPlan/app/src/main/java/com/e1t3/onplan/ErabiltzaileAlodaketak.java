@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -42,9 +43,6 @@ import com.google.firebase.storage.UploadTask;
 
 public class ErabiltzaileAlodaketak  extends AppCompatActivity {
 
-    /*private final int MY_PERMISSIONS = 100;
-    private final int PHOTO_CODE = 200;
-    private final int SELECT_PICTURE = 300;*/
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
     private DocumentReference id;
