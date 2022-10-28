@@ -70,7 +70,7 @@ public class Gertaera {
      */
 
     public String getOrdua() {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT+2"));
         return sdf.format(this.ordua.toDate());
     }
