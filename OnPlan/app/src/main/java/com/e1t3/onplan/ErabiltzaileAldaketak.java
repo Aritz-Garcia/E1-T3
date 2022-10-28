@@ -41,7 +41,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-public class ErabiltzaileAlodaketak  extends AppCompatActivity {
+public class ErabiltzaileAldaketak extends AppCompatActivity {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private DocumentReference dr = db.collection(Values.ERABILTZAILEAK).document();
@@ -237,10 +237,10 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
               filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                   @Override
                   public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                      Glide.with(ErabiltzaileAlodaketak.this)
+                      Glide.with(ErabiltzaileAldaketak.this)
                                       .load(uri)
                                               . fitCenter().centerCrop().into(mSetImage);
-                        Toast.makeText(ErabiltzaileAlodaketak.this,getString(R.string.toast_ondoIgota), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ErabiltzaileAldaketak.this,getString(R.string.toast_ondoIgota), Toast.LENGTH_SHORT).show();
                       UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder()
                               .setPhotoUri(uri)
                               .build();
@@ -284,7 +284,7 @@ public class ErabiltzaileAlodaketak  extends AppCompatActivity {
             @Override public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Log.d(TAG,"OK! Works fine!");
-                    startActivity(new Intent(ErabiltzaileAlodaketak.this, Login.class));
+                    startActivity(new Intent(ErabiltzaileAldaketak.this, Login.class));
                     finish();
                 } else {
                     Log.w(TAG,"Something is wrong!");
