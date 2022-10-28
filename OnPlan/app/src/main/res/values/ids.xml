@@ -14,4 +14,5 @@
     <item name="textDescripcion" type="id" />
     <item name="descrpcionEvento" type="id" />
     <item name="btnSiguiente" type="id" />
+    <item name="linearLayout" type="id"/>
 </resources>

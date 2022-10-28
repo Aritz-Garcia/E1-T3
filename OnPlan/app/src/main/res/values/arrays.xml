@@ -9,4 +9,12 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="ekitaldi_mota">
+        <item>@string/ospakizuna</item>
+        <item>@string/ikuskizuna</item>
+        <item>@string/hitzaldia</item>
+        <item>@string/erakusketa</item>
+        <item>@string/beste_mota</item>
+    </string-array>
 </resources>
