@@ -31,14 +31,15 @@
     <string name="etPresupuesto">Presupuesto</string>
     <string name="button">Botón</string>
     <string name="volver_atras">Volver Atras</string>
-    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
+    <string name="title_activity_settings" translatable="false">Ajuste</string>
+    <string name="settings">Ajustes</string>
 
     <!-- Visual -->
     <string name="visual">Visual</string>
     <string name="modo_oscuro">Modo oscuro</string>
 
     <!-- Preference Titles -->
-    <string name="messages_header">Mensages</string>
+    <string name="messages_header">Mensajes</string>
     <string name="sync_header" translatable="false">Sync</string>
 
     <!-- Messages Preferences -->

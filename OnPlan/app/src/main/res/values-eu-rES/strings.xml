@@ -36,14 +36,14 @@
     <string name="etPresupuesto">Aurrekontua</string>
     <string name="button">Botoia</string>
     <string name="volver_atras">Atzera bueltatu</string>
-    <string name="messages_header">Mesuak</string>
+    <string name="messages_header">Mezuak</string>
     <string name="signature_title">Zure sinadura</string>
-    <string name="crear_evento">Ekitaldi bat sortu</string>
+    <string name="crear_evento">Ekitaldia sortu</string>
     <string name="dataTextHasiera">" "</string>
     <string name="crear_suceso">Gertaera Sortu</string>
     <string name="hora_de_inicio_del_suceso">Ordua :</string>
     <string name="dia_de_inicio_del_suceso">Eguna :</string>
-    <string name="nombre_del_suceso">Gertaeraren Izena</string>
+    <string name="nombre_del_suceso">Gertaera Izena</string>
     <string name="btnSalir">Atera</string>
     <string name="guardar">Gorde</string>
     <string name="ezabatu">Kendu</string>
@@ -116,9 +116,10 @@
     <string name="empresa">Enpresa</string>
     <string name="persona">Pertsona</string>
     <string name="registro_aukeratu">Bat aukeratu behar da</string>
-    <string name="menu_agenda">Ajenda</string>
+    <string name="menu_agenda">Agenda</string>
     <string name="kontaktua_desk">Arazoren bat agertu zaizu gure zerbitzua erabiltzen zinela? Ez gorde zuretzat, pazarazazu hurrengoetatik nahigo duzun komunikabidetik!</string>
     <string name="kontaktua_telefonoa">"Telefonoa: "</string>
     <string name="kontaktua_email">"Helbide Elektronikoa: "</string>
     <string name="kontaktua_non">"Non gaude gu: "</string>
+    <string name="settings">Ezarpenak</string>
 </resources>
