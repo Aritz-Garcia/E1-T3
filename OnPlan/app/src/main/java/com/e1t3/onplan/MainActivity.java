@@ -39,6 +39,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -90,12 +92,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         erabiltzaileDatuak = getSharedPreferences(Values.ERABILTZAILEAK, Context.MODE_PRIVATE);
         editor = erabiltzaileDatuak.edit();
-        editor.clear().apply();
         editor.commit();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
-        Uri photoUrl = user.getPhotoUrl();
+        Uri photoUrl =Uri.parse(erabiltzaileDatuak.getString("uri",""));
         this.setup(email, headerView);
         tvEmailUsuario.setText(email);
         if (photoUrl != null) {
