@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,8 @@ public class GelakFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Gela gela =  new Gela(document);
-                                llista.add(Html.fromHtml(gela.toString()));
+                                String proba = "<br/><b style='font-size:30px'>" + getString(R.string.gela_izena) + "</b>" + gela.getIzena() + "<br/><b>" + getString(R.string.gela_edukiera) + "</b>" + gela.getEdukiera() + "<br/><b>" + getString(R.string.gela_prezioa) + "</b>" + getTwoDecimals(gela.getPrezioa()) + "€<br/><b>" + getString(R.string.gela_gehigarria) + "</b>" + gela.getGehigarriak() + "<br/>";
+                                llista.add(Html.fromHtml(proba));
                                 arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, llista);
                                 lvGelak.setAdapter(arrayAdapter);
                             }
@@ -77,5 +79,10 @@ public class GelakFragment extends Fragment {
                         }
                     }
                 });
+    }
+
+    private static String getTwoDecimals(double value){
+        DecimalFormat df = new DecimalFormat("0.00");
+        return df.format(value);
     }
 }

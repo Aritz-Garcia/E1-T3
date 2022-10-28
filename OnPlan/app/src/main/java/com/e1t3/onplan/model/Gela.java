@@ -45,15 +45,9 @@ public class Gela {
 
     public int getEdukiera() { return edukiera; }
 
-    /**
-     * Metodo honek gelaren datuak html formatu batean bueltatzen ditu.
-     * @return String
-     */
+    public double getPrezioa() { return prezioa; }
 
-    public String toString() {
-
-        return "<br/><b style='font-size:30px'>" + R.string.gela_izena + "</b> " + izena + "<br/><b>" + R.string.gela_edukiera + "</b>" + edukiera + "<br/><b>" + R.string.gela_prezioa + "</b>" + getTwoDecimals(prezioa) + "€<br/><b>" + R.string.gela_gehigarria + "</b>" + gehigarriak + "<br/>";
-    }
+    public String getGehigarriak() { return gehigarriak; }
 
     /**
      * Metodo honek zenbaki bat bi desimal baino gehiago ez duen formatuan itzultzen du.
